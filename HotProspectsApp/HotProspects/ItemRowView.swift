@@ -10,11 +10,10 @@ import SwiftUI
 
 struct ItemRow: View {
     
-    @StateObject private var viewModel = RowModel()
     @EnvironmentObject var prospects: Prospects
      //var index:Int
     @State private var locationMet = ""
-    let prospect: Prospect
+    @Binding var prospect: Prospect
     let filter: ProspectsView.FilterType
     var body: some View {
         
@@ -38,51 +37,36 @@ struct ItemRow: View {
                         
                         Text(prospect.locationMet != "" ? prospect.locationMet:"Person didnt add the event")
                     }
-                    //have a group for the date, lookup in GPT
                     
                     Spacer()
                     Button (action:{
                         //toggle the popover state to be showhere
-                        
-                        
-                        viewModel.isExpandedShowingNotifcationSchedule = true
+                        prospect.reminderToggle.toggle()
 
+                        print(prospect.reminderToggle)
                         
                     }) {
                         Image(systemName: "bell")
                             .foregroundColor(.blue)
                     }
-                    
-                    
                 }
                 
                 Spacer()
                 
-//                Button("Add Location met") {
-//
-//                    //here will toggle the alert boolean
-//                    showAlert = true //should trigger alert in parent view
-//                }
-//
-                if viewModel.isExpandedShowingNotifcationSchedule {
+                if prospect.reminderToggle {
                     ReminderView(prospect: prospect) //the view to show the reminder interface and things
                 }
-                
-                //ok now if you are uncontacted or everyone filter, then you need to show the reminder button
-                
-            }
-        
             
+            }
             else {
                 
                 Text(prospect.name)
                     .font(.headline)
                 Text(prospect.emailAddress)
                     .foregroundColor(.secondary)
+            
                 
-                
-                
-                if viewModel.isExpandedShowingNotifcationSchedule {
+                if prospect.reminderToggle {
                     ReminderView(prospect: prospect)
                 }
             }

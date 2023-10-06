@@ -38,82 +38,166 @@ struct ProspectsView: View {
     var body: some View {
         
 //        GeometryReader { geometry in
-            NavigationView {
-                VStack {
-                    List {
-                        ForEach(filteredProspecs) {prospect in
-                            //make the view
-                            
-                            
-                            ItemRow(prospect: prospect, filter: filter)
-                            
-                            //try here
-                            
-                            //swipe action to add a notification
-                            
-                        }
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(filteredProspecs) {prospect in
+                        //make the view
+                        // ItemRow(prospect: $filteredProspecs[index], filter: filter)
                         
-         
-                    }
-                    .navigationTitle(title)
-                    
-                    .toolbar {
+                        //create another list, have a forEach inside
+                
                         
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button {
-                                isShowingScanner = true
-                            } label: {
-                                Label("Scan", systemImage: "qrcode.viewfinder")
-                                    .labelStyle(.titleAndIcon)
-                                
-                            }
-                        }
                         
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Sort") {
-                                //isShowingSortOptions = true
-                                
-                            }
-                            .contextMenu {
-                                Button((self.sort == .name ? "✓ " : "") + "Name") {
-                                    self.sort = .name //will refresh the UI based on this
+                        VStack(alignment: .leading) {
+                            if(filter == .none) {
+                                HStack {
+                                    //ok, I can just make variable for the string, that will show the correct icon depending on the name
+                                    
+                                    Image(systemName: prospect.isContacted ? "person.crop.circle.fill.badge.checkmark":"person.crop.circle.badge.xmark")
+                                        .font(.system(size:24))
+                                    VStack(alignment: .leading, spacing: 10){
+                                        Text(prospect.name)
+                                            .font(.headline)
+                                        
+                                        Text(prospect.emailAddress)
+                                            .foregroundColor(.secondary)
+                                        
+                                        
+                                        Text(prospect.phoneNumber)
+                                            .foregroundColor(.secondary) //phone number here
+                                        
+                                        Text(prospect.locationMet != "" ? prospect.locationMet:"Person didnt add the event")
+                                    }
+                                    
+                                    Spacer()
+                                    Image(systemName: "bell")
+                                        .foregroundColor(.blue)
+                                        .onTapGesture {
+                                            prospects.reminderToggle(prospect)
+                                            print(prospects.people.map({$0.reminderToggle}))
+                                            
+                                        }
+                                    
                                 }
-                                Button((self.sort == .recent ? "✓ " : "") + "Recent") {
-                                    self.sort = .recent //will refresh the UI based on this
+                                
+                                Spacer()
+                                
+                                Text(prospect.reminderToggle.description)
+                                
+                                if prospect.reminderToggle {
+                                    ReminderView(prospect: prospect) //the view to show the reminder interface and things
                                 }
                                 
-                                //check to see if i dont have to long press it!
+                            }
+                            else {
                                 
+                                Text(prospect.name)
+                                    .font(.headline)
+                                Text(prospect.emailAddress)
+                                    .foregroundColor(.secondary)
+                                
+                                
+                                if prospect.reminderToggle {
+                                    ReminderView(prospect: prospect)
+                                }
                             }
                         }
                         
                         
-                    }
-                    .sheet(isPresented: $isShowingScanner) {
-                        CodeScannerView(codeTypes:[.qr] , simulatedData: "Nana Bonsu\nNbonsu2000@gmail.com\n6467012471" ,completion: handleScan)
                         
                         
-                        //simulated data to be enteredon screen press
+                        .swipeActions {
+                            if(prospect.isContacted) {
+                                Button {
+                                    prospects.toggle(prospect)
+                                } label: {
+                                    Label("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                                }
+                                .tint(.blue)
+                            } else {
+                                //make another swipe action, foe the uncontacted list
+                                Button {
+                                    prospects.toggle(prospect)
+                                    
+                                } label: {
+                                    Label("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
+                                }
+                                .tint(.green)
+                                Button {
+                                    prospects.remove(prospect)
+                                } label: {
+                                    Label("Delete Prospect", systemImage: "trash")
+                                }
+                            }
+                        }
+                        
                     }
-                   
-                    .alert("Where are you at?", isPresented:  $showAlert) {
-                              TextField("Username", text: $currentEventLocation)
-                                  .textInputAutocapitalization(.never)
-                             
-                        Button("OK") { viewModel.currentLocation = currentEventLocation}
-                              Button("Cancel", role: .cancel) { }
-                          } message: {
-                              Text("Please enter your location or event you attended.")
-                          }
                     
                     
-                    Spacer()
                     
-                    Button("Add my Current Event") { showAlert = true } //shows alert to the user
+                    
                     
                 }
-        }
+                .navigationTitle(title)
+                
+                .toolbar {
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            isShowingScanner = true
+                        } label: {
+                            Label("Scan", systemImage: "qrcode.viewfinder")
+                                .labelStyle(.titleAndIcon)
+                            
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Sort") {
+                            //isShowingSortOptions = true
+                            
+                        }
+                        .contextMenu {
+                            Button((self.sort == .name ? "✓ " : "") + "Name") {
+                                self.sort = .name //will refresh the UI based on this
+                            }
+                            Button((self.sort == .recent ? "✓ " : "") + "Recent") {
+                                self.sort = .recent //will refresh the UI based on this
+                            }
+                            
+                            //check to see if i dont have to long press it!
+                            
+                        }
+                    }
+                    
+                    
+                }
+                .sheet(isPresented: $isShowingScanner) {
+                    CodeScannerView(codeTypes:[.qr] , simulatedData: "Nana Bonsu\nNbonsu2000@gmail.com\n6467012471" ,completion: handleScan)
+                        
+                    
+                    //simulated data to be enteredon screen press
+                }
+                
+                .alert("Where are you at?", isPresented:  $showAlert) {
+                    TextField("Username", text: $currentEventLocation)
+                        .textInputAutocapitalization(.never)
+                    
+                    Button("OK") { viewModel.currentLocation = currentEventLocation}
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("Please enter your location or event you attended.")
+                }
+                
+                
+                Spacer()
+                
+                Button("Add my Current Event") { showAlert = true } //shows alert to the user
+                
+            }
             
+        }
     
     }
     
@@ -130,8 +214,9 @@ struct ProspectsView: View {
         }
     }
     
+    //w
     ///n
-    var filteredProspecs: [Prospect] {
+     var filteredProspecs: [Prospect] {
         switch filter {
         case .none:
             return prospects.people
@@ -158,10 +243,14 @@ struct ProspectsView: View {
     func handleScan(result: Result<ScanResult, ScanError>) {
         //now hide the scanner here
         
+       
         //now make a switch statement for the results
         switch result {
         
         case .success(let result):
+            
+            isShowingScanner = false
+            
             
             let details = result.string.components(separatedBy: "\n")
             
@@ -171,7 +260,10 @@ struct ProspectsView: View {
             
             createNewProspect(details: details)
            
-        
+       
+            showAlert = true
+            
+            
         case .failure(let error):
             //now  what to do when error!
             print("Scanning failed: \(error.localizedDescription)")

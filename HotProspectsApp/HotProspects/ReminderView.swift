@@ -19,22 +19,32 @@ struct ReminderView: View {
             
             
             //check how to make this stack
-            Spacer()
-            DatePicker("",selection: $selectedReminderDate, displayedComponents: [.date,.hourAndMinute])
-                .frame(maxWidth: .infinity, alignment: .center)
-            Spacer()
-            
-            Button("Set Reminder") {
+            HStack {
+                Spacer()
                 
-               
-                Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate)
-                
-                viewModel.isExpandedShowingNotifcationSchedule = false
-                //how to run the following!
-             //   ProspectsView.addNotification(for: prospect, notifyDate: selectedReminderDate)
-                //isPopoverVisible.toggle() //dismiss the popover.
+                DatePicker("",selection: $selectedReminderDate, displayedComponents: [.date,.hourAndMinute])
+                    .labelsHidden()
+                    .border(.red)
+                    
+                Spacer()
             }
-            .buttonStyle(.automatic)
+     
+            
+            
+            
+            Text("Set Reminder")
+                .buttonStyle(.bordered)
+                .onTapGesture {
+                    
+                    Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate)
+                    
+                    viewModel.isExpandedShowingNotifcationSchedule = false
+                    //how to run the following!
+                    //   ProspectsView.addNotification(for: prospect, notifyDate: selectedReminderDate)
+                    //isPopoverVisible.toggle() //dismiss the popover.
+                }
+                
+          
         }
     }
 }

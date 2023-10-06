@@ -9,7 +9,7 @@ import SwiftUI
 
 
 /// <#Description#>
-class Prospect: Identifiable, Codable {
+ class Prospect: Identifiable, Codable {
     var id = UUID()
     var name = "Anonymous"
     var emailAddress = ""
@@ -18,8 +18,8 @@ class Prospect: Identifiable, Codable {
     
     ///The place or event where the person met his contact
     var locationMet = ""
-
     var currentDate = Date()
+    var reminderToggle = false
   }
 
 @MainActor class Prospects: ObservableObject {
@@ -39,8 +39,7 @@ class Prospect: Identifiable, Codable {
         
         people = []
     }
-    
-    //save function, to userDefualts
+
     func save() {
         if let encoded = try? JSONEncoder().encode(people) {
             UserDefaults.standard.set(encoded, forKey: saveKey)
@@ -58,14 +57,17 @@ class Prospect: Identifiable, Codable {
         
             
         }
-    
-
-    
-    
+        
     ///The following function will toggle the boolena but will perfrom objectWillChange.send which will tell the view heirarchy somethign s being changed and refresh everything
     func toggle(_ prospect: Prospect) {
         objectWillChange.send()
         prospect.isContacted.toggle()
         save() //save here since this
+    }
+    
+    func reminderToggle(_ prospect:Prospect) {
+        objectWillChange.send()
+        people.first(where: {$0.id == prospect.id})!.reminderToggle.toggle()
+        
     }
 }

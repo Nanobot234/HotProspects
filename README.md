@@ -1,5 +1,7 @@
 # Hot Prospects
--Technologies Used here, will make shileds for it!!
+![Static Badge](https://img.shields.io/badge/Swift-5.1-red)
+![Static Badge](https://img.shields.io/badge/iOS-13.0%2B-blue)
+
 
 HotProspects is an iOS application that allows users to quickly connect with prospects at events by scanning custom-generated QR codes. "Prospects", as used in this app,  are people whose contact information is saved by the user to be contacted at a later time. 
 

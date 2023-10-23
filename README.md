@@ -11,10 +11,14 @@ Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) b
 
 ## Features
 
-- Generate a custom QR code using a user's name, email, and phone number
-- Scan the QR code of another user to instantly save their contact information
-- Set the event where a user meets a prospect.
-- Schedule a reminder to contact a particular prospect. 
+## Generate a custom QR code using a user's name, email, and phone number
+
+<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/a7335b00-12b2-4e2a-a3c9-9332e2d6770e" alt="Descriptive Alt Text" width="300" height="600">
+
+## Scan the QR code of another user to instantly save their contact information and set the event where a user meets a prospect.
+<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/f36cbf90-7fde-4fd6-a5cf-184a78cfc44f" alt="Descriptive Alt Text" width="300" height="600">
+
+## Schedule a reminder to contact a particular prospect. 
 
 
 
@@ -29,3 +33,6 @@ Hot Prospects is originally based on a project created by [Paul Hudson](https://
 
 
 
+
+
+![QRCodeCreatorFeature](https://github.com/Nanobot234/HotProspects/assets/16675052/a7335b00-12b2-4e2a-a3c9-9332e2d6770e)

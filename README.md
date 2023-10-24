@@ -22,10 +22,10 @@ Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) b
 <img src="https://github.com/Nanobot234/HotProspects/assets/16675052/6aeb6892-7665-4b95-8a85-ef5334c2abdd" alt="Descriptive Alt Text" width="300" height="600">
 
 
-## Usage?
- You can run HotProspects by downloading it and building it in Xcode just like any other application. 
-
- However, the application uses a Swift package called CodeScanner so make sure to install that package before running the application.
+## Technologies Used
+- AVFoundation framework
+- APNS
+- [CodeScanner](https://github.com/twostraws/CodeScanner) API
 
  ## Credits
 

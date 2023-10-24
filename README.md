@@ -19,7 +19,7 @@ Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) b
 <img src="https://github.com/Nanobot234/HotProspects/assets/16675052/f36cbf90-7fde-4fd6-a5cf-184a78cfc44f" alt="Descriptive Alt Text" width="300" height="600">
 
 ## Schedule a reminder to contact a particular prospect. 
-
+<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/6aeb6892-7665-4b95-8a85-ef5334c2abdd" alt="Descriptive Alt Text" width="300" height="600">
 
 
 ## Usage?
@@ -33,6 +33,3 @@ Hot Prospects is originally based on a project created by [Paul Hudson](https://
 
 
 
-
-
-![QRCodeCreatorFeature](https://github.com/Nanobot234/HotProspects/assets/16675052/a7335b00-12b2-4e2a-a3c9-9332e2d6770e)

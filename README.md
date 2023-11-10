@@ -5,6 +5,8 @@
 
 HotProspects is an iOS application that allows users to quickly connect with prospects at events by scanning custom-generated QR codes. "Prospects", as used in this app,  are people whose contact information is saved by the user to be contacted at a later time. 
 
+**To build this project in Xcode, you have to install  CodeScanner as a package. API documentation can be found [here](https://github.com/twostraws/CodeScanner)**
+
 Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) bootcamp project.
 
 

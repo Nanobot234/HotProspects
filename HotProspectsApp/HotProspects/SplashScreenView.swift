@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct SplashScreenView: View {
+    
+    @State  var isActive: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            if(isActive) {
+                ContentView()
+            } else {
+                Image("LocationChatLogo")
+                    .resizable()
+                    .frame(width: 300, height: 300)
+                Spacer()
+            }
+        }
+        
+        //now show the main view after a few seoncs
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                withAnimation {
+                    self.isActive = true
+                }
+            }
+        }
     }
 }
 

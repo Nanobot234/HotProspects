@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ReminderView: View {
-    @EnvironmentObject var viewModel:RowModel
-    var prospect:Prospect
+    @EnvironmentObject var prospects: Prospects
+        var prospect:Prospect
     @State private var selectedReminderDate = Date()
+   // @Binding var showView:Bool
     var body: some View {
         VStack(spacing: 20) {
             
@@ -19,6 +20,7 @@ struct ReminderView: View {
             
             
             //check how to make this stack
+        
             HStack {
                 Spacer()
                 
@@ -28,25 +30,26 @@ struct ReminderView: View {
                     
                 Spacer()
             }
-     
-            
-            
-            
-            Text("Set Reminder")
+         
+            Button("Set Reminder") {
+                
+                Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate)
+                prospects.reminderToggle(prospect) //toggles the reminder for the prospect your on, and thus hides the view
+                
+                //add a toast here
+                
+            }
                 .buttonStyle(.bordered)
-                .onTapGesture {
-                    
-                    Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate)
-                    
-                    viewModel.isExpandedShowingNotifcationSchedule = false
-                    //how to run the following!
-                    //   ProspectsView.addNotification(for: prospect, notifyDate: selectedReminderDate)
-                    //isPopoverVisible.toggle() //dismiss the popover.
-                }
+                
+
                 
           
         }
+        
+        
+        
     }
+        
 }
 
 //struct ReminderView_Previews: PreviewProvider {

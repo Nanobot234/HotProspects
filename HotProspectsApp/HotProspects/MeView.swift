@@ -68,12 +68,12 @@ struct MeView: View {
             .onChange(of: name) {_ in updateCode()}
             .onChange(of: emailAddress) {_ in updateCode()}
             .onChange(of: phoneNumber) {_ in updateCode()} //??
-            .onChange(of: viewModel.currentLocation, perform: {_ in updateCode()})
+            
         }
     }
     
     func updateCode() {
-        qrCode = generateQRCode(from: "\(name)\n\(emailAddress)\n\(phoneNumber)\n\(viewModel.currentLocation)")
+        qrCode = generateQRCode(from: "\(name)\n\(emailAddress)\n\(phoneNumber)")
     }
     
     func generateQRCode(from string:String) -> UIImage {

@@ -8,154 +8,151 @@
 import CodeScanner
 import SwiftUI
 import UserNotifications
+import AlertToast
+
 
 /// View to display contacts. The first 3 tabs of the app use this view to dsiplay different contacts based on filter type
 struct ProspectsView: View {
     
+    /// enum has 3 keywords for the contact status of the prospect. None shows both contacted and uncontacted
     enum FilterType {
         case none, contacted, uncontacted
     }
-    //have an enum for the sorting type
+    
+    ///enum with keywords to describe what the prospects can be sorted by.  The enum
     enum SortType {
         case name, recent //different ways to sort the list
     }
     
-    //will have the encironment object here
     
-    @EnvironmentObject var viewModel:RowModel
-
-    @EnvironmentObject var prospects: Prospects //finds prospects class, attach it to
-    @State private var isShowingScanner = false //boolean to show scan info
-    @State private var isShowingSortOptions = false
-    //@State private var isPopoverVisible = false //shows a popover
-    @State private var selectedReminderDate = Date() //this will be the date selected by the user for the reminder
-    @State private var showAlert = false
-    @State private var currentEventLocation = ""
-    @State private var selectedProspect = Prospect()
+    ///using the prospects stored in the environment
+    @EnvironmentObject var prospects: Prospects
+    
+    @EnvironmentObject var eventLocation: EventLocation
+    
+    ///boolean value to determine if the QR code sheet is shown or not
+    @State var isShowingScanner = false
+    
+    ///boolean used to show teh alert to a user allowing them to enter location details
+    @State  var showAlert = false
+    
+    @State  var showAddLocationView = false
+    
+    ///sets text for the current Location
+   // @State  var currentEventLocation = ""
+    
+    
+    ///teh most recently added prospect , used to set the location met of a prospect.
+    @State  var newProspect = Prospect()
+    
+    
+    /// The prospect that the user taps on in the list of prospects. Used to provide prospect details to edit view
+    @State  var currentSelectedProspect = Prospect()
+    
+    ///  shows the edit sheet or doesnt.
+    @State  var showEditScreen = false
+    
+    /// Enumerator value that decides how the list of prospects is sorted. The default is set to sort the list by name
     @State var sort: SortType = .name
     
-    let filter: FilterType //no at state, since this doesnt need to change?, or wont change for  given view
+    /// activate toast message (may need to make this in observableObject
+    @State var presentToast = false
+    
+    @State var updatedUserLcoation = ""
+    
+    
+    /// The styling of the added to contacts alert
+var addToContactsAlertStyle = AlertToast.AlertStyle.style(backgroundColor: Color.gray, titleColor: nil, subTitleColor: nil, titleFont: nil, subTitleFont: nil)
+    
+    ///value based on `FilterType` enumeration
+    ///
+    /// The filter variable is given a value when `ProspectsView` is instantiated,
+    let filter: FilterType
+    
+    
+    
+    /// The navigation title for the view
+    ///
+    /// The navigation title is computed based on the `FilterType` for the current view
+    var navigationBarTitle: String {
+        switch filter {
+        case .none:
+            return "All Prospects"
+        case .contacted:
+            return "Contacted Prospects"
+        case .uncontacted:
+            return "Uncontacted Prospects"
+        }
+    }
+    
     var body: some View {
         
-//        GeometryReader { geometry in
         NavigationView {
+            
+            
+            //show Location
+            //The list displays a vertical row of `ItemRow` views.
             VStack {
-                List {
-                    ForEach(filteredProspecs) {prospect in
-                        //make the view
-                        // ItemRow(prospect: $filteredProspecs[index], filter: filter)
-                        
-                        //create another list, have a forEach inside
                 
+                
+                CurrentLocationView()
+                
+                List {
+                    
+                    ForEach(filteredSortedProspects) {prospect in
+                        ItemRow(prospect: prospect, filter: filter, toast: $presentToast)
+                        //the prospect selected by the user is stored in the currentSelectedProspect.
                         
-                        
-                        VStack(alignment: .leading) {
-                            if(filter == .none) {
-                                HStack {
-                                    //ok, I can just make variable for the string, that will show the correct icon depending on the name
-                                    
-                                    Image(systemName: prospect.isContacted ? "person.crop.circle.fill.badge.checkmark":"person.crop.circle.badge.xmark")
-                                        .font(.system(size:24))
-                                    VStack(alignment: .leading, spacing: 10){
-                                        Text(prospect.name)
-                                            .font(.headline)
-                                        
-                                        Text(prospect.emailAddress)
-                                            .foregroundColor(.secondary)
-                                        
-                                        
-                                        Text(prospect.phoneNumber)
-                                            .foregroundColor(.secondary) //phone number here
-                                        
-                                        Text(prospect.locationMet != "" ? prospect.locationMet:"Person didnt add the event")
-                                    }
-                                    
-                                    Spacer()
-                                    Image(systemName: "bell")
-                                        .foregroundColor(.blue)
-                                        .onTapGesture {
-                                            prospects.reminderToggle(prospect)
-                                            print(prospects.people.map({$0.reminderToggle}))
-                                            
-                                        }
-                                    
-                                }
+                            .onTapGesture {
                                 
-                                Spacer()
                                 
-                                Text(prospect.reminderToggle.description)
+                                currentSelectedProspect = Prospect(name: prospect.name, emailAddress: prospect.emailAddress, phoneNumber: prospect.phoneNumber)
+                                currentSelectedProspect.id = prospect.id
+                                currentSelectedProspect.locationMet = prospect.locationMet
                                 
-                                if prospect.reminderToggle {
-                                    ReminderView(prospect: prospect) //the view to show the reminder interface and things
+                                print(prospect.locationMet)
+                                print(currentSelectedProspect.id)
+                                //TODO: Decide if the dispatch queue is actually needed
+                                // DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                showEditScreen = true
+                                //}
+                            }
+                            .contextMenu {
+                                // Finish this section or.
+                                
+                                Button {
+                                    //TODO: Add code here eventually for contacts storage
+                                    
+                                    saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet)
+                                } label: {
+                                    Label("Add to Contacts", systemImage: "plus")
                                 }
                                 
                             }
-                            else {
-                                
-                                Text(prospect.name)
-                                    .font(.headline)
-                                Text(prospect.emailAddress)
-                                    .foregroundColor(.secondary)
-                                
-                                
-                                if prospect.reminderToggle {
-                                    ReminderView(prospect: prospect)
-                                }
-                            }
-                        }
-                        
-                        
-                        
-                        
-                        .swipeActions {
-                            if(prospect.isContacted) {
-                                Button {
-                                    prospects.toggle(prospect)
-                                } label: {
-                                    Label("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark")
-                                }
-                                .tint(.blue)
-                            } else {
-                                //make another swipe action, foe the uncontacted list
-                                Button {
-                                    prospects.toggle(prospect)
-                                    
-                                } label: {
-                                    Label("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
-                                }
-                                .tint(.green)
-                                Button {
-                                    prospects.remove(prospect)
-                                } label: {
-                                    Label("Delete Prospect", systemImage: "trash")
-                                }
-                            }
-                        }
-                        
                     }
                     
-                    
-                    
-                    
-                    
                 }
-                .navigationTitle(title)
+                //            .onChange(of: prospects) { newPros in
+                //
+                //
+                //            }
+                //
+                
+                .navigationBarTitle(navigationBarTitle)
                 
                 .toolbar {
-                    
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
+                        
+                        toolbarButton("Scan", systemImage: "qrcode.viewfinder") {
                             isShowingScanner = true
-                        } label: {
-                            Label("Scan", systemImage: "qrcode.viewfinder")
-                                .labelStyle(.titleAndIcon)
-                            
                         }
+                        
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        //TODO: Extract this button to the view file, to shorten the code
                         Button("Sort") {
-                            //isShowingSortOptions = true
                             
                         }
                         .contextMenu {
@@ -165,58 +162,53 @@ struct ProspectsView: View {
                             Button((self.sort == .recent ? "✓ " : "") + "Recent") {
                                 self.sort = .recent //will refresh the UI based on this
                             }
-                            
-                            //check to see if i dont have to long press it!
-                            
                         }
                     }
-                    
-                    
                 }
                 .sheet(isPresented: $isShowingScanner) {
                     CodeScannerView(codeTypes:[.qr] , simulatedData: "Nana Bonsu\nNbonsu2000@gmail.com\n6467012471" ,completion: handleScan)
-                        
                     
-                    //simulated data to be enteredon screen press
                 }
-                
-                .alert("Where are you at?", isPresented:  $showAlert) {
-                    TextField("Username", text: $currentEventLocation)
-                        .textInputAutocapitalization(.never)
+                .sheet(isPresented: $showEditScreen, onDismiss:  updateProspect) {
+                    EditProspectDetailsView(prospect: $currentSelectedProspect)
                     
-                    Button("OK") { viewModel.currentLocation = currentEventLocation}
-                    Button("Cancel", role: .cancel) { }
-                } message: {
-                    Text("Please enter your location or event you attended.")
                 }
                 
                 
-                Spacer()
+                //
+                .sheet(isPresented: $showAddLocationView, onDismiss: updateProspectLocation) {
+                    AddLocationView(addReasonMessage:"prospectLocation")
+                        .presentationDetents([.fraction(0.4)])
+                }
                 
-                Button("Add my Current Event") { showAlert = true } //shows alert to the user
+                .sheet(isPresented: $eventLocation.changeEvent) {
+                    AddLocationView(addReasonMessage:"userLocationUpdate")
+                        .presentationDetents([.fraction(0.4)])
+                    
+                }
+                
+                
+                
+                
+                .overlay(viewtoOverlay, alignment: .center)
+                
+                .toast(isPresenting: $presentToast) {
+                    
+                    AlertToast(displayMode: .banner(.slide), type: .complete(Color.green), title: "Saved to contact", style: Optional(addToContactsAlertStyle))
+                    
+                }
+                
                 
             }
+            .minimumScaleFactor(0.4)
             
         }
-    
     }
     
-    
-    ///Strign that wil l be used as the navigationView title
-    var title: String {
-        switch filter {
-        case .none:
-            return "All Prospects"
-        case .contacted:
-            return "Contacted People"
-        case .uncontacted:
-            return "Uncontacted people"
-        }
-    }
-    
-    //w
-    ///n
-     var filteredProspecs: [Prospect] {
+    /// The prospects array stored in the environment, filtered through various conditions
+    ///
+    /// The value of this property is computed based  on the current `filterType` that this `ProspectView` is initialized with. Thus, only the prospects that match the condition is shown in the view
+    var filteredProspects: [Prospect] {
         switch filter {
         case .none:
             return prospects.people
@@ -227,76 +219,90 @@ struct ProspectsView: View {
         }
     }
     
-    //here we sort the filtered prospect
+    
+    /// The  array of  filtered `Prospects` sorted by a `SortType` condition
+    ///
+    /// The value of this proerty is computed by sorting the elements of `filteredProspects` either by their name or recent. This sort condition is determined by the user through a context menu button.
     var filteredSortedProspects: [Prospect] {
         switch sort {
         case .name:
-            return filteredProspecs.sorted {$0.name < $1.name}
+            return filteredProspects.sorted {$0.name < $1.name}
         case .recent:
-            return filteredProspecs.sorted {$0.currentDate < $1.currentDate}
-        
+            return filteredProspects.sorted {$0.currentDate > $1.currentDate}
+            
         }
-    
-    
+        
+        
     }
     
-    func handleScan(result: Result<ScanResult, ScanError>) {
-        //now hide the scanner here
-        
-       
-        //now make a switch statement for the results
-        switch result {
-        
-        case .success(let result):
-            
-            isShowingScanner = false
-            
-            
-            let details = result.string.components(separatedBy: "\n")
-            
-            guard details.count >= 3 else { return} //this checks i  you have at lest all the contact info, could have the location as well
-            
-            //here will toggle the alert to show
-            
-            createNewProspect(details: details)
-           
-       
-            showAlert = true
-            
-            
-        case .failure(let error):
-            //now  what to do when error!
-            print("Scanning failed: \(error.localizedDescription)")
+    var viewtoOverlay: some View {
+        if(prospects.people.isEmpty) {
+            return AnyView(Text("No Prospects Saved")
+                .font(.system(size: 30))
+                .fontWeight(.bold))
+        } else  {
+            return AnyView(EmptyView())
         }
     }
     
-
-    
-    func createNewProspect(details: [String]) {
+    func updateProspect() {
+        print("LocationtoInput " + currentSelectedProspect.locationMet)
+        prospects.updateProspectDetails(currentSelectedProspect)
         
-       
-
-        let person = Prospect()
-        person.name = details[0]
-        person.emailAddress = details[1]
-        person.phoneNumber = details[2] //gets the phone numbe  of the person!
-        
-        if(details.count == 4){
-            person.locationMet = details[3]
-        }
-        prospects.add(person) //you dont dirrect access the array, so that no one else can change its contennts. So this is using a setter for the array!
-        
-        prospects.save()
-        
-        isShowingScanner = false
-        
-     //   showAlert = true
     }
-    
-    
-    //here
 }
+    
 
+  
+  
+
+
+/// View that displays a textfeild for a user to add a location or event they met a prospect at. This view is displayed inside of a detented sheet.
+struct AddLocationView: View {
+    
+    @EnvironmentObject var prospects: Prospects
+    
+    @EnvironmentObject var eventLocation: EventLocation
+   // @Binding var currentEventLocation:String //maybe make this a binding to use this
+    @Environment(\.dismiss) var dismiss
+    ///State if you are setting an event location for all newly added Prospects or not.
+    ///
+    /// String indicates if a user updates the location that they are attending or sets a location met for an individual prospect,
+     var addReasonMessage:String
+    
+    @State var userLocationString = ""
+    
+  //  var prospect: Prospect
+    var body: some View {
+        VStack(alignment: .center) {
+            Text(addReasonMessage == "userLocationUpdate" ? "What Event are You Attending" : "Enter the Location or Event You Met This Prospect At")
+                .font(.system(size: 20))
+                .fontWeight(.bold)
+            
+            //how to pad from the sides, the text box
+            //border color
+            TextField("Location", text: addReasonMessage == "userLocationUpdate" ? $userLocationString: $eventLocation.currentEventMetProspect)
+                .textInputAutocapitalization(.never)
+                .multilineTextAlignment(.center)
+                .textFieldStyle(.roundedBorder)
+        //TODO: Change the size of this textfield? make it larger and smaller too!
+            //                .background(
+            //                                RoundedRectangle(cornerRadius: 8)
+            //                                    .stroke(Color.red, lineWidth: 1) // Change the color and line width as needed
+            //                            )
+            //change the border color here
+            
+            
+            Button("OK") {
+                //sets the viewModels currentEvent variable equal to the string entered
+                eventLocation.currentEvent = userLocationString
+                dismiss()
+            }
+        }
+        
+        
+    }
+}
 
 struct ProspectsView_Previews: PreviewProvider {
     static var previews: some View {
@@ -307,3 +313,6 @@ struct ProspectsView_Previews: PreviewProvider {
 
 
 //Ok, so
+
+
+//I have a struc

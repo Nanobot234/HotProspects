@@ -7,7 +7,7 @@
 
 import Foundation
 
-//row mdodel here
+//row mdodel here, now not used!!
 
 class RowModel: ObservableObject {
     @Published var isExpandedShowingNotifcationSchedule = false

@@ -10,12 +10,17 @@ import UserNotifications
 
 
 
+/// Parent View of the app. Holds a tab view that in itself contains sub views.
 struct ContentView: View {
     
+    /// prospects object  , this stateObject is injected into the environemnt
     @StateObject var prospects = Prospects()
-    @StateObject private var viewModel = RowModel()
+    
     @State private var output = "" //output variable to use
     
+    @StateObject var eventLocation = EventLocation()
+    
+    /// The body returns a tabView container that holds 3 ProspectsViews. The prospects StateObject is injected into the environment through the TabView to share with all the ProspectView children
     var body: some View {
         
         
@@ -40,16 +45,12 @@ struct ContentView: View {
                     Label("Me", systemImage: "person.crop.square")
                 }
         }
-        .environmentObject(prospects) //this makes all the views int eh tap view , have this object to be diaplayed
-        .environmentObject(viewModel)
+        .environmentObject(prospects)
+        .environmentObject(eventLocation)
+       
     }
 }
-//        Text(output)
-//            .task {
-//                await fetchReadings()
-//            }
-    
-    
+
     
 
 

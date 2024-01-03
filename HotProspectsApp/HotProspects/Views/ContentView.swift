@@ -23,30 +23,41 @@ struct ContentView: View {
     /// The body returns a tabView container that holds 3 ProspectsViews. The prospects StateObject is injected into the environment through the TabView to share with all the ProspectView children
     var body: some View {
         
+        //ok so I need to filter out thea rray bindings based on the toggle that is selected
+        //so , based on the placeholder, if you want to exclude it then just filter out based on text
+        //but to onclude 
         
         TabView {
-            ProspectsView(filter: .none)
-                .tabItem {
-                    Label("All Prospects", systemImage: "person.3")
-                }
-            
-            ProspectsView(filter: .contacted)
-                .tabItem {
-                    Label("Contacted", systemImage: "checkmark.circle")
-                }
-            
-            ProspectsView(filter: .uncontacted)
-                .tabItem {
-                    Label("Uncontacted", systemImage: "questionmark.diamond")
-                }
             
             MeView()
                 .tabItem {
                     Label("Me", systemImage: "person.crop.square")
                 }
+            
+            ProspectsView()
+                .tabItem {
+                    Label("All Prospects", systemImage: "person.3")
+                }
+            
+            
+           
+            
+//            ProspectsView(filter: .uncontacted)
+//                .tabItem {
+//                    Label("Uncontacted", systemImage: "questionmark.diamond")
+//                }
+//                .onTapGesture {
+//                    self.hideKeyBoard()
+//                }
+//
+         
         }
         .environmentObject(prospects)
         .environmentObject(eventLocation)
+        .onAppear {
+            
+            eventLocation.loadFromUserDefaults()
+        }
        
     }
 }

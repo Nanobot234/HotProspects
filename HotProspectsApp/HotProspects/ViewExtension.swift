@@ -15,9 +15,14 @@ extension View {
             Label(title, systemImage: systemImage)
                 .labelStyle(.titleAndIcon)
         }
+    
     }
     
-    //making a function for a button
+    func hideKeyBoard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+               }
+    
+    //making a function for a sheet to show!
 }
 
 

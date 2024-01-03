@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct ReminderView: View {
+    
+    
     @EnvironmentObject var prospects: Prospects
         var prospect:Prospect
+    
+    /// The date that the user decides to set a prospect reminder at
     @State private var selectedReminderDate = Date()
-   // @Binding var showView:Bool
+    
+    /// A date picker is shown along with a button allowing the user to set the reminder..
     var body: some View {
+        
         VStack(spacing: 20) {
             
-            Text("Select Reminder Date & Time")
+            Text("Select Date & Time to Contact This Prospect")
                 .font(.headline)
             
-            
-            //check how to make this stack
         
             HStack {
                 Spacer()
@@ -31,6 +35,7 @@ struct ReminderView: View {
                 Spacer()
             }
          
+            // When the reminder button is clicked, the system schedules a notification.
             Button("Set Reminder") {
                 
                 Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate)
@@ -40,9 +45,7 @@ struct ReminderView: View {
                 
             }
                 .buttonStyle(.bordered)
-                
-
-                
+            
           
         }
         

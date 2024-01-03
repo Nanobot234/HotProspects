@@ -14,13 +14,17 @@ struct CurrentLocationView: View {
     
     var body: some View {
         HStack {
-            Text(eventLocation.currentEvent != "" ? (eventLocation.currentEvent) : "Not Attending An Event")
+            Text(eventLocation.currentEventOfUser != "" ? ("Your going to: " + eventLocation.currentEventOfUser) : "Not Attending An Event")
+                .font(.system(size: 30,design: .rounded))
+                
             
             Text("|")
             Button("Update") {
                 //show sheet to set the event location
                 eventLocation.changeEvent = true
+                
             }
+            .buttonStyle(.borderedProminent)
             
         }
     }

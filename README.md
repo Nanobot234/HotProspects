@@ -9,6 +9,16 @@ HotProspects is an iOS application that allows users to quickly connect with pro
 
 Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) bootcamp project.
 
+## Architecture
+
+The app follows the Model View ViewModel (MVVM) architectural pattern. Here are the major components
+
+Model: In this app, Prospect is the model which defines basic information of a prosepect that a user adds. THis includes a prospects name, contact information, the date the user met the prospect and more. The model is located in Prospect.swift
+
+View: The primary view of this application is located in the file ProspectsView.swift. This file defines a list which displays the time, date, and location that the user meets all their prospects.
+
+View Model: The view model defines an array of prospects that the user has saved their information. The view model handles insertions, deletions, and storage of the array. The view model is located in the file
+
 
 
 ## Features

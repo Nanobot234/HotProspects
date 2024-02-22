@@ -13,13 +13,11 @@ Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) b
 
 The app follows the Model View ViewModel (MVVM) architectural pattern. Here are the major components
 
-Model: In this app, Prospect is the model which defines basic information of a prosepect that a user adds. THis includes a prospects name, contact information, the date the user met the prospect and more. The model is located in Prospect.swift
+**Model**: In this app, Prospect is the model which defines basic information of a prosepect that a user adds. THis includes a prospects name, contact information, the date the user met the prospect and more. The model is located in Prospect.swift
 
-View: The primary view of this application is located in the file ProspectsView.swift. This file defines a list which displays the time, date, and location that the user meets all their prospects.
+**View**: The primary view of this application is located in the file ProspectsView.swift. This file defines a list which displays the time, date, and location that the user meets all their prospects. Another major view is located in MeView.swift. In this view the user can update their contact information and personal details
 
-View Model: The view model defines an array of prospects that the user has saved their information. The view model handles insertions, deletions, and storage of the array. The view model is located in the file
-
-
+**View Model**: The view model defines an array of prospects that the user has saved their information. The view model handles insertions, deletions, and storage of the array. The view model is located in the file called ProspectViewModel.swift. There is also another view model that manages the current event the user attends and shares this data between views. This is located in the file ProspectEventViewModel.swift.
 
 ## Features
 

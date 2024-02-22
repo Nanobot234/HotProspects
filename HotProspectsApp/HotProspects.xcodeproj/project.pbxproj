@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F222298B2B0801110022F93B /* SwipeActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222298A2B0801110022F93B /* SwipeActionButton.swift */; };
+		F21F01222B86A455004EF482 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F01212B86A455004EF482 /* ProspectViewModel.swift */; };
+		F21F01242B86A526004EF482 /* ProspectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */; };
+		F222298B2B0801110022F93B /* SwipeActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222298A2B0801110022F93B /* SwipeActionButtons.swift */; };
 		F222298D2B0812820022F93B /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222298C2B0812820022F93B /* CurrentLocationView.swift */; };
 		F22654D42AE2FBD80033EE24 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */; };
 		F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D76B22AB8C332004558A9 /* ImageSaver.swift */; };
-		F252E7132B0419B70055369F /* ProspectView_Functions_Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252E7122B0419B70055369F /* ProspectView_Functions_Properties.swift */; };
-		F252E7172B0566680055369F /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = F252E7162B0566680055369F /* AlertToast */; };
+		F252E7132B0419B70055369F /* ProspectViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252E7122B0419B70055369F /* ProspectViewExtension.swift */; };
 		F258466C2AEAF77E00AD2CB9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */; };
 		F25890C02AE6FE7C00D61019 /* EditProspectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */; };
+		F283C1062B561CC900F0966B /* OnboardingUserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */; };
 		F286D80A2A9D3CC400608449 /* HotProspectsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8092A9D3CC400608449 /* HotProspectsApp.swift */; };
 		F286D80C2A9D3CC400608449 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D80B2A9D3CC400608449 /* ContentView.swift */; };
 		F286D80E2A9D3CC600608449 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F286D80D2A9D3CC600608449 /* Assets.xcassets */; };
@@ -22,17 +24,24 @@
 		F286D81B2A9D3CC600608449 /* HotProspectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D81A2A9D3CC600608449 /* HotProspectsTests.swift */; };
 		F286D8252A9D3CC600608449 /* HotProspectsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8242A9D3CC600608449 /* HotProspectsUITests.swift */; };
 		F286D8272A9D3CC600608449 /* HotProspectsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8262A9D3CC600608449 /* HotProspectsUITestsLaunchTests.swift */; };
-		F2A5C4852AB2066D00BF2391 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = F2A5C4842AB2066D00BF2391 /* CodeScanner */; };
+		F28D650C2B61B9D80090CAB4 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = F28D650B2B61B9D80090CAB4 /* CodeScanner */; };
+		F29E94292B55842200DFFFFD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29E94282B55842200DFFFFD /* SettingsView.swift */; };
 		F2A72CE92B2A528E0023C478 /* TextFeildWithToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72CE82B2A528E0023C478 /* TextFeildWithToggle.swift */; };
+		F2AC34252B63396E007F964B /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = F2AC34242B63396E007F964B /* AlertToast */; };
+		F2AC34292B6339C7007F964B /* CustomTextField in Frameworks */ = {isa = PBXBuildFile; productRef = F2AC34282B6339C7007F964B /* CustomTextField */; };
+		F2AC342B2B66ECED007F964B /* OAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AC342A2B66ECED007F964B /* OAuthViewModel.swift */; };
 		F2BFE1E62AC59F880061F4A3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFE1E52AC59F880061F4A3 /* Utilities.swift */; };
 		F2BFE1E82AC759F60061F4A3 /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFE1E72AC759F60061F4A3 /* ItemRowView.swift */; };
 		F2BFE1EA2AC75AE50061F4A3 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFE1E92AC75AE50061F4A3 /* ReminderView.swift */; };
 		F2C429382B0D323200CB794D /* UserandProspectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C429372B0D323200CB794D /* UserandProspectView.swift */; };
 		F2C4293A2B16833B00CB794D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C429392B16833B00CB794D /* SearchBarView.swift */; };
 		F2C6CCF52B45B89100E4B885 /* FloatingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6CCF42B45B89100E4B885 /* FloatingButtonView.swift */; };
+		F2C6CCF72B460A7D00E4B885 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6CCF62B460A7D00E4B885 /* QRCodeView.swift */; };
 		F2E68CB52AAF93DA001B6741 /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB42AAF93DA001B6741 /* ProspectsView.swift */; };
 		F2E68CB72AAF93EF001B6741 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB62AAF93EF001B6741 /* MeView.swift */; };
 		F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB82AAF9807001B6741 /* Prospect.swift */; };
+		F2F137EF2B5EBC200032029D /* FirstWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */; };
+		F2F137F42B5F0A420032029D /* SocialConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F137F32B5F0A420032029D /* SocialConnections.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,14 +62,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F222298A2B0801110022F93B /* SwipeActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionButton.swift; sourceTree = "<group>"; };
+		F21F01212B86A455004EF482 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
+		F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectEventViewModel.swift; sourceTree = "<group>"; };
+		F222298A2B0801110022F93B /* SwipeActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionButtons.swift; sourceTree = "<group>"; };
 		F222298C2B0812820022F93B /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		F22D76B22AB8C332004558A9 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
-		F252E7122B0419B70055369F /* ProspectView_Functions_Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectView_Functions_Properties.swift; sourceTree = "<group>"; };
+		F252E7122B0419B70055369F /* ProspectViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewExtension.swift; sourceTree = "<group>"; };
 		F252E7142B0427100055369F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProspectDetailsView.swift; sourceTree = "<group>"; };
+		F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoEntry.swift; sourceTree = "<group>"; };
 		F286D8062A9D3CC400608449 /* HotProspects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotProspects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F286D8092A9D3CC400608449 /* HotProspectsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProspectsApp.swift; sourceTree = "<group>"; };
 		F286D80B2A9D3CC400608449 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,16 +83,21 @@
 		F286D8202A9D3CC600608449 /* HotProspectsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotProspectsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F286D8242A9D3CC600608449 /* HotProspectsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProspectsUITests.swift; sourceTree = "<group>"; };
 		F286D8262A9D3CC600608449 /* HotProspectsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProspectsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F29E94282B55842200DFFFFD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F2A72CE82B2A528E0023C478 /* TextFeildWithToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFeildWithToggle.swift; sourceTree = "<group>"; };
+		F2AC342A2B66ECED007F964B /* OAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthViewModel.swift; sourceTree = "<group>"; };
 		F2BFE1E52AC59F880061F4A3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F2BFE1E72AC759F60061F4A3 /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		F2BFE1E92AC75AE50061F4A3 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		F2C429372B0D323200CB794D /* UserandProspectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserandProspectView.swift; sourceTree = "<group>"; };
 		F2C429392B16833B00CB794D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		F2C6CCF42B45B89100E4B885 /* FloatingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButtonView.swift; sourceTree = "<group>"; };
+		F2C6CCF62B460A7D00E4B885 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		F2E68CB42AAF93DA001B6741 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		F2E68CB62AAF93EF001B6741 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		F2E68CB82AAF9807001B6741 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstWelcomeScreen.swift; sourceTree = "<group>"; };
+		F2F137F32B5F0A420032029D /* SocialConnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialConnections.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2A5C4852AB2066D00BF2391 /* CodeScanner in Frameworks */,
-				F252E7172B0566680055369F /* AlertToast in Frameworks */,
+				F28D650C2B61B9D80090CAB4 /* CodeScanner in Frameworks */,
+				F2AC34292B6339C7007F964B /* CustomTextField in Frameworks */,
+				F2AC34252B63396E007F964B /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,27 +128,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F211FB232B878035001E1C1C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */,
+				F2F137F32B5F0A420032029D /* SocialConnections.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F211FB242B878461001E1C1C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F21F01212B86A455004EF482 /* ProspectViewModel.swift */,
+				F2AC342A2B66ECED007F964B /* OAuthViewModel.swift */,
+				F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		F2416FE72B17E19D00E8C291 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				F286D80B2A9D3CC400608449 /* ContentView.swift */,
-				F2E68CB42AAF93DA001B6741 /* ProspectsView.swift */,
-				F2BFE1E72AC759F60061F4A3 /* ItemRowView.swift */,
-				F2BFE1E92AC75AE50061F4A3 /* ReminderView.swift */,
-				F2E68CB62AAF93EF001B6741 /* MeView.swift */,
-				F2A72CE82B2A528E0023C478 /* TextFeildWithToggle.swift */,
-				F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */,
-				F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */,
-				F222298C2B0812820022F93B /* CurrentLocationView.swift */,
-				F2C429372B0D323200CB794D /* UserandProspectView.swift */,
+				F283C0C62B55D00F00F0966B /* ForMyInfoTab */,
+				F283C0C52B55CFC400F0966B /* ViewForPropspectTab */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F283C0C52B55CFC400F0966B /* ViewForPropspectTab */ = {
+			isa = PBXGroup;
+			children = (
+				F2E68CB42AAF93DA001B6741 /* ProspectsView.swift */,
+				F252E7122B0419B70055369F /* ProspectViewExtension.swift */,
+				F2C6CCF42B45B89100E4B885 /* FloatingButtonView.swift */,
+				F2BFE1E72AC759F60061F4A3 /* ItemRowView.swift */,
+				F2BFE1E92AC75AE50061F4A3 /* ReminderView.swift */,
+				F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */,
+				F2C429372B0D323200CB794D /* UserandProspectView.swift */,
+			);
+			path = ViewForPropspectTab;
+			sourceTree = "<group>";
+		};
+		F283C0C62B55D00F00F0966B /* ForMyInfoTab */ = {
+			isa = PBXGroup;
+			children = (
+				F2E68CB62AAF93EF001B6741 /* MeView.swift */,
+				F2A72CE82B2A528E0023C478 /* TextFeildWithToggle.swift */,
+				F222298C2B0812820022F93B /* CurrentLocationView.swift */,
+				F2C6CCF62B460A7D00E4B885 /* QRCodeView.swift */,
+				F2C429392B16833B00CB794D /* SearchBarView.swift */,
+			);
+			path = ForMyInfoTab;
+			sourceTree = "<group>";
+		};
+		F283C0C72B55D14200F0966B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F2BFE1E52AC59F880061F4A3 /* Utilities.swift */,
+				F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */,
+				F222298A2B0801110022F93B /* SwipeActionButtons.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F283C0C82B55D19C00F0966B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F2E68CB82AAF9807001B6741 /* Prospect.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F286D7FD2A9D3CC400608449 = {
 			isa = PBXGroup;
 			children = (
 				F286D8082A9D3CC400608449 /* HotProspects */,
+				F283C0C72B55D14200F0966B /* Helper */,
 				F286D8192A9D3CC600608449 /* HotProspectsTests */,
 				F286D8232A9D3CC600608449 /* HotProspectsUITests */,
 				F286D8072A9D3CC400608449 /* Products */,
@@ -150,19 +225,18 @@
 		F286D8082A9D3CC400608449 /* HotProspects */ = {
 			isa = PBXGroup;
 			children = (
+				F283C0C82B55D19C00F0966B /* Models */,
+				F211FB242B878461001E1C1C /* ViewModels */,
+				F211FB232B878035001E1C1C /* Onboarding */,
+				F286D8092A9D3CC400608449 /* HotProspectsApp.swift */,
+				F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */,
+				F29E94282B55842200DFFFFD /* SettingsView.swift */,
 				F2416FE72B17E19D00E8C291 /* Views */,
 				F252E7142B0427100055369F /* Info.plist */,
-				F286D8092A9D3CC400608449 /* HotProspectsApp.swift */,
-				F252E7122B0419B70055369F /* ProspectView_Functions_Properties.swift */,
 				F22D76B22AB8C332004558A9 /* ImageSaver.swift */,
-				F2E68CB82AAF9807001B6741 /* Prospect.swift */,
 				F286D80D2A9D3CC600608449 /* Assets.xcassets */,
+				F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */,
 				F286D80F2A9D3CC600608449 /* Preview Content */,
-				F2BFE1E52AC59F880061F4A3 /* Utilities.swift */,
-				F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */,
-				F222298A2B0801110022F93B /* SwipeActionButton.swift */,
-				F2C429392B16833B00CB794D /* SearchBarView.swift */,
-				F2C6CCF42B45B89100E4B885 /* FloatingButtonView.swift */,
 			);
 			path = HotProspects;
 			sourceTree = "<group>";
@@ -209,8 +283,9 @@
 			);
 			name = HotProspects;
 			packageProductDependencies = (
-				F2A5C4842AB2066D00BF2391 /* CodeScanner */,
-				F252E7162B0566680055369F /* AlertToast */,
+				F28D650B2B61B9D80090CAB4 /* CodeScanner */,
+				F2AC34242B63396E007F964B /* AlertToast */,
+				F2AC34282B6339C7007F964B /* CustomTextField */,
 			);
 			productName = HotProspects;
 			productReference = F286D8062A9D3CC400608449 /* HotProspects.app */;
@@ -285,8 +360,10 @@
 			);
 			mainGroup = F286D7FD2A9D3CC400608449;
 			packageReferences = (
-				F2A5C4832AB2066D00BF2391 /* XCRemoteSwiftPackageReference "CodeScanner" */,
-				F252E7152B0566670055369F /* XCRemoteSwiftPackageReference "AlertToast" */,
+				F2F137F62B619B4A0032029D /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+				F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				F2AC34232B63396E007F964B /* XCRemoteSwiftPackageReference "AlertToast" */,
+				F2AC34272B6339C7007F964B /* XCRemoteSwiftPackageReference "SwiftUI-Custom-TextField" */,
 			);
 			productRefGroup = F286D8072A9D3CC400608449 /* Products */;
 			projectDirPath = "";
@@ -330,21 +407,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2F137F42B5F0A420032029D /* SocialConnections.swift in Sources */,
 				F2E68CB72AAF93EF001B6741 /* MeView.swift in Sources */,
 				F2C429382B0D323200CB794D /* UserandProspectView.swift in Sources */,
+				F29E94292B55842200DFFFFD /* SettingsView.swift in Sources */,
 				F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */,
 				F2BFE1E82AC759F60061F4A3 /* ItemRowView.swift in Sources */,
 				F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */,
 				F22654D42AE2FBD80033EE24 /* SplashScreenView.swift in Sources */,
-				F252E7132B0419B70055369F /* ProspectView_Functions_Properties.swift in Sources */,
+				F252E7132B0419B70055369F /* ProspectViewExtension.swift in Sources */,
 				F2E68CB52AAF93DA001B6741 /* ProspectsView.swift in Sources */,
 				F2A72CE92B2A528E0023C478 /* TextFeildWithToggle.swift in Sources */,
+				F283C1062B561CC900F0966B /* OnboardingUserInfoEntry.swift in Sources */,
 				F25890C02AE6FE7C00D61019 /* EditProspectDetailsView.swift in Sources */,
 				F2BFE1EA2AC75AE50061F4A3 /* ReminderView.swift in Sources */,
 				F2C6CCF52B45B89100E4B885 /* FloatingButtonView.swift in Sources */,
+				F21F01242B86A526004EF482 /* ProspectEventViewModel.swift in Sources */,
+				F2AC342B2B66ECED007F964B /* OAuthViewModel.swift in Sources */,
+				F21F01222B86A455004EF482 /* ProspectViewModel.swift in Sources */,
+				F2F137EF2B5EBC200032029D /* FirstWelcomeScreen.swift in Sources */,
+				F2C6CCF72B460A7D00E4B885 /* QRCodeView.swift in Sources */,
 				F286D80C2A9D3CC400608449 /* ContentView.swift in Sources */,
 				F222298D2B0812820022F93B /* CurrentLocationView.swift in Sources */,
-				F222298B2B0801110022F93B /* SwipeActionButton.swift in Sources */,
+				F222298B2B0801110022F93B /* SwipeActionButtons.swift in Sources */,
 				F2BFE1E62AC59F880061F4A3 /* Utilities.swift in Sources */,
 				F286D80A2A9D3CC400608449 /* HotProspectsApp.swift in Sources */,
 				F2C4293A2B16833B00CB794D /* SearchBarView.swift in Sources */,
@@ -691,7 +776,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F252E7152B0566670055369F /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+		F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		F2AC34232B63396E007F964B /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
 			requirement = {
@@ -699,9 +792,17 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		F2A5C4832AB2066D00BF2391 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+		F2AC34272B6339C7007F964B /* XCRemoteSwiftPackageReference "SwiftUI-Custom-TextField" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			repositoryURL = "https://github.com/esatgozcu/SwiftUI-Custom-TextField";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		F2F137F62B619B4A0032029D /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
@@ -710,15 +811,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F252E7162B0566680055369F /* AlertToast */ = {
+		F28D650B2B61B9D80090CAB4 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F252E7152B0566670055369F /* XCRemoteSwiftPackageReference "AlertToast" */;
+			package = F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+		F2AC34242B63396E007F964B /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2AC34232B63396E007F964B /* XCRemoteSwiftPackageReference "AlertToast" */;
 			productName = AlertToast;
 		};
-		F2A5C4842AB2066D00BF2391 /* CodeScanner */ = {
+		F2AC34282B6339C7007F964B /* CustomTextField */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F2A5C4832AB2066D00BF2391 /* XCRemoteSwiftPackageReference "CodeScanner" */;
-			productName = CodeScanner;
+			package = F2AC34272B6339C7007F964B /* XCRemoteSwiftPackageReference "SwiftUI-Custom-TextField" */;
+			productName = CustomTextField;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

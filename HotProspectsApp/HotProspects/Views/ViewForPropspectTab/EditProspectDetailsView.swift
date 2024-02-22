@@ -19,21 +19,23 @@ struct EditProspectDetailsView: View {
     @EnvironmentObject var eventLocation: EventLocation //seeign the current event
     @EnvironmentObject var prospects: Prospects
     
+    /// The text for the location feild
     @State  var locationText: String = ""
     
+    @State var prospectNotesText: String = ""
     
     var body: some View {
         NavigationView {
             Form {
+                
+                
                 //TODO: Add spacing between form items and also between section header?
-                Section(header: Text("Update Prospect info")) {
+                Section(header: Text("Update \(prospect.name)'s contact information")) {
                     TextField(" Name", text: $prospect.name)
                     TextField("Email Address", text: $prospect.emailAddress)
                     TextField("Phone Number", text: $prospect.phoneNumber)
                 }
-                
-                
-                
+      
                 //section ehre for updating location met
                 Section {
                     TextField("Location or Event Where You Met This Prospect", text: $locationText)
@@ -41,11 +43,17 @@ struct EditProspectDetailsView: View {
                     Text("Location Where You Met This Prospect")
                 }
                 
+                Section {
+                    TextEditor(text: $prospectNotesText)
+                        .frame(width: 200,height: 300)
+                } header: {
+                    Text("Notes about \(prospect.name)")
+                }
                 
             }
             .onAppear {
                 
-                loadProspectLocation()
+                setProspectLocationandNotesFromEnvironment()
                 print(prospect.locationMet)
                 
             }
@@ -66,6 +74,10 @@ struct EditProspectDetailsView: View {
                         prospect.locationMet = locationText
                         prospects.addLocationMet(prospect)
                         
+                        prospect.prospectNotes = prospectNotesText
+                        prospects.addNotesForProspect(prospect)
+                        
+                        
                         //save all the updated details in the prospect
                         prospects.updateProspectDetails(prospect)
                         dismiss()
@@ -79,17 +91,17 @@ struct EditProspectDetailsView: View {
             
         }
     }
-    
-    /// initialize state variables with values of `prospect` object
-    /// - Parameter prospect: The prospect that the user selects to edit their information
-    
-   
-    func loadProspectLocation() {
+
+    /// sets the `locationText` and `prospectNotesText` feild with the value from the envionment.
+    ///
+    /// This fucntion is run when `onAppear` is called
+    func setProspectLocationandNotesFromEnvironment() {
         if(prospect.locationMet == "") {
             locationText = eventLocation.currentEventOfUser
         } else {
             locationText = prospect.locationMet
         }
+        prospectNotesText = prospect.prospectNotes
     }
 }
 

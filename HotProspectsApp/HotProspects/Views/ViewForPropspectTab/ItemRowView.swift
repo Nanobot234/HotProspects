@@ -9,29 +9,33 @@ import SwiftUI
 
 
 struct ItemRow: View {
-    
-
-    
+  
+    /// indentifies each `ItemRow` object. Used to identify objects that the user has selected to be deleted.
     var id =  UUID()
- 
+    
     @EnvironmentObject var prospects: Prospects
     @EnvironmentObject var eventLocation: EventLocation
     
     @State var prospect: Prospect
+    
     @State private var showReminder: Bool = false
     @State private var showDeleteAlert: Bool = false
-    
-    let filter: ProspectsView.FilterType
-    @Binding var toast: Bool
     @State var showreminderSheet = false
     
+    ///Determine whether or not to display toast. The toast is defined in  `ProspectView`
+    @Binding var toast: Bool
     
+    
+    let filter: ProspectsView.FilterType
+
     var body: some View {
         
+        //Displays text detailing the date and location a user meets a prospect.
         VStack(alignment: .center, spacing: 20) {
             HStack {
                 
-                if(filter == .none) {
+                // adds a contacted or uncontacted icon if the filter type is et to view all Prospects.
+                if(filter == .all) {
                     Image(systemName: prospect.isContacted ? "person.crop.circle.fill.badge.checkmark":"person.crop.circle.badge.xmark")
                         .font(.system(size:24))
                         .foregroundColor(prospect.isContacted ? Color.green: Color.red)
@@ -41,13 +45,15 @@ struct ItemRow: View {
                     Text(prospect.name)
                         .font(.system(size:25,weight: .bold))
                     
-                    Text(prospect.locationMet != "" ? "Met At " + prospect.locationMet + "on \(prospect.currentDate.formatted())":"No Event Added")
+                    let prospectString = "Met At: \(prospect.locationMet)\nDate: \(extractDate(from: prospect.currentDate))\nTime: \(extractTime(from: prospect.currentDate))"
+                    Text(prospect.locationMet != "" ? prospectString: "No Location Added\n Date: \(extractDate(from: prospect.currentDate)) \nTime: \(extractTime(from: prospect.currentDate))")
                         .font(.system(size: 20))
+                    
                 }
                 
                 Spacer()
                 
-                if(filter == .none || filter == .uncontacted) {
+                if(filter == .all || filter == .uncontacted) {
                     Image(systemName: "bell")
                         .foregroundColor(.blue)
                         .font(.system(size: 25))
@@ -60,16 +66,17 @@ struct ItemRow: View {
             
         }
         .onAppear {
-          
-            //If the user is going to an event, save the prospects 
+            
+            //if the user has stated that they are attending an event, then set the location the user meets the prospect to the event they are attending
             if(eventLocation.currentEventOfUser != "" && prospect.locationMet == "") {
                 
-                prospect.locationMet = eventLocation.currentEventOfUser //this doesnt save to the object array? or more li
+                prospect.locationMet = eventLocation.currentEventOfUser
+                  
                 print("Location of user matching global", prospect.locationMet)
                 prospects.addLocationMet(prospect)
-            } else if(prospect.locationMet != "") {
-                return
             }
+            else if(prospect.locationMet != "") { return}
+            
             else {
                 prospect.locationMet = eventLocation.currentEventMetProspect
                 prospects.addLocationMet(prospect)
@@ -89,7 +96,6 @@ struct ItemRow: View {
             Button("Yes", role: .destructive) {
                 prospects.remove(prospect)
             }
-            
             
         } message: {
             Text("Are you sure you want to delete this prospect")
@@ -116,27 +122,37 @@ struct ItemRow: View {
                 showDeleteAlert = true
             }
             .tint(.red)
-            
-            
+  
             SwipeActionButtons.addProspectToContactButton {
                 
                 saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet) { result in
-             
+                    
                     if(result){
                         toast = true
                     }
                 }
-                
-                
+ 
             }
             .tint(.cyan)
-        
         }
         //create here!
     }
     
+    /// Sets the location the user meets the prospect to the current event the user is attending
     func updateProspectLocation() {
         prospect.locationMet = eventLocation.currentEventMetProspect
+    }
+    
+    func extractDate(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
+    func extractTime(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.string(from: date)
     }
     
     

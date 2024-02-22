@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FloatingButtonView: View {
+    
+    @Binding var showScanner:Bool
     var body: some View {
                     // Your main content here
                     // Example background
@@ -21,27 +23,27 @@ struct FloatingButtonView: View {
                             Button(action: {
                                 // Add your FAB action here
                                 // This is a placeholder action
-                                print("FAB tapped")
+                                showScanner = true
                             }) {
-                                Image(systemName: "plus.circle.fill")
+                                Image(systemName: "qrcode.viewfinder")
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .foregroundColor(.white)
-                                    .background(Color.green)
+                                    .background(Color.blue)
                                     .clipShape(Circle())
                             }
                             .padding(20)
                         }
                     }
-                    .padding(.bottom,60)
+                    .padding(.bottom,30)
                 
                
     }
 }
 
-struct FloatingButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        FloatingButtonView()
-            .environmentObject(EventLocation())
-    }
-}
+//struct FloatingButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FloatingButtonView(showScanner: $true)
+//            .environmentObject(EventLocation())
+//    }
+//}

@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 
+
 class Utilties {
     
-
-        
+  
+    
         static func addContactNotificationReminder(for prospect: Prospect, notifyDate: Date) {
             //get notification center,
             let center = UNUserNotificationCenter.current()
@@ -56,5 +57,56 @@ class Utilties {
                 }
             }
         }
+ 
     
+   static func adjustDetailsArray(details: [String]) -> [String] {
+ 
+        //completion: @escaping (Bool) -> Void
+        var contactDetails = details
+        let lengthOfArray = contactDetails.count
+        //first check if element at positon 1 is a valid email,
+        
+        //TODO: Need     to examine the array, element, and check if the number is less than or equal to
+        guard lengthOfArray >= 2 else {return contactDetails}
+        if(isValidContactPoint(details[1], validationType: "email") == false){ //change here!
+                    contactDetails.insert("", at: 1) //insert empty string since this should be there but isnt
+                }
+        
+        guard lengthOfArray >= 3 else {return contactDetails}
+        if(isValidContactPoint(details[2], validationType: "phoneNumber") == false){
+                    contactDetails.insert("", at: 2)
+        }
+        
+        //other contact info will be here!!!
+ 
+        return contactDetails
+                //then check for phone
+    }
+    
+   static func isValidContactPoint(_ inputString: String,validationType: String) -> Bool {
+        // Regular expression pattern for a simple email validation
+        switch validationType {
+        case "email":
+            let emailRegex = #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#
+            let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+            return emailPredicate.evaluate(with: inputString)
+        case "phoneNumber":
+            let phoneRegex = #"^\d{10}$"#
+            let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+            return phonePredicate.evaluate(with: inputString)
+        default:
+            return true
+            
+        }
+    }
+    
+    //Linkedin Auth function calls
+    
+//    func LinkedInAuth(_ serviceParameters: [String: String]) {
+//
+//
+//
+//
+//
+//    }
 }

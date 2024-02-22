@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreImage.CIFilterBuiltins
+import PhotosUI
 
 struct MeView: View {
     
@@ -16,15 +17,20 @@ struct MeView: View {
     @State private var emailAddress = ""
     @State private var phoneNumber = ""
     @State private var contactPoints = [Binding<String>]()
+    
+    @EnvironmentObject var eventLocation: EventLocation
         
     @State private var contactPointsInitialized: Bool = false //continue!
   //   @State var copyOfContacts = [String]()
-    @State private var qrCode = UIImage()
+    @State private var qrCode: UIImage? = UIImage()
     @State var emailWasToggled: Bool = true //toggled on initially
     @State var phoneNumWasToggled: Bool = true
     @State var indexToExclude:Int = 30
     @State var indexToInclude:Int = 30
-    
+    @State var showingQRCodeSheet = false
+    /// Alerts if the user has made an error in contact info.
+    @State var errorInEmail = false
+    @State var errorinPhoneNum = false
     let context = CIContext()
     
     ///Generate the QR image
@@ -38,7 +44,9 @@ struct MeView: View {
     var body: some View {
         NavigationView {
             Form {
-                    
+                
+                CurrentLocationView() // textFeild and button to change the current event of the user.
+      
                     Section {
                         TextField("Name", text: $name)
                             .textContentType(.name)
@@ -51,68 +59,43 @@ struct MeView: View {
                     //Sections with header and footer
                     
                     Section {
-                        TextFeildWithToggle(placeholder: "Email Address",textType: .emailAddress, text: $emailAddress, contactPoints: $contactPoints, feildWasToggled: $emailWasToggled, updateQrCode: updateCode)
+                        TextFeildWithToggle(placeholder: "Email Address",textType: .emailAddress, text: $emailAddress, contactPoints: $contactPoints, feildWasToggled: $emailWasToggled, updateQrCode: updateCode, errorPresent: $errorInEmail)
                     } header: {
                         Text("Email Address")
                     } footer: {
-                        let statusMessage = emailWasToggled == true ? "Sharing Active" : "Not Sharing"
-                        VStack {
-                            Text("Status: " + statusMessage)
-                                .font(.title3)
                             Text(emailWasToggled == true ? "Prospects  can now see your email address when they scan your QR code" : "Prospects will not see your email address when they scan your QR code")
-                        }
+                                .font(.title2)
+                        
                     }
                     .headerProminence(.increased)
                     
                     Section {
-                        TextFeildWithToggle(placeholder: "Phone Number",textType: .telephoneNumber, text: $phoneNumber, contactPoints: $contactPoints, feildWasToggled: $phoneNumWasToggled, updateQrCode: updateCode)
+                        TextFeildWithToggle(placeholder: "Phone Number",textType: .telephoneNumber, text: $phoneNumber, contactPoints: $contactPoints, feildWasToggled: $phoneNumWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
                     } header: {
                         Text("Phone Number")
                     } footer: {
-                        let statusMessage = phoneNumWasToggled == true ? "Sharing Active" : "Not Sharing"
-                        VStack(alignment: .leading) {
-                            Text("Status: " + statusMessage)
-                                .font(.title3)
                             Text(phoneNumWasToggled == true ? "Prospects  can now see your phone number when they scan your QR code" : "Prospects will not see your phone number  when they scan your QR code")
+                                .font(.title2)
                         }
-                    }
+                    
+                    .headerProminence(.increased)
+                
+                //Linkedin
+                //will haave to make a textFeild with first text, part of url, then more
                 
                 
                     //ok so when finished editing text view, and change toggle want to which toggle then exclude it
-                    
-                  
-               
-                
+
                 //TODO: look into linkedin API, getting linkedin username
                 // TODO: possibly other socials as well!
-//                Section {
-//                    (TextField)
-//                }
-                Section(header: Text("My QR Code").bold()) {
-                    HStack {
-                        Image(uiImage: qrCode)
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 200)
-                            .contextMenu {
-                                Button {
-                                    
-                                    let imageSaver = ImageSaver()
-                                    imageSaver.writeToPhotoAlbum(image: qrCode)
-                                } label: {
-                                    Label("Save to Photos", systemImage: "square.and.arrow.down")
-                                }
-                            }
-                        
-                        Image(systemName: "square.and.arrow.down")
-                    }
-                }
-                
-                CurrentLocationView()
+          
          
             }
-            .navigationTitle("My Info")
+            .background(
+                Color.blue.opacity(1.0).blur(radius: showingQRCodeSheet ? 2.0:0)
+            )
+            
+                        .navigationTitle("My Info")
             .onAppear {
                 
                 updateCode()
@@ -121,7 +104,6 @@ struct MeView: View {
                     contactPoints = [$name,$emailAddress,$phoneNumber]
                     print(contactPoints.count)
                 }
-                
                 contactPointsInitialized = true
                 
                 name = UserDefaults.standard.string(forKey: "users_name") ?? ""
@@ -129,23 +111,25 @@ struct MeView: View {
                 phoneNumber = UserDefaults.standard.string(forKey:"users_phone") ?? ""
             }
             
+            //sheet for the QR oe
+            .sheet(isPresented: $showingQRCodeSheet) {
+                QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled)
+                    .presentationDetents([.fraction(0.7)])
+            }
             
-//            .onChange(of: indexToExclude, perform: {newIndex in
-//                //add to excluded array,
-//
-//                let target = contactPoints[newIndex]
-//           //     copyOfContacts[newIndex] = target
-//                contactPoints[newIndex] = ""
-//            })
-//            .onChange(of: indexToInclude, perform: { newIndex in
-//              //  contactPoints[newIndex] = copyOfContacts[newIndex]
-//                //here run
-//
-//            })
-//            .onChange(of: contactPoints, perform: { _ in
-//                updateCode() //updates code when any of its elements cahnges
-//            })
-            //TODO: When array changes, have condition to update the code
+            .sheet(isPresented: $eventLocation.changeEvent) {
+                UserAndProspectLocationView(addReasonMessage:"userLocationUpdate")
+                    .presentationDetents([.fraction(0.5 )])
+            }
+            
+            .toolbar {
+                
+                toolbarButton("My QR Code", systemImage: "") {
+                    showingQRCodeSheet = true
+                }
+            }
+            
+            //when name state variable changes,save the name to local storage and update the QRCode
             .onChange(of: name, perform: { newName in
                // contactPoints[0].wrappedValue = newName
                 UserDefaults.standard.set(newName, forKey: "users_name")
@@ -153,20 +137,33 @@ struct MeView: View {
                 
                 
             })
+            //when emailAddress state variable changes,save the name to local storage and update the QRCode
             .onChange(of: emailAddress, perform: { newEmail in
                 UserDefaults.standard.set(newEmail, forKey: "users_email")
-                print("Saved email now" + UserDefaults.standard.string(forKey: "users_email")!)
                 updateCode()
                 
             })
+            
+            //when phone Number state variable changes,save the name to local storage and update the QRCode
             .onChange(of: phoneNumber, perform: { newPhone in
                 UserDefaults.standard.set(newPhone, forKey: "users_phone")
                 updateCode()
             })
+            
+            .onChange(of: errorInEmail, perform: { _ in updateCode()
+                print("Error present in email \(errorInEmail)")
+            })
+            
+            .onChange(of: errorinPhoneNum, perform: { _ in updateCode()
+                print("Error present in phone number \(errorinPhoneNum)")
+            })
+        
             .onDisappear(
                 perform: saveUserInfo
             )
         }
+        
+
     }
     
     /// updates the  generated QR code image based on the users name, email, and phoneNumber.
@@ -174,17 +171,22 @@ struct MeView: View {
     /// THe qrCode image is generated by calling the `generateCode` method. The view constanly calls this function as the name , email, and address parametrs change
     func updateCode()
     {
+        
+        //If there is an error in the contact Detailss then set the QRcode to nil
+        guard errorInEmail == false && errorinPhoneNum == false else {
+            qrCode = nil
+            return
+        }
+
         var QRString = ""
             for index in 0..<contactPoints.count {
                     QRString.append(contactPoints[index].wrappedValue + "\n")
             }
  
         qrCode = generateQRCode(from: QRString)
-
     }
     
-  
-   
+
     
     func saveUserInfo() {
         UserDefaults.standard.set(name, forKey: "users_name")
@@ -201,17 +203,20 @@ struct MeView: View {
             if let outputImage = filter.outputImage {
                 if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
                     qrCode = UIImage(cgImage: cgimg) //cashing it to be saved
-                    return qrCode
+                    return qrCode!
                 }
             }
 
             return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
+    
+    
 }
 
 struct MeView_Previews: PreviewProvider {
     static var previews: some View {
         MeView()
+            .environmentObject(EventLocation())
     }
 }
 

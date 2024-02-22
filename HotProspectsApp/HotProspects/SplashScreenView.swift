@@ -16,7 +16,7 @@ struct SplashScreenView: View {
             if(isActive) {
                 ContentView()
             } else {
-                Image("LocationChatLogo")
+                Image("AppIcon")
                     .resizable()
                     .frame(width: 300, height: 300)
                 Spacer()

@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+//import OAuthSwift
 
 @main
 struct HotProspectsApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
+                .onOpenURL { url in
+                    
+
+                    }
+                }
         }
     }
-}
+

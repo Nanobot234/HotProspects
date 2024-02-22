@@ -1,83 +1,11 @@
 //
-//  Prospect.swift
+//  ProspectViewModel.swift
 //  HotProspects
 //
-//  Created by Nana Bonsu on 9/11/23.
+//  Created by Nana Bonsu on 2/21/24.
 //
 
-import SwiftUI
-
-
-///Defines the properties of a Prospect.
-///
-///In the app, a Propsect...
-class Prospect: Identifiable, Codable, Equatable, Hashable  {
-  
-    
-     static let example: Prospect = Prospect()
-     
-    
-    var id = UUID()
-    var name = "Anonymous"
-    var emailAddress = ""
-    var phoneNumber = ""
-    
-    
-    fileprivate(set) var isContacted = false //, fileprivate(set) this means that this property can only be written from the current file, but read elsewhere. SO cant change this isContacted variable in a rough, or unintended way!
-    
-    ///The place or event where the person met his contact
-    var locationMet = ""
-    var currentDate = Date()
-
-    
-    var reminderToggle = false
-     
-     init() {}
-     
-     init(name: String, emailAddress: String, phoneNumber: String) {
-         self.name = name
-         self.emailAddress = emailAddress
-         self.phoneNumber = phoneNumber
-         
-     }
-    
-    static func == (lhs: Prospect, rhs: Prospect) -> Bool {
-        if(lhs.name == rhs.name && lhs.emailAddress == rhs.emailAddress && lhs.phoneNumber == rhs.phoneNumber) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func hash(into hasher: inout Hasher) {
-           hasher.combine(id)
-           
-       }
-     
-  }
-
-@MainActor class EventLocation: ObservableObject {
-    
-    
-    @Published var currentEventOfUser: String = "" {
-        didSet {
-            UserDefaults.standard.set(currentEventOfUser,forKey: "usersLocation")
-        }
-        
-    }
-    
-    @Published var changeEvent: Bool = false
-    @Published var currentEventMetProspect: String = ""
-    
- 
-    func loadFromUserDefaults() {
-        if let value = UserDefaults.standard.string(forKey: "usersLocation") {
-            self.currentEventOfUser = value
-        }
-    }
-}
-
-
+import Foundation
 
 
 @MainActor class Prospects: ObservableObject {
@@ -125,10 +53,7 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
         save()
     }
     
-    
-        
-    /// toggle the `isContacted` boolean of a prospect.
-    ///
+
     /// before the boolean value is changed, .....(finish here) but will perfrom objectWillChange.send which will tell the view heirarchy somethign s being changed and refresh everything
     func toggle(_ prospect: Prospect) {
         objectWillChange.send()
@@ -142,12 +67,24 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
         
     }
     
-    //TODO: Likely need to change the name of this function
+    
+    /// Sets the location that the user meets a particular prospect
+    /// - Parameter prospect: the prospect whose location needs to be updated
+    ///
+    /// The function finds the propsect in the people's array whose id matches the prospect passed in the function. Then it sets the `locationMet` variable to that prospects `LocationMet`. Before that it notifiies all views that watch this object that the array is about to change.
     func addLocationMet(_ prospect:Prospect) {
         objectWillChange.send()
         people.first(where: {$0.id == prospect.id})!.locationMet = prospect.locationMet //this updates the location of the prospect
         save()
     }
+    
+    //func add notes here
+    func addNotesForProspect(_ prospect: Prospect) {
+        objectWillChange.send()
+        people.first(where: {$0.id ==  prospect.id})!.prospectNotes = prospect.prospectNotes
+        save()
+    }
+
     
     //maybe in here,actually update the prospect heres info
     func updateProspectDetails(_ prospect:Prospect) {
@@ -163,9 +100,5 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
         save()
       
     }
-    
-    
-    
-    
-    
+
 }

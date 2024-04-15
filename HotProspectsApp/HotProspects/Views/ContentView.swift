@@ -28,6 +28,8 @@ struct ContentView: View {
             ProspectsView()
                 .tabItem {
                     Label("All Prospects", systemImage: "person.3")
+                } .onTapGesture {
+                    self.hideKeyBoard()
                 }
             
             MeView()
@@ -42,8 +44,7 @@ struct ContentView: View {
         }
         .environmentObject(prospects)
         .environmentObject(eventLocation)
-        .onAppear {
-            
+        .onAppear {  
             eventLocation.loadFromUserDefaults()
         }
        

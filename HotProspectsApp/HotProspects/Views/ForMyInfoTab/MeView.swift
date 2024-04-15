@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 import PhotosUI
+import BetterSafariView
+import Supabase
 
 struct MeView: View {
     
@@ -32,14 +34,34 @@ struct MeView: View {
     @State var errorInEmail = false
     @State var errorinPhoneNum = false
     let context = CIContext()
+    @State private var startingWebAuth = false
     
+    @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     ///Generate the QR image
     let filter = CIFilter.qrCodeGenerator()
+    let LinkedInAuthURL = "https://www.linkedin.com/oauth/v2/authorization"
+    let callBackURLSceme = "hotprospects"
+    let clientID = "78cymgerbhr6qo"
+    let redirectURI = "https://vvooyepqemtgjzktpalv.supabase.co/auth/v1/callback"
     
+    @State var providerAuthURL =  URL(string: "")
+    @State var providerURLSring = ""
     
-    init() {
-       
+    var completeauthorizationURL:URL {
+        let authorizationURLString = "https://www.linkedin.com/oauth/v2/authorization"
+         //in developer portal!!
+        let scope = "openid%20profile%20email"
+        
+         let authorizationURL = URL(string: "\(authorizationURLString)?response_type=code&client_id=\(clientID)&redirect_uri=\(redirectURI)&scope=\(scope)")!
+        
+        return authorizationURL
     }
+    
+    
+    let client = SupabaseClient(supabaseURL: URL(string: "https://vvooyepqemtgjzktpalv.supabase.co")!, supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2b295ZXBxZW10Z2p6a3RwYWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzOTkyOTEsImV4cCI6MjAyNjk3NTI5MX0.8CkiZo0Zq5OLq8YWLAmGk3qSh8newTftqtBwadW8mCM")
+
+    
+    
 //have a button that basically is activated when something is toggled, then will run the code conditionll
     var body: some View {
         NavigationView {
@@ -82,6 +104,57 @@ struct MeView: View {
                 
                 //Linkedin
                 //will haave to make a textFeild with first text, part of url, then more
+        
+             
+                    Button("Connect You Linkedin") {
+                        startingWebAuth = true
+                        print("Starting webauth now \(startingWebAuth)")
+                        Task {
+                            
+                            
+                            // providerAuthURL = await getURL()
+                            
+                      
+//                            let items = URLComponents(string: urlWithToken.absoluteString)?.queryItems
+//
+//                            let code = items?.first(where: {$0.name == "code"})?.value
+//
+                        }
+                        
+//                        Task {
+//                            do {
+//                                let urlWithToken = try await webAuthenticationSession.authenticate(using: completeauthorizationURL, callbackURLScheme: callBackURLSceme, preferredBrowserSession: )
+//
+//                                let items = URLComponents(string: urlWithToken.absoluteString)?.queryItems
+//                                                           let code = items?.first(where: {$0.name == "code"})?.value
+//
+//                            }
+//                        }
+                        
+                    }
+                    .webAuthenticationSession(isPresented: $startingWebAuth) {
+                        
+                        let urlVal = UserDefaults.standard.string(forKey: "oauthURL")!
+                        return WebAuthenticationSession(url: URL(string: urlVal)!, callbackURLScheme: callBackURLSceme) { result in
+                            switch result {
+
+                            case .success(let result):
+                                print("Got here")
+                                let items = URLComponents(string: result.absoluteString)?.queryItems
+                                let code = items?.first(where: {$0.name == "code"})?.value
+                                
+                                exchangeAuthorizationCodeForAccessToken(code!)
+                            case .failure(let err):
+
+                                print(err.localizedDescription)
+
+                            }
+
+
+
+                        }
+                        .prefersEphemeralWebBrowserSession(false)
+                    }
                 
                 
                     //ok so when finished editing text view, and change toggle want to which toggle then exclude it
@@ -109,7 +182,10 @@ struct MeView: View {
                 name = UserDefaults.standard.string(forKey: "users_name") ?? ""
                 emailAddress = UserDefaults.standard.string(forKey: "users_email") ?? ""
                 phoneNumber = UserDefaults.standard.string(forKey:"users_phone") ?? ""
+                
+                
             }
+            
             
             //sheet for the QR oe
             .sheet(isPresented: $showingQRCodeSheet) {
@@ -128,7 +204,6 @@ struct MeView: View {
                     showingQRCodeSheet = true
                 }
             }
-            
             //when name state variable changes,save the name to local storage and update the QRCode
             .onChange(of: name, perform: { newName in
                // contactPoints[0].wrappedValue = newName
@@ -162,6 +237,21 @@ struct MeView: View {
                 perform: saveUserInfo
             )
         }
+        .onAppear {
+            Task {
+                do {
+                    providerAuthURL = try await client.auth.getOAuthSignInURL(provider: .linkedin)
+                    
+                    providerURLSring = providerAuthURL!.absoluteString
+                    
+                    UserDefaults.standard.setValue(providerURLSring, forKey: "oauthURL")
+                    
+                    print("Provider URL \(providerURLSring)")
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            }
+        }
         
 
     }
@@ -194,6 +284,22 @@ struct MeView: View {
         UserDefaults.standard.set(phoneNumber, forKey: "users_phone")
     }
     
+    func getURL() async -> URL {
+ 
+            do {
+                let url = try await client.auth.getOAuthSignInURL(provider: .linkedin)
+                print("Thsi is the url + \(url.absoluteString)")
+                return url
+            } catch {
+                // Handle error
+                print("Error with oauth?: \(error.localizedDescription)")
+                // Return a default URL or throw the error
+                
+            }
+        
+        return URL(string: "")!
+    }
+    
     /// Generates the QR code
     /// - Parameter string: the user's contact information
     /// - Returns: a `UIImage` that represents the QR code or an empty `UIImage` if there is an error
@@ -208,6 +314,53 @@ struct MeView: View {
             }
 
             return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
+    func exchangeAuthorizationCodeForAccessToken(_ code: String) {
+        
+        print("Gotten here")
+        let tokenURLString = "https://www.linkedin.com/oauth/v2/accessToken"
+       
+        let clientSecret = "s9XVhLI0VqJbHogb"
+
+        // Construct the request body
+        let requestBody = "grant_type=authorization_code&code=\(code)&redirect_uri=\(redirectURI)&client_id=\(clientID)&client_secret=\(clientSecret)"
+
+        // Make a POST request to the token endpoint
+        // Handle the response to obtain the access token
+        
+        let url = URL(string: tokenURLString)!
+           var request = URLRequest(url: url)
+           request.httpMethod = "POST"
+           request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+           request.httpBody = requestBody.data(using: .utf8)
+           
+           // Perform the request
+           let task = URLSession.shared.dataTask(with: request) { data, response, error in
+               guard let data = data, error == nil else {
+                   print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                   return
+               }
+               
+               // Parse the response data
+               if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                   if let accessToken = json["access_token"] as? String {
+                       // Access token obtained successfully
+                       print(" My Access Token: \(accessToken)")
+                       // Use the access token for further API requests
+                   } else if let errorDescription = json["error_description"] as? String {
+                       // Error response from LinkedIn
+                       print("Error: \(errorDescription)")
+                   } else {
+                       // Unexpected response format
+                       print("Unexpected response format")
+                   }
+               } else {
+                   print("Failed to parse response")
+               }
+           }
+           
+           task.resume()
     }
     
     

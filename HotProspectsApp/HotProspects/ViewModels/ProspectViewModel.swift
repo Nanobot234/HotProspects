@@ -63,8 +63,16 @@ import Foundation
     
     func reminderToggle(_ prospect:Prospect) {
         objectWillChange.send()
-        people.first(where: {$0.id == prospect.id})!.reminderToggle.toggle()
-        
+        people.first(where: {$0.id == prospect.id})!.isReminderSet.toggle()
+        save()
+    }
+    
+    /// Saves the reminder date string for a particular prospect.
+    /// - Parameter prospect: the prospect to set the reminder date string for
+    func saveReminderForProspect(_ prospect: Prospect) {
+        objectWillChange.send()
+        people.first(where: {$0.id == prospect.id})!.lastReminderDate = prospect.lastReminderDate
+        save()
     }
     
     

@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "discord-svgrepo-com 1.svg",
+      "filename" : "checkmark-bell-notification-icon.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "discord-svgrepo-com.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "discord-svgrepo-com 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

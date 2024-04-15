@@ -26,11 +26,14 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
     /// The current date that the user saves the  prospects contact information
     var currentDate = Date()
 
-    /// Toggles the button for the reminder on and off
-    var reminderToggle = false
+    /// Toggles the button for the reminder on and off. The false, or off, state indicated that the user has not set a reminder to contact this prospect. The true state means the user has set one.
+    var isReminderSet = false
     
     /// Notes that the user makes about this prospect
     var prospectNotes = ""
+    
+    ///  The most recent date that a user has scheduled to contact this prospect..
+    var lastReminderDate = ""
      
      init() {}
      

@@ -11,6 +11,7 @@ import Foundation
 @MainActor class EventLocation: ObservableObject {
     
     
+    ///  The event that the user is currently attending. The user can set this event or leave it empty. If they set this event, then every prospect they meet will have this location as the `locationMet` string.
     @Published var currentEventOfUser: String = "" {
         didSet {
             UserDefaults.standard.set(currentEventOfUser,forKey: "usersLocation")
@@ -18,7 +19,10 @@ import Foundation
         
     }
     
+    ///  boolean set when user changes event
     @Published var changeEvent: Bool = false
+    
+
     @Published var currentEventMetProspect: String = ""
     
     /// holds the notes a user writes for a prospect here:

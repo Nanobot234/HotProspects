@@ -12,8 +12,7 @@ import SwiftUI
 
 class Utilties {
     
-  
-    
+
         static func addContactNotificationReminder(for prospect: Prospect, notifyDate: Date) {
             //get notification center,
             let center = UNUserNotificationCenter.current()

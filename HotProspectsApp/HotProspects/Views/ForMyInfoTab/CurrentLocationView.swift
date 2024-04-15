@@ -18,7 +18,7 @@ struct CurrentLocationView: View {
             HStack {
                 Text(eventLocation.currentEventOfUser != "" ? (eventLocation.currentEventOfUser) : "Not Attending An Event")
                     .font(.system(size: 20,design: .rounded))
-                
+                //Give some min length here!!
                 Text("|")
                 //when button is presss will show view that allows user to change location of event they are attending.
                 Button("Update") {

@@ -17,8 +17,8 @@ struct ItemRow: View {
     @EnvironmentObject var eventLocation: EventLocation
     
     @State var prospect: Prospect
-    
-    @State private var showReminder: Bool = false
+    /// boolean to display or hide the sheet enabling a user to change or view scheduling reminders
+    @State private var showReminderView: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State var showreminderSheet = false
     
@@ -53,42 +53,40 @@ struct ItemRow: View {
                 
                 Spacer()
                 
-                if(filter == .all || filter == .uncontacted) {
+                if((filter == .all || filter == .uncontacted) && !prospect.isReminderSet) {
                     Image(systemName: "bell")
                         .foregroundColor(.blue)
                         .font(.system(size: 25))
                         .onTapGesture {
-                            prospects.reminderToggle(prospect)
-                            print(prospect.reminderToggle)
+                                showReminderView = true
+                            print(prospect.isReminderSet)
+                        }
+                } else if prospect.isReminderSet {
+                    Image("checkmark-bell-notification-icon")
+                        .resizable() // Make the image resizable
+                        .aspectRatio(contentMode: .fit) // Maintain aspect ratio
+                        .frame(width: 25, height: 25) // Set the frame size
+                        .foregroundColor(Color.blue)
+                        .onTapGesture {
+                            showReminderView = true
                         }
                 }
+                
+                
             }
             
         }
         .onAppear {
             
             //if the user has stated that they are attending an event, then set the location the user meets the prospect to the event they are attending
-            if(eventLocation.currentEventOfUser != "" && prospect.locationMet == "") {
-                
-                prospect.locationMet = eventLocation.currentEventOfUser
-                  
-                print("Location of user matching global", prospect.locationMet)
-                prospects.addLocationMet(prospect)
-            }
-            else if(prospect.locationMet != "") { return}
-            
-            else {
-                prospect.locationMet = eventLocation.currentEventMetProspect
-                prospects.addLocationMet(prospect)
-                eventLocation.currentEventMetProspect = ""
-            }
+           setProspectDetails()
         }
         
-        .sheet(isPresented: $prospect.reminderToggle) {
-            ReminderView(prospect: prospect)
+        .sheet(isPresented: $showReminderView) {
+            
+            ReminderView(prospect: prospect, showReminderView: $showReminderView)
                 .presentationDetents([.fraction(0.4)])
         }
-        
         .alert("Confirm Deletion", isPresented: $showDeleteAlert) {
             
             Button("Cancel", role:.cancel) {}
@@ -117,7 +115,6 @@ struct ItemRow: View {
                 }
                 .tint(.green)
             }
-            
             SwipeActionButtons.deleteContactButton {
                 showDeleteAlert = true
             }
@@ -155,10 +152,29 @@ struct ItemRow: View {
         return dateFormatter.string(from: date)
     }
     
+    func setProspectDetails() {
+        if(eventLocation.currentEventOfUser != "" && prospect.locationMet == "") {
+            
+            prospect.locationMet = eventLocation.currentEventOfUser
+              
+            print("Location of user matching global", prospect.locationMet)
+            prospects.addLocationMet(prospect)
+        }
+        else if(prospect.locationMet != "") { return}
+        
+        else {
+            prospect.locationMet = eventLocation.currentEventMetProspect
+            prospects.addLocationMet(prospect)
+            eventLocation.currentEventMetProspect = ""
+        }
+    }
+    
     
 }
 //struct ItemRowView_Previews: PreviewProvider {
+//
+//
 //    static var previews: some View {
-//        ItemRow()
+//        ItemRow(prospect: <#Prospect#>, toast: <#Binding<Bool>#>, filter: <#ProspectsView.FilterType#>)
 //    }
 //}

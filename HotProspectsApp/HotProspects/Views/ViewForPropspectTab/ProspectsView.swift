@@ -69,6 +69,8 @@ struct ProspectsView: View {
     // the selected type of the user that is chosen in the control
     @State  var selectedFilter: FilterType = .all
     
+    @State var showNoSearchView = false
+    
     
     /// The styling of the added to contacts alert
     var addToContactsAlertStyle = AlertToast.AlertStyle.style(backgroundColor: Color.white, titleColor: nil, subTitleColor: nil, titleFont: nil, subTitleFont: nil)
@@ -82,13 +84,19 @@ struct ProspectsView: View {
             //The list displays a vertical row of `ItemRow` views.
             ZStack {
                 VStack {
-                    
                     SearchBarView(text: $searchFieldText)
                     
                     //List displays `ItemRow` views vertically in sections. The sections ar  used to visually seperate the views from each other
                     prospectList
-                    
                 }
+                .onChange(of: searchFieldText, perform: { _ in
+                    
+                    if(searchedfilteredProspects.isEmpty){
+                        showNoSearchView = true
+                    } else {
+                        showNoSearchView = false
+                    }
+                })
                 .navigationTitle("Prospects")
                 
                 //
@@ -181,6 +189,7 @@ struct ProspectsView: View {
                     UserAndProspectLocationView(addReasonMessage:"prospectLocation")
                         .presentationDetents([.fraction(0.7)])
                 }
+                .overlay(noSearchResultsView, alignment: .center)
                 
                 //overlays a view on the screen if there are no prospect saved
                 .overlay(viewtoOverlay, alignment: .center)
@@ -195,9 +204,7 @@ struct ProspectsView: View {
             }
         }
         .minimumScaleFactor(0.4)
-        
-        
-        
+ 
     }
     
     /// Defines the list of added Prospects.
@@ -244,6 +251,7 @@ struct ProspectsView: View {
     }
     
     
+ 
     private var editButton: some View {
         Button(action: {
             // Toggle edit mode when the user presses on the button
@@ -255,14 +263,32 @@ struct ProspectsView: View {
     }
     
     
+    /// overlays the view when there are no prospects
     var viewtoOverlay: some View {
         if(prospects.people.isEmpty) {
-            return AnyView(Text("No Prospects Saved")
-                .font(.system(size: 30))
-                .fontWeight(.bold))
+            return AnyView(
+                VStack(spacing:10) {
+                    Text("No Prospects Saved")
+                        .font(.system(size: 30))
+                        .fontWeight(.bold)
+                    Text("Press the \(Image(systemName: "qrcode.viewfinder")) button to scan a Prospect's QR code")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.gray)
+                }
+            )
         } else  {
             return AnyView(EmptyView())
         }
+    }
+    
+    var noSearchResultsView: some View {
+        
+        if showNoSearchView {
+            return AnyView(SearchUnavailableView(searchPhrase: $searchFieldText))
+        } else {
+            return AnyView(EmptyView())
+        }
+        
     }
     
     //here have the QRcode thing for the view!

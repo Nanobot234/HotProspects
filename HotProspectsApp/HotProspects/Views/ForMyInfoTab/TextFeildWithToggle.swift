@@ -82,7 +82,9 @@ struct TextFeildWithToggle: View {
         }
             
         }
-        
+    
+    /// Sets   an error message based on the placeholder type of the view thats being implemented
+    /// 
     func setErrorMessage() {
         switch placeholder {
         case "Email Address":

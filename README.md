@@ -9,16 +9,24 @@ HotProspects is an iOS application that allows users to quickly connect with pro
 
 Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) bootcamp project.
 
+## Architecture
 
+The app follows the Model View ViewModel (MVVM) architectural pattern. Here are the major components
 
-## Features
+**Model**: In this app, Prospect is the model that defines the basic information of a prospect that a user adds. This includes a prospect's name, contact information, the date the user met the prospect and more. The model is located in Prospect. swift
 
-## Generate a custom QR code using a user's name, email, and phone number
+**View**: The primary view of this application is located in the file ProspectsView.swift. This file defines a list that displays the time, date, and location that the user meets all their prospects. Another major view is located in MeView.swift. In this view, the user can update their contact information and personal details
 
-<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/a7335b00-12b2-4e2a-a3c9-9332e2d6770e" alt="Descriptive Alt Text" width="300" height="600">
+**View Model**: The view model defines an array of prospects that the user has saved their information. The view model handles insertions, deletions, and storage of the array. The view model is located in the file called ProspectViewModel.swift. There is also another view model that manages the current event the user attends and shares this data between views. This is located in the file ProspectEventViewModel.swift.
 
-## Scan the QR code of another user to instantly save their contact information and set the event where a user meets a prospect.
-<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/f36cbf90-7fde-4fd6-a5cf-184a78cfc44f" alt="Descriptive Alt Text" width="300" height="600">
+## Major Features
+
+## Generate a custom QR code using a user's information
+
+<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/3f56af55-ef1f-4ac2-8a7d-8d69fb84ac48" alt="Descriptive Alt Text" width="300" height="600">
+
+## Scan the QR code of another user to instantly save their contact information
+<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/46978e77-59fd-4810-b1b7-bf8d933d97c1" alt="QR code save" width="300" height="600">
 
 ## Schedule a reminder to contact a particular prospect. 
 <img src="https://github.com/Nanobot234/HotProspects/assets/16675052/6aeb6892-7665-4b95-8a85-ef5334c2abdd" alt="Descriptive Alt Text" width="300" height="600">
@@ -32,6 +40,11 @@ Original idea based on [Hacking with Swift](https://www.hackingwithswift.com/) b
  ## Credits
 
 Hot Prospects is originally based on a project created by [Paul Hudson](https://twitter.com/twostraws) who writes [free tutorials in Swift and SwiftUI](https://www.hackingwithswift.com/). 
+
+
+
+
+
 
 
 

@@ -9,13 +9,25 @@
 /* Begin PBXBuildFile section */
 		F21F01222B86A455004EF482 /* ProspectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F01212B86A455004EF482 /* ProspectViewModel.swift */; };
 		F21F01242B86A526004EF482 /* ProspectEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */; };
+		F21F94912BB4949D00E1C3B1 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = F21F94902BB4949D00E1C3B1 /* Auth */; };
+		F21F94932BB4949D00E1C3B1 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = F21F94922BB4949D00E1C3B1 /* Functions */; };
+		F21F94952BB4949D00E1C3B1 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = F21F94942BB4949D00E1C3B1 /* PostgREST */; };
+		F21F94972BB4949D00E1C3B1 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = F21F94962BB4949D00E1C3B1 /* Realtime */; };
+		F21F94992BB4949D00E1C3B1 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = F21F94982BB4949D00E1C3B1 /* Storage */; };
+		F21F949B2BB4949D00E1C3B1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = F21F949A2BB4949D00E1C3B1 /* Supabase */; };
+		F21F949D2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F949C2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift */; };
 		F222298B2B0801110022F93B /* SwipeActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222298A2B0801110022F93B /* SwipeActionButtons.swift */; };
 		F222298D2B0812820022F93B /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222298C2B0812820022F93B /* CurrentLocationView.swift */; };
 		F22654D42AE2FBD80033EE24 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */; };
 		F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D76B22AB8C332004558A9 /* ImageSaver.swift */; };
+		F242B3482BB73D610028C619 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F242B3472BB73D610028C619 /* TestView.swift */; };
+		F242B34A2BB744630028C619 /* OAuthSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F242B3492BB744630028C619 /* OAuthSignIn.swift */; };
 		F252E7132B0419B70055369F /* ProspectViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F252E7122B0419B70055369F /* ProspectViewExtension.swift */; };
 		F258466C2AEAF77E00AD2CB9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */; };
 		F25890C02AE6FE7C00D61019 /* EditProspectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */; };
+		F25C2ACA2B97C39200C6BEAB /* SearchUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C2AC92B97C39200C6BEAB /* SearchUnavailableView.swift */; };
+		F25FFAF22B9F95D200BCFD73 /* HotProspectsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F25FFAF12B9F95D200BCFD73 /* HotProspectsConfig.plist */; };
+		F280BC962B8E898800D9B80E /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = F280BC952B8E898800D9B80E /* BetterSafariView */; };
 		F283C1062B561CC900F0966B /* OnboardingUserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */; };
 		F286D80A2A9D3CC400608449 /* HotProspectsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D8092A9D3CC400608449 /* HotProspectsApp.swift */; };
 		F286D80C2A9D3CC400608449 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286D80B2A9D3CC400608449 /* ContentView.swift */; };
@@ -41,7 +53,6 @@
 		F2E68CB72AAF93EF001B6741 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB62AAF93EF001B6741 /* MeView.swift */; };
 		F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB82AAF9807001B6741 /* Prospect.swift */; };
 		F2F137EF2B5EBC200032029D /* FirstWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */; };
-		F2F137F42B5F0A420032029D /* SocialConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F137F32B5F0A420032029D /* SocialConnections.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,14 +75,20 @@
 /* Begin PBXFileReference section */
 		F21F01212B86A455004EF482 /* ProspectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewModel.swift; sourceTree = "<group>"; };
 		F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectEventViewModel.swift; sourceTree = "<group>"; };
+		F21F949C2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginScreen.swift; sourceTree = "<group>"; };
 		F222298A2B0801110022F93B /* SwipeActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionButtons.swift; sourceTree = "<group>"; };
 		F222298C2B0812820022F93B /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		F22D76B22AB8C332004558A9 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		F242B3472BB73D610028C619 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F242B3492BB744630028C619 /* OAuthSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthSignIn.swift; sourceTree = "<group>"; };
 		F252E7122B0419B70055369F /* ProspectViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectViewExtension.swift; sourceTree = "<group>"; };
 		F252E7142B0427100055369F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProspectDetailsView.swift; sourceTree = "<group>"; };
+		F25C2AC92B97C39200C6BEAB /* SearchUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUnavailableView.swift; sourceTree = "<group>"; };
+		F25FFAF12B9F95D200BCFD73 /* HotProspectsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = HotProspectsConfig.plist; path = ../../../../Downloads/HotProspectsConfig.plist; sourceTree = "<group>"; };
+		F25FFB082BA0E96500BCFD73 /* HotProspects.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HotProspects.entitlements; sourceTree = "<group>"; };
 		F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUserInfoEntry.swift; sourceTree = "<group>"; };
 		F286D8062A9D3CC400608449 /* HotProspects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotProspects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F286D8092A9D3CC400608449 /* HotProspectsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProspectsApp.swift; sourceTree = "<group>"; };
@@ -97,7 +114,6 @@
 		F2E68CB62AAF93EF001B6741 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		F2E68CB82AAF9807001B6741 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
 		F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstWelcomeScreen.swift; sourceTree = "<group>"; };
-		F2F137F32B5F0A420032029D /* SocialConnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialConnections.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +121,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21F949B2BB4949D00E1C3B1 /* Supabase in Frameworks */,
+				F21F94932BB4949D00E1C3B1 /* Functions in Frameworks */,
 				F28D650C2B61B9D80090CAB4 /* CodeScanner in Frameworks */,
+				F21F94952BB4949D00E1C3B1 /* PostgREST in Frameworks */,
+				F21F94972BB4949D00E1C3B1 /* Realtime in Frameworks */,
 				F2AC34292B6339C7007F964B /* CustomTextField in Frameworks */,
 				F2AC34252B63396E007F964B /* AlertToast in Frameworks */,
+				F21F94992BB4949D00E1C3B1 /* Storage in Frameworks */,
+				F21F94912BB4949D00E1C3B1 /* Auth in Frameworks */,
+				F280BC962B8E898800D9B80E /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */,
-				F2F137F32B5F0A420032029D /* SocialConnections.swift */,
+				F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */,
+				F21F949C2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -167,6 +191,7 @@
 				F2BFE1E92AC75AE50061F4A3 /* ReminderView.swift */,
 				F25890BF2AE6FE7C00D61019 /* EditProspectDetailsView.swift */,
 				F2C429372B0D323200CB794D /* UserandProspectView.swift */,
+				F25C2AC92B97C39200C6BEAB /* SearchUnavailableView.swift */,
 			);
 			path = ViewForPropspectTab;
 			sourceTree = "<group>";
@@ -209,6 +234,7 @@
 				F286D8192A9D3CC600608449 /* HotProspectsTests */,
 				F286D8232A9D3CC600608449 /* HotProspectsUITests */,
 				F286D8072A9D3CC400608449 /* Products */,
+				F2F2E7812BB34C590094F755 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,18 +251,21 @@
 		F286D8082A9D3CC400608449 /* HotProspects */ = {
 			isa = PBXGroup;
 			children = (
+				F25FFB082BA0E96500BCFD73 /* HotProspects.entitlements */,
+				F286D8092A9D3CC400608449 /* HotProspectsApp.swift */,
+				F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */,
 				F283C0C82B55D19C00F0966B /* Models */,
 				F211FB242B878461001E1C1C /* ViewModels */,
 				F211FB232B878035001E1C1C /* Onboarding */,
-				F286D8092A9D3CC400608449 /* HotProspectsApp.swift */,
-				F22654D32AE2FBD80033EE24 /* SplashScreenView.swift */,
-				F29E94282B55842200DFFFFD /* SettingsView.swift */,
 				F2416FE72B17E19D00E8C291 /* Views */,
 				F252E7142B0427100055369F /* Info.plist */,
+				F25FFAF12B9F95D200BCFD73 /* HotProspectsConfig.plist */,
 				F22D76B22AB8C332004558A9 /* ImageSaver.swift */,
+				F29E94282B55842200DFFFFD /* SettingsView.swift */,
 				F286D80D2A9D3CC600608449 /* Assets.xcassets */,
-				F283C1052B561CC900F0966B /* OnboardingUserInfoEntry.swift */,
 				F286D80F2A9D3CC600608449 /* Preview Content */,
+				F242B3472BB73D610028C619 /* TestView.swift */,
+				F242B3492BB744630028C619 /* OAuthSignIn.swift */,
 			);
 			path = HotProspects;
 			sourceTree = "<group>";
@@ -266,6 +295,13 @@
 			path = HotProspectsUITests;
 			sourceTree = "<group>";
 		};
+		F2F2E7812BB34C590094F755 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -286,6 +322,13 @@
 				F28D650B2B61B9D80090CAB4 /* CodeScanner */,
 				F2AC34242B63396E007F964B /* AlertToast */,
 				F2AC34282B6339C7007F964B /* CustomTextField */,
+				F280BC952B8E898800D9B80E /* BetterSafariView */,
+				F21F94902BB4949D00E1C3B1 /* Auth */,
+				F21F94922BB4949D00E1C3B1 /* Functions */,
+				F21F94942BB4949D00E1C3B1 /* PostgREST */,
+				F21F94962BB4949D00E1C3B1 /* Realtime */,
+				F21F94982BB4949D00E1C3B1 /* Storage */,
+				F21F949A2BB4949D00E1C3B1 /* Supabase */,
 			);
 			productName = HotProspects;
 			productReference = F286D8062A9D3CC400608449 /* HotProspects.app */;
@@ -364,6 +407,8 @@
 				F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				F2AC34232B63396E007F964B /* XCRemoteSwiftPackageReference "AlertToast" */,
 				F2AC34272B6339C7007F964B /* XCRemoteSwiftPackageReference "SwiftUI-Custom-TextField" */,
+				F280BC942B8E898800D9B80E /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+				F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			productRefGroup = F286D8072A9D3CC400608449 /* Products */;
 			projectDirPath = "";
@@ -383,6 +428,7 @@
 			files = (
 				F286D8112A9D3CC600608449 /* Preview Assets.xcassets in Resources */,
 				F286D80E2A9D3CC600608449 /* Assets.xcassets in Resources */,
+				F25FFAF22B9F95D200BCFD73 /* HotProspectsConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,18 +453,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2F137F42B5F0A420032029D /* SocialConnections.swift in Sources */,
 				F2E68CB72AAF93EF001B6741 /* MeView.swift in Sources */,
 				F2C429382B0D323200CB794D /* UserandProspectView.swift in Sources */,
 				F29E94292B55842200DFFFFD /* SettingsView.swift in Sources */,
 				F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */,
 				F2BFE1E82AC759F60061F4A3 /* ItemRowView.swift in Sources */,
+				F242B3482BB73D610028C619 /* TestView.swift in Sources */,
 				F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */,
+				F21F949D2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift in Sources */,
 				F22654D42AE2FBD80033EE24 /* SplashScreenView.swift in Sources */,
 				F252E7132B0419B70055369F /* ProspectViewExtension.swift in Sources */,
 				F2E68CB52AAF93DA001B6741 /* ProspectsView.swift in Sources */,
 				F2A72CE92B2A528E0023C478 /* TextFeildWithToggle.swift in Sources */,
 				F283C1062B561CC900F0966B /* OnboardingUserInfoEntry.swift in Sources */,
+				F242B34A2BB744630028C619 /* OAuthSignIn.swift in Sources */,
 				F25890C02AE6FE7C00D61019 /* EditProspectDetailsView.swift in Sources */,
 				F2BFE1EA2AC75AE50061F4A3 /* ReminderView.swift in Sources */,
 				F2C6CCF52B45B89100E4B885 /* FloatingButtonView.swift in Sources */,
@@ -434,6 +482,7 @@
 				F286D80A2A9D3CC400608449 /* HotProspectsApp.swift in Sources */,
 				F2C4293A2B16833B00CB794D /* SearchBarView.swift in Sources */,
 				F258466C2AEAF77E00AD2CB9 /* ViewExtension.swift in Sources */,
+				F25C2ACA2B97C39200C6BEAB /* SearchUnavailableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +639,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = HotProspects/HotProspects.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -627,6 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = HotProspects/HotProspects.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -776,6 +827,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.5.1;
+			};
+		};
+		F280BC942B8E898800D9B80E /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
@@ -811,6 +878,41 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F21F94902BB4949D00E1C3B1 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		F21F94922BB4949D00E1C3B1 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		F21F94942BB4949D00E1C3B1 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		F21F94962BB4949D00E1C3B1 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		F21F94982BB4949D00E1C3B1 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		F21F949A2BB4949D00E1C3B1 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F21F948F2BB4949D00E1C3B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		F280BC952B8E898800D9B80E /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F280BC942B8E898800D9B80E /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
+		};
 		F28D650B2B61B9D80090CAB4 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F28D650A2B61B9D80090CAB4 /* XCRemoteSwiftPackageReference "CodeScanner" */;

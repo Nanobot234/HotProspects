@@ -59,6 +59,7 @@ struct SettingsView: View {
     }
     
     var appTabDscription: some View {
+        //mored details here
          Text(propectsTabDescription)
     }
 }

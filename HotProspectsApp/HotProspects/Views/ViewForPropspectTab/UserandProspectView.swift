@@ -23,58 +23,57 @@ struct UserAndProspectLocationView: View {
     
   //  var prospect: Prospect
     var body: some View {
-        ScrollView {
+        
+        NavigationView {
             
-            NavigationView {
+            Form {
                 
-                VStack(alignment: .center, spacing: 10) {
-                    
-                    
-                    Text(addReasonMessage == "userLocationUpdate" ? "What Event are You Attending?" : "Prospect Details")
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)       
-                    
-                    //depending on the reason for adding location. bind the text to different variables. Currently set to the ovservableObject variables.
-                    //  userLocationString = eventLocation.currentEventOfUser
-                    
-                    
+                //...
+                Section {
                     TextField("Location", text: addReasonMessage == "userLocationUpdate" ? $userLocationString: $eventLocation.currentEventMetProspect)
-                        .frame(width: 300, height: 150)
+                    
                         .font(.title2)
                         .textInputAutocapitalization(.never)
-                        .multilineTextAlignment(.center)
                         .textFieldStyle(.roundedBorder)
                         .autocorrectionDisabled(true)
-                    
-                    //Scroll view here
-                    if(addReasonMessage == "prospectLocation") {
-                        Section {
-                            TextEditor(text: $eventLocation.newProspectNotes)
-                                .frame(maxWidth:.infinity, maxHeight: .infinity)
-                                .foregroundStyle(.primary)
-                                .padding(.horizontal,20)
-                                .border(.black, width: 0.5)
-                        } header: {
-                            Text("Notes about this Prospect")
-                                
-                        }
+                } header: {
+                    Text(addReasonMessage == "userLocationUpdate" ? "The Location Where Your Meeting Prospects" : "The location Where You Met This Prospect")
+                }
+                
+                
+                
+                if(addReasonMessage == "prospectLocation") {
+                    Section {
+                        TextEditor(text: $eventLocation.newProspectNotes)
+                            .frame(maxWidth:.infinity, maxHeight: .infinity)
+                            .foregroundStyle(.primary)
+                            .padding(.horizontal,20)
+                            .border(.black, width: 0.5)
+                    } header: {
+                        Text("Notes about this Prospect")
+                        
                     }
-                    
                 }
-                .onAppear {
-                    userLocationString = eventLocation.currentEventOfUser
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        toolbarButton("Save", systemImage: "") {
-                            
-                            eventLocation.currentEventOfUser = userLocationString //here puts the current event that the user is into the environment.
-                            dismiss()
-                            
-                        }
+     
+            }
+            .navigationTitle(addReasonMessage == "userLocationUpdate" ? "What Event are You Attending?" : "Prospect Details")
+            .navigationBarTitleDisplayMode(addReasonMessage == "userLocationUpdate" ? .inline : .large)
+   
+            
+            .onAppear {
+                userLocationString = eventLocation.currentEventOfUser
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    toolbarButton("Save", systemImage: "") {
+                        
+                        eventLocation.currentEventOfUser = userLocationString //here puts the current event that the user is into the environment.
+                        dismiss()
+                        
                     }
                 }
             }
+            
             
         }
          
@@ -84,7 +83,7 @@ struct UserAndProspectLocationView: View {
 
 struct UserandProspectView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAndProspectLocationView(addReasonMessage: "userLocationUpdate")
+        UserAndProspectLocationView(addReasonMessage: "prospectLocation")
             .environmentObject(EventLocation())
             
     }

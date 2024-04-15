@@ -27,8 +27,9 @@ struct EditProspectDetailsView: View {
     var body: some View {
         NavigationView {
             Form {
+
                 
-                
+            
                 //TODO: Add spacing between form items and also between section header?
                 Section(header: Text("Update \(prospect.name)'s contact information")) {
                     TextField(" Name", text: $prospect.name)

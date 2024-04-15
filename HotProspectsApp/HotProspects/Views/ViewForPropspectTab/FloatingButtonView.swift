@@ -25,12 +25,19 @@ struct FloatingButtonView: View {
                                 // This is a placeholder action
                                 showScanner = true
                             }) {
-                                Image(systemName: "qrcode.viewfinder")
+                                Image(systemName: "")
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .foregroundColor(.white)
                                     .background(Color.blue)
                                     .clipShape(Circle())
+                                    .overlay(
+                                            Image(systemName: "qrcode.viewfinder")
+                                                .resizable()
+                                                .frame(width: 40,height: 40)
+                                                .foregroundColor(.white)
+                                                
+                                        )
                             }
                             .padding(20)
                         }
@@ -41,9 +48,13 @@ struct FloatingButtonView: View {
     }
 }
 
-//struct FloatingButtonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FloatingButtonView(showScanner: $true)
-//            .environmentObject(EventLocation())
-//    }
-//}
+struct FloatingButtonView_Previews: PreviewProvider {
+    
+    @State static var scanneVisible = false
+   
+    static var previews: some View {
+        
+        FloatingButtonView(showScanner: $scanneVisible)
+            .environmentObject(EventLocation())
+    }
+}

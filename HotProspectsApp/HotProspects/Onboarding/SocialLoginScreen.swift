@@ -10,6 +10,8 @@ import SwiftUI
 /// Displays various social buttons for users to connect to the app.
 struct SocialLoginScreen: View {
     //have some bindings to the screen when  the user logs in!
+    
+    
     var body: some View {
         VStack {
             
@@ -25,6 +27,7 @@ struct SocialLoginScreen: View {
 
             oAuthButton(buttonText: "Connect your Discord", imageString: "discord-color-icon", authType: "Discord")
             
+            //replace here
             NavigationLink(destination: ContentView()) {
                 Text("Continue")
                     .foregroundColor(.white)

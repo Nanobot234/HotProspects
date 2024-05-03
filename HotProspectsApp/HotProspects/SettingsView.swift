@@ -44,7 +44,7 @@ struct SettingsView: View {
                 } label: {
                     Text("How to use this app")
                 }
-
+                
                 
                 //Questions send email
                 //Have ideas comments

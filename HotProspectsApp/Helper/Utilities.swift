@@ -11,7 +11,6 @@ import SwiftUI
 
 
 class Utilties {
-    
 
         static func addContactNotificationReminder(for prospect: Prospect, notifyDate: Date) {
             //get notification center,
@@ -58,6 +57,9 @@ class Utilties {
         }
  
     
+    /// Adjust the contact information array for a prospect to deal with missing contact infomation
+    /// - Parameter details: <#details description#>
+    /// - Returns: <#description#>
    static func adjustDetailsArray(details: [String]) -> [String] {
  
         //completion: @escaping (Bool) -> Void
@@ -70,14 +72,21 @@ class Utilties {
         if(isValidContactPoint(details[1], validationType: "email") == false){ //change here!
                     contactDetails.insert("", at: 1) //insert empty string since this should be there but isnt
                 }
-        
+       //if length of the array is at least 3 then check if the phone number is valid or not
         guard lengthOfArray >= 3 else {return contactDetails}
         if(isValidContactPoint(details[2], validationType: "phoneNumber") == false){
                     contactDetails.insert("", at: 2)
         }
-        
+       
+       guard lengthOfArray >= 4 else {return contactDetails}
+       if(details[3] == ""){
+           contactDetails.insert("", at: 3)
+       }
         //other contact info will be here!!!
- 
+       guard lengthOfArray >= 5 else {return contactDetails}
+       if(details[4] == ""){
+           contactDetails.insert("", at: 4)
+       }
         return contactDetails
                 //then check for phone
     }

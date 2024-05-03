@@ -10,7 +10,7 @@ import SwiftUI
 struct TextFeildWithToggle: View {
     
     var placeholder: String
-    var textType: UITextContentType
+    
     @Binding var text: String
     //include array of strings as a binding
     
@@ -45,7 +45,10 @@ struct TextFeildWithToggle: View {
                     .background(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.red, lineWidth: 1)
+                        
+                        //TODO: need to make a case where you only toggle the button with text in it!! not
                     )
+                    .disabled(text.isEmpty)
                     .onChange(of: toggleActive) { toogleState in
                         if(!toogleState){
                             
@@ -61,6 +64,12 @@ struct TextFeildWithToggle: View {
                                 updateQrCode()
                             case "Phone Number":
                                 contactPoints.insert($text, at: 2)
+                                updateQrCode()
+                            case "LinkedIn Username":
+                                contactPoints.insert($text, at: 3)
+                                updateQrCode()
+                            case "Discord Username":
+                                contactPoints.insert($text, at: 4)
                                 updateQrCode()
                             default:
                                 contactPoints.insert($text, at: 1)
@@ -109,14 +118,13 @@ struct TextFeildWithToggle: View {
                 
             }
         default:
-            errorMessage = "There is a problem"
+            errorMessage = ""
             
         }
     }
     
     
     }
-
 
 
 //struct TextFeildWithToggle_Previews: PreviewProvider {

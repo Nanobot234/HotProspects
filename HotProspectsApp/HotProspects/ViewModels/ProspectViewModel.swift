@@ -92,6 +92,8 @@ import Foundation
         people.first(where: {$0.id ==  prospect.id})!.prospectNotes = prospect.prospectNotes
         save()
     }
+    
+   
 
     
     //maybe in here,actually update the prospect heres info

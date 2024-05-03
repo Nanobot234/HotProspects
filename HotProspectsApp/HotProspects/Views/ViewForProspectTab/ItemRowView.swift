@@ -102,9 +102,10 @@ struct ItemRow: View {
         .swipeActions(allowsFullSwipe: false) {
             
             if(prospect.isContacted) {
-                SwipeActionButtons.markUncontactedButton {
+
+            SwipeActionButtons.markUncontactedButton {
                     
-                    prospects.toggle(prospect)
+                prospects.toggle(prospect)
                 }
                 .tint(.blue)
                 

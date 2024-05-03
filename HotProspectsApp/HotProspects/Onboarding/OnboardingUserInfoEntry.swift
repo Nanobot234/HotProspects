@@ -124,6 +124,7 @@ struct OnboardingUserInfoEntry: View {
         UserDefaults.standard.set(emailAddress, forKey: "users_email")
         
         UserDefaults.standard.set(phone, forKey: "users_phone")
+        
     }
     
     func setErrorMessage() {

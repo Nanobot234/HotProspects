@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UserNotifications
-
+import Alamofire
 
 
 /// Parent View of the app. Holds a tab view that in itself contains sub views.
@@ -44,7 +44,8 @@ struct ContentView: View {
         }
         .environmentObject(prospects)
         .environmentObject(eventLocation)
-        .onAppear {  
+        .navigationBarBackButtonHidden()
+        .onAppear {
             eventLocation.loadFromUserDefaults()
         }
        

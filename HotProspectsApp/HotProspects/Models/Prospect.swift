@@ -34,6 +34,12 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
     
     ///  The most recent date that a user has scheduled to contact this prospect..
     var lastReminderDate = ""
+    
+    /// The linkedin username of a prospect that a user adds
+    var linkedinProfileURL = ""
+    
+    ///  The discord username of a prospect the user adds
+    var discordUsername = ""
      
      init() {}
      

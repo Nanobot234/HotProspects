@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import SafariServices
 
 
-
+/// Screen that displays prospect details and allow
 struct EditProspectDetailsView: View {
     
     
@@ -24,19 +25,21 @@ struct EditProspectDetailsView: View {
     
     @State var prospectNotesText: String = ""
     
+    @State var showWebView: Bool = false
+    
     var body: some View {
         NavigationView {
             Form {
-
                 
-            
+                
+                
                 //TODO: Add spacing between form items and also between section header?
                 Section(header: Text("Update \(prospect.name)'s contact information")) {
                     TextField(" Name", text: $prospect.name)
                     TextField("Email Address", text: $prospect.emailAddress)
                     TextField("Phone Number", text: $prospect.phoneNumber)
                 }
-      
+                
                 //section ehre for updating location met
                 Section {
                     TextField("Location or Event Where You Met This Prospect", text: $locationText)
@@ -44,6 +47,28 @@ struct EditProspectDetailsView: View {
                     Text("Location Where You Met This Prospect")
                 }
                 
+                if(!prospect.linkedinProfileURL.isEmpty){
+                    
+                    Section  {
+                    //Button here for the link to Linkdin
+                    Button("View \(prospect.name)'s LinkedIn") {
+                        showWebView = true
+                    }
+                    //also have
+                } header:
+                {
+                    Text("Socials")
+                }
+                    
+            }
+                if(!prospect.linkedinProfileURL.isEmpty){
+                    Section {
+                        Text(prospect.discordUsername)
+                    } header: {
+                        Text("\(prospect.name)'s Discord")
+                    }
+                }
+                //Different section for discord username and copy
                 Section {
                     TextEditor(text: $prospectNotesText)
                         .frame(width: 200,height: 300)
@@ -56,6 +81,8 @@ struct EditProspectDetailsView: View {
                 
                 setProspectLocationandNotesFromEnvironment()
                 print(prospect.locationMet)
+                
+                print("Profile URL" + prospect.linkedinProfileURL)
                 
             }
                       
@@ -78,15 +105,16 @@ struct EditProspectDetailsView: View {
                         prospect.prospectNotes = prospectNotesText
                         prospects.addNotesForProspect(prospect)
                         
-                        
                         //save all the updated details in the prospect
                         prospects.updateProspectDetails(prospect)
                         dismiss()
                     }
-                    
                 }
-                
             }
+            .sheet(isPresented: $showWebView, content: {
+                SafariView(url: URL(string:prospect.linkedinProfileURL)!)
+            })
+            
             .navigationTitle("Edit Contact Information")
             .navigationBarTitleDisplayMode(.inline)
             

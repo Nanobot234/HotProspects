@@ -13,6 +13,8 @@ struct SplashScreenView: View {
     @State var isFirstLaunch: Bool = false
     
     var body: some View {
+        
+        
         ZStack {
             if isActive {
                 if isFirstLaunch {

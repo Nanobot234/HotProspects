@@ -89,7 +89,15 @@ extension ProspectsView {
         
         newProspect.emailAddress = details[1]
         newProspect.phoneNumber = details[2]
+
+        if(!details[3].isEmpty) {
+            newProspect.linkedinProfileURL = "https://www.linkedin.com/in/" + details[3]
+        }
         
+        newProspect.discordUsername = details[4]
+        
+        print("Profile-URL " + newProspect.linkedinProfileURL)
+        newProspect.discordUsername = details[4]
         
         if(eventLocation.currentEventOfUser == "") {
             showAddLocationView = true
@@ -106,7 +114,10 @@ extension ProspectsView {
         eventLocation.newProspectNotes = "" //sets it to empty string for next prospect to be added
         
         prospects.add(newProspect)
+        
         prospects.addLocationMet(newProspect)
+        
+        
         newProspect = Prospect()
     }
     

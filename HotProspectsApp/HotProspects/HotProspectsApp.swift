@@ -12,7 +12,6 @@ import Supabase
 @main
 struct HotProspectsApp: App {
     
-  
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +21,7 @@ struct HotProspectsApp: App {
 
                     }
                 }
+       
         }
     }
 

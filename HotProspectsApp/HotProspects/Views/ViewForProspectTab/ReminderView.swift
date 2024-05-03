@@ -35,11 +35,13 @@ struct ReminderView: View {
        
     }
     
+    /// Message to show when a user sets a reminder for a prospect
     var reminderSetView: some View {
         
         VStack {
-            Text("You already have a reminder to contact \(prospect.name). It's on")
-            Text(prospect.lastReminderDate)
+            Text("You already have a reminder to contact \(prospect.name)")
+            
+            Text("It's on\(prospect.lastReminderDate)")
             
             Button("Change") {
                 prospects.reminderToggle(prospect)
@@ -73,7 +75,7 @@ struct ReminderView: View {
                              
                 showReminderView = false
                 prospects.reminderToggle(prospect) //toggles the
-                
+    
             }
             .buttonStyle(.bordered)
         }

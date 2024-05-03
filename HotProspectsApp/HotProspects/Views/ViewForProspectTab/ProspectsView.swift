@@ -154,7 +154,7 @@ struct ProspectsView: View {
                         VStack(spacing: 50) {
                             
                             CodeScannerView(codeTypes:[.qr] , simulatedData: "Nana Bonsu\nNbonsu2000@gmail.com\n6467012471" ,completion: handleScan)
-                                .frame(width: 500, height: 300)
+                                .frame(width: 500, height: 370)
                                 .padding([.top],0)
                             
                             
@@ -168,7 +168,7 @@ struct ProspectsView: View {
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("Cancel") {
-                                    dismiss()
+                                    isShowingScanner = false
                                 }
                                 
                             }
@@ -221,12 +221,14 @@ struct ProspectsView: View {
                         .frame(height:100)
                         .padding(20)
                         .onTapGesture {
-                            
-                            //initializing `currentSelectedProspect` with all the details of the prospect the user just tapped.
+                          
                             currentSelectedProspect = Prospect(name: prospect.name, emailAddress: prospect.emailAddress, phoneNumber: prospect.phoneNumber)
                             currentSelectedProspect.id = prospect.id
                             currentSelectedProspect.locationMet = prospect.locationMet
                             currentSelectedProspect.prospectNotes = prospect.prospectNotes
+                            currentSelectedProspect.linkedinProfileURL = prospect.linkedinProfileURL
+                            currentSelectedProspect.discordUsername = prospect.discordUsername
+                            
                             showEditScreen = true //displays the edit screen
                         }
                         .contextMenu {

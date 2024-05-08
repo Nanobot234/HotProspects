@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UserNotifications
-import Alamofire
+//import Alamofire
 
 
 /// Parent View of the app. Holds a tab view that in itself contains sub views.
@@ -27,14 +27,14 @@ struct ContentView: View {
    
             ProspectsView()
                 .tabItem {
-                    Label("All Prospects", systemImage: "person.3")
+                    Label("Prospects", systemImage: "person.3")
                 } .onTapGesture {
-                    self.hideKeyBoard()
+                    //self.hideKeyBoard()
                 }
             
             MeView()
                 .tabItem {
-                    Label("Me", systemImage: "person.crop.square")
+                    Label("My Profile", systemImage: "person.crop.square")
                 } .onTapGesture {
                     self.hideKeyBoard()
                 }

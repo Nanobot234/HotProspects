@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SplashScreenView: View {
     
+    @Environment(\.isBioAuthenticated) private var isAuthenticated
     @State var isActive: Bool = false
     @State var isFirstLaunch: Bool = false
+    //here will put the envi
     
     var body: some View {
         

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 import PhotosUI
 import BetterSafariView
-import Supabase
+//import Supabase
 
 struct MeView: View {
     
@@ -99,17 +99,24 @@ struct MeView: View {
                 Section {
                     TextFeildWithToggle(placeholder: "LinkedIn Username", text: $linkedInUserName, contactPoints: $contactPoints, feildWasToggled: $linkedInUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorInLinkedin)
                         
-                } footer: {
+                } header: {
+                    Text("Linkedin")
+                }
+            footer: {
                     Text(linkedInUsernameWasToggled == true ? "Prospects can find your linkedin profile when they scan your QR Code": "Prospects will not see your linkedin username when they scan your QR code.")
                 }
+                    .headerProminence(.increased)
+                
                 
                 
                 Section {
                     TextFeildWithToggle(placeholder: "Discord Username", text: $discordUserName, contactPoints: $contactPoints, feildWasToggled: $discordUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
-                }  footer: {
+                } header: {
+                    Text("Discord")
+                }      footer: {
                     Text(discordUsernameWasToggled == true ? "Prospects will be able to find your Discord profile when they scan your QR Code":"Prospects will be able to find your Discord profile when they scan your QR Code")
                     }
-                    
+                .headerProminence(.increased)
             }
             .background(
                 Color.blue.opacity(1.0).blur(radius: showingQRCodeSheet ? 2.0:0)

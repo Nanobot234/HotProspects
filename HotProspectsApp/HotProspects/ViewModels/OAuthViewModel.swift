@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Alamofire
+//import Alamofire
 //import OAuthSwift
 
 /// Describes functions that will be utilized for authentication. Will specify functions used to make requests to the relevant APIS
@@ -39,24 +39,24 @@ class OAuthProviderManager: ObservableObject {
             "redirect_uri": redirectURI
         ]
         
-        AF.request(tokenURL,method: .post, parameters: parameters)
-            .responseString { response in
-                if let error = response.error {
-                    completion(.failure(error))
-                }
-                
-                guard let data = response.data, let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    completion(.failure(NSError(domain: "com.yourapp.error", code: 1, userInfo: ["message": "Failed to parse response data"])))
-                    return
-                }
-                
-                guard let accessToken = json["access_token"] as? String else {
-                    completion(.failure(NSError(domain: "com.yourapp.error", code: 2, userInfo: ["message": "Missing access token in response"])))
-                    return
-                }
-                
-                completion(.success(accessToken))
-                
+//        AF.request(tokenURL,method: .post, parameters: parameters)
+//            .responseString { response in
+//                if let error = response.error {
+//                    completion(.failure(error))
+//                }
+//
+//                guard let data = response.data, let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+//                    completion(.failure(NSError(domain: "com.yourapp.error", code: 1, userInfo: ["message": "Failed to parse response data"])))
+//                    return
+//                }
+//
+//                guard let accessToken = json["access_token"] as? String else {
+//                    completion(.failure(NSError(domain: "com.yourapp.error", code: 2, userInfo: ["message": "Missing access token in response"])))
+//                    return
+//                }
+//
+//                completion(.success(accessToken))
+//
                 
                 //        let parameters = [
                 //            "client_id": clientID,
@@ -166,7 +166,7 @@ class OAuthProviderManager: ObservableObject {
         task.resume()
     }
   
-}
+
 
 
 //func exchangeCode(code: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {

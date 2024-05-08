@@ -6,26 +6,38 @@
 //
 
 import SwiftUI
+import CustomTextField
 
 /// Displays various social buttons for users to connect to the app.
 struct SocialLoginScreen: View {
     //have some bindings to the screen when  the user logs in!
-    
+    @State private var linkedinUsername = ""
+    @State private var discordUsername = ""
     
     var body: some View {
         VStack {
             
             Text("Socials")
                 .font(.largeTitle)
-            Text("Connect your social accounts now to share your profile information with prospects. You can also do this later in your profile")
-                .font(.title3)
+            Text("Enter your username for the following social networks so that others can connect with you. You can also add them later in the profile section")
+                .font(.subheadline)
             
             //
-            
+            //text feild for the linkedin username
          
-            oAuthButton(buttonText: "Connect your Linkedin", imageString: "linkedin-app-icon", authType: "Linkedin")
+            
+            
+            EGTextField(text: $linkedinUsername)
+                .setTitleText("Your Linkedin Username")
+                .padding()
+               
+            
+            EGTextField(text: $discordUsername)
+                .setTitleText("Your Discord Username")
+                .padding()
+           // oAuthButton(buttonText: "Connect your Linkedin", imageString: "linkedin-app-icon", authType: "Linkedin")
 
-            oAuthButton(buttonText: "Connect your Discord", imageString: "discord-color-icon", authType: "Discord")
+           // oAuthButton(buttonText: "Connect your Discord", imageString: "discord-color-icon", authType: "Discord")
             
             //replace here
             NavigationLink(destination: ContentView()) {
@@ -40,59 +52,67 @@ struct SocialLoginScreen: View {
             }
             
         }
-    }
-}
-
-
-struct oAuthButton: View {
-    
-    @Environment(\.colorScheme) var appColor
-    
-
-
-    var buttonText: String
-    var imageString: String
-    var authType: String
-    
-    var body: some View {
+        .onChange(of: linkedinUsername) { updatedLinkedinUsernmae in
+            UserDefaults.standard.set(updatedLinkedinUsernmae, forKey: "linkedin_UserName")
+        }
         
-        Button(action: siginIn) {
-            Text(buttonText)
-                .foregroundColor(appColor == .dark ? .white : .black)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical,8)
-                .background(alignment: .leading) {
-                    Image(imageString)
-                        .resizable()
-                        .frame(width: 40, alignment: .center)
-                        
-                }
+        .onChange(of: discordUsername) { updatedDiscord in
+            UserDefaults.standard.set(discordUsername, forKey: "discord_username")
         }
-        .padding([.horizontal,.vertical],20)
-        .buttonStyle(.bordered)
+      
     }
-    
-    
-    func siginIn() {
-        switch authType {
-        case "Google":
-            
-            Task {
-                do {
-//                    let currentUser = try await authModel.signInWithGoogle()
-//                    self.currentUser = currentUser
-                } catch {
-                    print("Error:\(error.localizedDescription)")
-                }
-            }
-        case "Apple":
-            print("Deez")
-        default:
-            break
-        }
-    }
-    
 }
+
+
+//struct oAuthButton: View {
+//
+//    @Environment(\.colorScheme) var appColor
+//
+//
+//
+//    var buttonText: String
+//    var imageString: String
+//    var authType: String
+//
+//    var body: some View {
+//
+//        Button(action: siginIn) {
+//            Text(buttonText)
+//                .foregroundColor(appColor == .dark ? .white : .black)
+//                .frame(maxWidth: .infinity)
+//                .padding(.vertical,8)
+//                .background(alignment: .leading) {
+//                    Image(imageString)
+//                        .resizable()
+//                        .frame(width: 40, alignment: .center)
+//
+//                }
+//        }
+//        .padding([.horizontal,.vertical],20)
+//        .buttonStyle(.bordered)
+//    }
+//
+//
+//    func siginIn() {
+//        switch authType {
+//        case "Google":
+//
+//            Task {
+//                do {
+////                    let currentUser = try await authModel.signInWithGoogle()
+////                    self.currentUser = currentUser
+//                } catch {
+//                    print("Error:\(error.localizedDescription)")
+//                }
+//            }
+//        case "Apple":
+//            print("Deez")
+//        default:
+//            break
+//        }
+//    }
+//
+//}
 
 struct SocialLoginScreen_Previews: PreviewProvider {
     static var previews: some View {

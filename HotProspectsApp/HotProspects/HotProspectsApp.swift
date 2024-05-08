@@ -7,7 +7,7 @@
 
 import SwiftUI
 //import OAuthSwift
-import Supabase
+//import Supabase
 
 @main
 struct HotProspectsApp: App {

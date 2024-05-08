@@ -51,21 +51,21 @@ extension MeView {
     ///
     /// In the function, the `OAuthProviderManager` class makes a GET request to the Discord Users API and returns a userprofile object. The username is then parsed from this object
     /// - Parameter accessToken: The acessToken that will be used for this request;
-    func getDiscordUserName(accessToken: String) {
-        OAuthProviderManager.shared.getDiscordUserProfile(accessToken: accessToken) { result in
-            switch result {
-            case .success(let userProfile):
-                if let username = userProfile["username"] as? String {
-                            print("Username: \(username)")
-                        } else {
-                            print("Username not found in user profile")
-                        }
-                    case .failure(let error):
-                        print("Failed to get user profile: \(error.localizedDescription)")
-                    }
-                
-            }
-    }
+//    func getDiscordUserName(accessToken: String) {
+//        OAuthProviderManager.shared.getDiscordUserProfile(accessToken: accessToken) { result in
+//            switch result {
+//            case .success(let userProfile):
+//                if let username = userProfile["username"] as? String {
+//                            print("Username: \(username)")
+//                        } else {
+//                            print("Username not found in user profile")
+//                        }
+//                    case .failure(let error):
+//                        print("Failed to get user profile: \(error.localizedDescription)")
+//                    }
+//                NEEDS TO INCLUDE FROm OTHER FUNCTION
+//            }
+//    }
     
     /// Retrieves the access token from the Discord API by exchanhign the auth code
     /// - Parameter authCode: the authorization code retrieved when a user logs into their discord account

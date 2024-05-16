@@ -29,19 +29,23 @@ struct ContentView: View {
                 .tabItem {
                     Label("Prospects", systemImage: "person.3")
                 } .onTapGesture {
-                    //self.hideKeyBoard()
+                    self.hideKeyBoard()
                 }
             
             MeView()
                 .tabItem {
                     Label("My Profile", systemImage: "person.crop.square")
-                } .onTapGesture {
-                    self.hideKeyBoard()
                 }
+
+         SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                } 
             
 
          
         }
+       
         .environmentObject(prospects)
         .environmentObject(eventLocation)
         .navigationBarBackButtonHidden()

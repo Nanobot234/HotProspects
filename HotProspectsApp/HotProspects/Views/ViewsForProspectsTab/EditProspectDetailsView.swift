@@ -9,6 +9,7 @@
 
 import SwiftUI
 import SafariServices
+import MessageUI
 
 
 /// Screen that displays prospect details and allow
@@ -29,17 +30,55 @@ struct EditProspectDetailsView: View {
     
     @State var showWebView: Bool = false
     
+    @State var showConfirmationDialog: Bool = false
+    
+    @State var isShowingMailView = false
+    @State var isShowingMessageView = false
+    
+   
+    
     var body: some View {
         NavigationView {
             Form {
-                
-                
+
                 
                 //TODO: Add spacing between form items and also between section header?
                 Section(header: Text("Update \(prospect.name)'s contact information")) {
                     TextField(" Name", text: $prospect.name)
-                    TextField("Email Address", text: $prospect.emailAddress)
-                    TextField("Phone Number", text: $prospect.phoneNumber)
+                    
+                    HStack {
+                        //logo button here(beneath this)
+                        TextField("Email Address", text: $prospect.emailAddress)
+                        Spacer()
+                        Button("Send Email", systemImage: "paperplane") {
+                         isShowingMailView = true
+                            
+                        }
+                        .labelStyle(.iconOnly)
+                        .sheet(isPresented: $isShowingMailView, content: {
+                            MailView(isShowing: $isShowingMailView)
+                        })
+                    }
+                    
+                    HStack {
+                        TextField("Phone Number", text: $prospect.phoneNumber)
+                        Spacer()
+                        //action sheet somewhere here!!
+                        
+                        Button("Send Text", systemImage: "message") {
+                                showConfirmationDialog = true
+                        }
+                        .labelStyle(.iconOnly)
+                        .confirmationDialog("Chose the app you want to message in", isPresented: $showConfirmationDialog) {
+                            Button("Messages") { isShowingMessageView = true}
+                            Button("WhatsApp") {openWhatsAppMessage()}
+                            Button("Cancel", role: .cancel) {}
+                        }
+                    }
+                    .sheet(isPresented: $isShowingMessageView, content: {
+                        var message = "Hello, this is \(prospect.name)!. We met at \(locationText)"
+                        MessageView(isShowing: $isShowingMessageView, messageBody: message, phoneNumber: prospect.phoneNumber)
+                    })
                 }
                 
                 //section ehre for updating location met
@@ -95,6 +134,7 @@ struct EditProspectDetailsView: View {
                         dismiss()
                     }
                 }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
                     //When user presses save, update propspext with changed values.
@@ -133,6 +173,15 @@ struct EditProspectDetailsView: View {
             locationText = prospect.locationMet
         }
         prospectNotesText = prospect.prospectNotes
+    }
+    
+    func openWhatsAppMessage() {// Replace with the recipient's phone number
+        let message = "Hello, this is \(prospect.name)!. We met at \(locationText)"
+                      
+        if let url = URL(string: "https://wa.me/+1 \(prospect.phoneNumber)?text=\(message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") {
+            
+            UIApplication.shared.open(url)
+        }
     }
 }
 

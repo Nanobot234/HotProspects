@@ -19,6 +19,8 @@
 		F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D76B22AB8C332004558A9 /* ImageSaver.swift */; };
 		F242B3482BB73D610028C619 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F242B3472BB73D610028C619 /* TestView.swift */; };
 		F242B34A2BB744630028C619 /* OAuthSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F242B3492BB744630028C619 /* OAuthSignIn.swift */; };
+		F2569E6F2BF01CA900F4DFBA /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2569E6E2BF01CA900F4DFBA /* MailViewController.swift */; };
+		F2569E712BF024FD00F4DFBA /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2569E702BF024FD00F4DFBA /* MessageViewController.swift */; };
 		F258466C2AEAF77E00AD2CB9 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */; };
 		F25FFAF22B9F95D200BCFD73 /* HotProspectsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F25FFAF12B9F95D200BCFD73 /* HotProspectsConfig.plist */; };
 		F26617152BE954710075B2E4 /* EditProspectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26617142BE954710075B2E4 /* EditProspectDetailsView.swift */; };
@@ -86,6 +88,8 @@
 		F242B3472BB73D610028C619 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		F242B3492BB744630028C619 /* OAuthSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthSignIn.swift; sourceTree = "<group>"; };
 		F252E7142B0427100055369F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F2569E6E2BF01CA900F4DFBA /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		F2569E702BF024FD00F4DFBA /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		F258466B2AEAF77E00AD2CB9 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		F25FFAF12B9F95D200BCFD73 /* HotProspectsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = HotProspectsConfig.plist; path = ../../../../Downloads/HotProspectsConfig.plist; sourceTree = "<group>"; };
 		F25FFB082BA0E96500BCFD73 /* HotProspects.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HotProspects.entitlements; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				F285A0802BD8817600113E97 /* SafariViewController.swift */,
+				F2569E6E2BF01CA900F4DFBA /* MailViewController.swift */,
+				F2569E702BF024FD00F4DFBA /* MessageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -463,6 +469,7 @@
 				F29E94292B55842200DFFFFD /* SettingsView.swift in Sources */,
 				F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */,
 				F242B3482BB73D610028C619 /* TestView.swift in Sources */,
+				F2569E6F2BF01CA900F4DFBA /* MailViewController.swift in Sources */,
 				F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */,
 				F26617192BE954BA0075B2E4 /* ItemRowView.swift in Sources */,
 				F21F949D2BB4BB7C00E1C3B1 /* SocialLoginScreen.swift in Sources */,
@@ -472,6 +479,7 @@
 				F2A72CE92B2A528E0023C478 /* TextFeildWithToggle.swift in Sources */,
 				F283C1062B561CC900F0966B /* OnboardingUserInfoEntry.swift in Sources */,
 				F242B34A2BB744630028C619 /* OAuthSignIn.swift in Sources */,
+				F2569E712BF024FD00F4DFBA /* MessageViewController.swift in Sources */,
 				F26617172BE9549D0075B2E4 /* FloatingButtonView.swift in Sources */,
 				F266171B2BE954D20075B2E4 /* ProspectsView.swift in Sources */,
 				F266171D2BE9552D0075B2E4 /* ProspectViewExtension.swift in Sources */,

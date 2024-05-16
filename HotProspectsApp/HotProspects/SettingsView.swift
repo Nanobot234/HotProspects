@@ -20,12 +20,13 @@ struct SettingsView: View {
     
     @State var isBioAuthEnabled = false
     @State var meTabDescription = ""
-    @State var propectsTabDescription = "In the Prospects tab, use the blue icon on the bottom right of the prspects page to scan a prospects QR code and you will instantly have access to all the contact info they share with you."
-    @State var profileTabDescription = "In the profile tab, update the contact information that you want to share with prospects. Then click the My QR Code button to display a QR code that others can scan to save your information"
+    let propectsTabDescription = "In the Prospects tab, use the blue icon on the bottom right of the prspects page to scan a prospects QR code and you will instantly have access to all the contact info they share with you."
+    let profileTabDescription = "In the profile tab, update your contact information and easily choose which one you want to share with prospects. Then click on the My QR Code button to display a QR code that others can scan to save your information"
+    
 
     var body: some View {
         //NavigatioNView here!!
-        NavigationView {
+        NavigationStack {
             
             Form {
                 Section {
@@ -49,8 +50,9 @@ struct SettingsView: View {
                     //                NavigationLink(destination: Text(), label: <#T##() -> View#>)
                     
                     NavigationLink(destination: appTabDscription){
-                        Text("Questions and Comments")
+                        Text("Questions or Comments? Email me")
                     }
+                    //button to show a mailView
 //                    Button("Questions or Comments?") {
 //                        //then mail code here
 //

@@ -28,13 +28,11 @@ struct TextFeildWithToggle: View {
         
         VStack {
             HStack {
-                TextField(placeholder,text: $text, onEditingChanged: { textChanged in
-                    //when the user stops editing, validate text
-                    if !textChanged {
-                        setErrorMessage()
-
-                    }
-                })
+                TextField(placeholder,text: $text)
+                .onChange(of: text) {newText in
+                
+                    setErrorMessage()
+                }
                 
                 .textContentType(.name)
                 .font(.title3)

@@ -56,6 +56,7 @@ struct UserAndProspectLocationView: View {
                 }
      
             }
+        
             .navigationTitle(addReasonMessage == "userLocationUpdate" ? "What Event are You Attending?" : "Prospect Details")
             .navigationBarTitleDisplayMode(addReasonMessage == "userLocationUpdate" ? .inline : .large)
    

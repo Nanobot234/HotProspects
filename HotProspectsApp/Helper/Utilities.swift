@@ -78,6 +78,7 @@ class Utilties {
                     contactDetails.insert("", at: 2)
         }
        
+   
        guard lengthOfArray >= 4 else {return contactDetails}
        if(details[3] == ""){
            contactDetails.insert("", at: 3)

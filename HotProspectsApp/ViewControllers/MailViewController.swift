@@ -14,6 +14,7 @@ import MessageUI
 struct MailView: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
     
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }

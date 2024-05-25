@@ -16,11 +16,14 @@ struct SocialLoginScreen: View {
     
     var body: some View {
         VStack {
-            
-            Text("Socials")
-                .font(.largeTitle)
-            Text("Enter your username for the following social networks so that others can connect with you. You can also add them later in the profile section")
-                .font(.subheadline)
+            VStack {
+                Text("Socials")
+                    .fontWeight(.heavy)
+                    .font(.system(size: 30))
+                Text("Enter your username for the following social networks so that others can connect with you. You can also add them later in the profile section")
+                    .font(.subheadline)
+            }
+            .padding([.bottom], 30)
             
             //
             //text feild for the linkedin username
@@ -28,12 +31,12 @@ struct SocialLoginScreen: View {
             
             
             EGTextField(text: $linkedinUsername)
-                .setTitleText("Your Linkedin Username")
+                .setTitleText("Linkedin Profile URL")
                 .padding()
                
             
             EGTextField(text: $discordUsername)
-                .setTitleText("Your Discord Username")
+                .setTitleText(" Discord Username")
                 .padding()
            // oAuthButton(buttonText: "Connect your Linkedin", imageString: "linkedin-app-icon", authType: "Linkedin")
 
@@ -44,7 +47,7 @@ struct SocialLoginScreen: View {
                 Text("Continue")
                     .foregroundColor(.white)
                     .font(.headline)
-                    .frame(width: 300, height: 50)
+                    .frame(width: 350, height: 60)
                     .background(Color.blue)
                     .cornerRadius(15)
                     .padding(.bottom, 20)

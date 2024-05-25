@@ -14,7 +14,7 @@ import AlertToast
 /// View to display contacts. The first 3 tabs of the app use this view to dsiplay different contacts based on filter type
 struct ProspectsView: View {
     
-    /// filters prospects based on their contact status
+    /// filters prospects based on whether a user has contacted them or not
     enum FilterType: String, CaseIterable, Identifiable {
         case all, uncontacted // all will display both contacted and uncontacted prospects
         

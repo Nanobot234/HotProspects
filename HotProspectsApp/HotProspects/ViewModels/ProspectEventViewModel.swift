@@ -22,7 +22,10 @@ import Foundation
     ///  boolean set when user changes event
     @Published var changeEvent: Bool = false
     
-
+    
+    /// The current event that a user meets a prospect at
+    ///
+    /// Every time a new prospect is added, the location that the user states as meeting that prospect is set to this variable. When a user is added, then this variable is reset
     @Published var currentEventMetProspect: String = ""
     
     /// holds the notes a user writes for a prospect here:

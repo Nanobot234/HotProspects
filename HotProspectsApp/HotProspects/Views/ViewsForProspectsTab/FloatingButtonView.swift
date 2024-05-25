@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The scan button that the user taps on to scan a QR code
 struct FloatingButtonView: View {
     
     @Binding var showScanner:Bool
@@ -37,7 +38,6 @@ struct FloatingButtonView: View {
                                                 .resizable()
                                                 .frame(width: 40,height: 40)
                                                 .foregroundColor(.white)
-                                                
                                         )
                             }
                             .padding(20)

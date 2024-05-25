@@ -52,7 +52,7 @@ struct OnboardingUserInfoEntry: View {
             
             VStack{
                 EGTextField(text: $name)
-                    .setTitleText("Your Name")
+                    .setTitleText(" Name")
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .name)
@@ -61,8 +61,7 @@ struct OnboardingUserInfoEntry: View {
                     Text(emailErrorMessage)
                 }
             }
-               
-               
+                      
                 .padding()
             
             //            TextField("Your name", text: $name)
@@ -70,7 +69,7 @@ struct OnboardingUserInfoEntry: View {
             
             VStack {
                 EGTextField(text: $emailAddress)
-                    .setTitleText("Your Email Address")
+                    .setTitleText("Email Address")
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .emailAddress)
@@ -101,7 +100,7 @@ struct OnboardingUserInfoEntry: View {
                 Text("Continue")
                     .foregroundColor(.white)
                     .font(.headline)
-                    .frame(width: 300, height: 50)
+                    .frame(width: 350, height: 60)
                     .background(Color.blue)
                     .cornerRadius(15)
                     .padding(.bottom, 20)

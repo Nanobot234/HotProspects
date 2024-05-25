@@ -24,14 +24,16 @@ struct ReminderView: View {
     /// A date picker is shown along with a button allowing the user to set the reminder..
     var body: some View {
         
-        VStack(spacing: 20) {
-            
-            if prospect.isReminderSet {
-                
-                reminderSetView
-            } else {
-                createReminderView
+        NavigationView {
+            VStack(spacing: 20) {
+                if prospect.isReminderSet {
+                    
+                    reminderSetView
+                } else {
+                    createReminderView
+                }
             }
+          
         }
        
     }
@@ -55,7 +57,7 @@ struct ReminderView: View {
         VStack(spacing: 20) {
    
             Text("Select Date & Time to Contact This Prospect")
-                .font(.headline)
+                .font(.largeTitle)
     
             HStack {
                 Spacer()

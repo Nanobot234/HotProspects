@@ -57,8 +57,9 @@ extension ProspectsView {
         switch result {
         case .success(let result):
             isShowingScanner = false
-            //have a dictionary here, to indicate which
-            let details = Utilties.adjustDetailsArray(details: result.string.components(separatedBy: "\n"))
+            
+            //
+            let details = Utilties.adjustDetailsArray(details: result.string.components(separatedBy: "\n")) //add empty slots in the array for info thatt he user decided not to share!!
             
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -86,29 +87,27 @@ extension ProspectsView {
         //need to pad this array, with the correct amount empty, once you get it so that it can not misplace the detaisl
         
         newProspect.name = details[0]
-        
         newProspect.emailAddress = details[1]
         newProspect.phoneNumber = details[2]
 
-        guard details.count >= 4 else {
-            if(eventLocation.currentEventOfUser == "") {
-                showAddLocationView = true
-            } else {
-                addNewProspectToProspects()
-            }
-            return}
-        
-        if(!details[3].isEmpty) {
+        if(!details[3].isEmpty && !details[3].contains("https://www.linkedin.com/")) {
             newProspect.linkedinProfileURL = "https://www.linkedin.com/in/" + details[3]
         }
-        
-        guard details.count >= 5 else {return}
+            else if(!details[3].isEmpty && details[3].contains("https://www.linkedin.com/")){
+                newProspect.linkedinProfileURL = details[3]
+            }
+ 
         newProspect.discordUsername = details[4]
         
         print("Profile-URL " + newProspect.linkedinProfileURL)
-        newProspect.discordUsername = details[4]
+       // newProspect.discordUsername = details[4]
         
-      
+        if(eventLocation.currentEventOfUser == "") {
+            showAddLocationView = true
+        } else {
+            addNewProspectToProspects()
+        }
+       
      
     }
     
@@ -118,8 +117,8 @@ extension ProspectsView {
         newProspect.prospectNotes = eventLocation.newProspectNotes //set the notes of the new prospect to the environemnt value
         eventLocation.newProspectNotes = "" //sets it to empty string for next prospect to be added
         
+   
         prospects.add(newProspect)
-        
         prospects.addLocationMet(newProspect)
         
         

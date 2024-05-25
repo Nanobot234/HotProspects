@@ -63,16 +63,16 @@ struct MeView: View {
                 
                 Section {
                     VStack {
-                    TextField("Name", text: $name)
-                        .textContentType(.name)
-                        .font(.title3)
-                    
-                    if(name.isEmpty){
-                        Text("Please enter your name")
-                            .foregroundStyle(Color.red)
-                       
+                        TextField("Name", text: $name)
+                            .textContentType(.name)
+                            .font(.title3)
+                        
+                        if(name.isEmpty){
+                            Text("Please enter your name")
+                                .foregroundStyle(Color.red)
+                            
+                        }
                     }
-                }
                 } header: {
                     Text("Name")
                 }
@@ -86,7 +86,7 @@ struct MeView: View {
                     Text("Email Address")
                 } footer: {
                     Text(emailWasToggled == true ? "Prospects  can now see your email address when they scan your QR code" : "Prospects will not see your email address when they scan your QR code")
-                      
+                    
                 }
                 .headerProminence(.increased)
                 
@@ -96,7 +96,7 @@ struct MeView: View {
                     Text("Phone Number")
                 } footer: {
                     Text(phoneNumWasToggled == true ? "Prospects can now see your phone number when they scan your QR code" : "Prospects will not see your phone number  when they scan your QR code")
-                      
+                    
                 }
                 
                 .headerProminence(.increased)
@@ -105,18 +105,18 @@ struct MeView: View {
                 //will haave to make a textFeild with first text, part of url, then more
                 
                 Section {
-                    TextFeildWithToggle(placeholder: "LinkedIn  Profile URL", text: $linkedInUserName, contactPoints: $contactPoints, feildWasToggled: $linkedInUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorInLinkedin)
+                    TextFeildWithToggle(placeholder: "LinkedIn Username", text: $linkedInUserName, contactPoints: $contactPoints, feildWasToggled: $linkedInUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorInLinkedin)
                     
                 } header: {
                     Text("Linkedin")
                 } footer: {
-               
-                
-                LinkedInFooter
-
+                    
+                    
+                    LinkedInFooter
+                    
                 }
                 .headerProminence(.increased)
-            
+                
                 Section {
                     TextFeildWithToggle(placeholder: "Discord Username", text: $discordUserName, contactPoints: $contactPoints, feildWasToggled: $discordUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
                 } header: {
@@ -125,7 +125,7 @@ struct MeView: View {
                     DiscordFooter
                 }
                 .headerProminence(.increased)
-             
+                
                 
                 .onAppear {
                     updateCode()
@@ -143,7 +143,7 @@ struct MeView: View {
                     linkedInUserName = UserDefaults.standard.string(forKey: "linkedin_username") ?? ""
                     discordUserName = UserDefaults.standard.string(forKey: "discord_username") ?? ""
                 }
-         
+                
                 //sheet for the QR oe
                 .sheet(isPresented: $showingQRCodeSheet) {
                     QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled)
@@ -160,7 +160,7 @@ struct MeView: View {
                 .sheet(isPresented: $showingDiscordInstructions) {
                     SafariView(url: URL(string: "https://www.remote.tools/remote-work/discord-tag")!)
                 }
-               
+                
                 //when name state variable changes,save the name to local storage and update the QRCode
                 .onChange(of: name, perform: { newName in
                     // contactPoints[0].wrappedValue = newName
@@ -212,26 +212,13 @@ struct MeView: View {
                     showingQRCodeSheet = true
                 }
             }
-
+            
             .onAppear {
-                //            Task {
-                //                do {
-                //                    providerAuthURL = try await client.auth.getOAuthSignInURL(provider: .discord)
-                //
-                //                    providerURLSring = providerAuthURL!.absoluteString
-                //
-                //                    UserDefaults.standard.setValue(providerURLSring, forKey: "oauthURL")
-                //
-                //                    print("Provider URL \(providerURLSring)")
-                //                } catch {
-                //                    print("Error: \(error.localizedDescription)")
-                //                }
-                //            }
+                
             }
             .navigationTitle("My Info")
             
-                
-            }
+        }
             
         }
     
@@ -243,13 +230,11 @@ struct MeView: View {
             {
                 
                 //If there is an error in the contact Detailss then set the QRcode to nil
-                guard errorInEmail == false && errorinPhoneNum == false && errorInName == false
-                
+                guard errorInEmail == false && errorinPhoneNum == false && errorInName == false 
                 else {
                     qrCode = nil
                     return
                 }
-                
                 var QRString = ""
                 for index in 0..<contactPoints.count {
                     QRString.append(contactPoints[index].wrappedValue + "\n")

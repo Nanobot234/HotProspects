@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+///  Displays a prospect's name, date and time a user meets a prospect, and location details
 struct ItemRow: View {
   
     /// indentifies each `ItemRow` object. Used to identify objects that the user has selected to be deleted.
@@ -16,13 +17,16 @@ struct ItemRow: View {
     @EnvironmentObject var prospects: Prospects
     @EnvironmentObject var eventLocation: EventLocation
     
+    /// A saved prospect whose information is displayed in this row
+    ///
     @State var prospect: Prospect
     /// boolean to display or hide the sheet enabling a user to change or view scheduling reminders
+    ///
     @State private var showReminderView: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State var showreminderSheet = false
     
-    ///Determine whether or not to display toast. The toast is defined in  `ProspectView`
+    ///Determine whether or not to display toast. The toast is defined in `ProspectView`
     @Binding var toast: Bool
     
     
@@ -71,15 +75,13 @@ struct ItemRow: View {
                             showReminderView = true
                         }
                 }
-                
-                
+   
             }
             
         }
         .onAppear {
             
-            //if the user has stated that they are attending an event, then set the location the user meets the prospect to the event they are attending
-           setProspectDetails()
+           setProspectLocationDetails()
         }
         
         .sheet(isPresented: $showReminderView) {
@@ -153,15 +155,14 @@ struct ItemRow: View {
         return dateFormatter.string(from: date)
     }
     
-    func setProspectDetails() {
+    /// Determines where  the user met a ecently added prospect. 
+    func setProspectLocationDetails() {
         if(eventLocation.currentEventOfUser != "" && prospect.locationMet == "") {
-            
             prospect.locationMet = eventLocation.currentEventOfUser
               
             print("Location of user matching global", prospect.locationMet)
             prospects.addLocationMet(prospect)
         }
-        else if(prospect.locationMet != "") { return}
         
         else {
             prospect.locationMet = eventLocation.currentEventMetProspect

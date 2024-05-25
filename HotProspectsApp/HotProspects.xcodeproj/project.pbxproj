@@ -178,8 +178,8 @@
 		F2416FE72B17E19D00E8C291 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F26617132BE9541F0075B2E4 /* ViewsForProspectsTab */,
 				F286D80B2A9D3CC400608449 /* ContentView.swift */,
+				F26617132BE9541F0075B2E4 /* ViewsForProspectsTab */,
 				F283C0C62B55D00F00F0966B /* ForMyInfoTab */,
 			);
 			path = Views;

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LocalAuthentication
+import MessageUI
 
 /// Contains privacy info, FAQs , etc
 struct SettingsView: View {
@@ -19,7 +20,9 @@ struct SettingsView: View {
     @State private var alertMessage = ""
     
     @State var isBioAuthEnabled = false
-    @State var meTabDescription = ""
+    @State var showingMailView = false
+    
+    
     let propectsTabDescription = "In the Prospects tab, use the blue icon on the bottom right of the prspects page to scan a prospects QR code and you will instantly have access to all the contact info they share with you."
     let profileTabDescription = "In the profile tab, update your contact information and easily choose which one you want to share with prospects. Then click on the My QR Code button to display a QR code that others can scan to save your information"
     
@@ -29,19 +32,19 @@ struct SettingsView: View {
         NavigationStack {
             
             Form {
-                Section {
-                    HStack {
-                        
-                        Image(systemName:"faceid")
-                        Toggle(isOn: $isBioAuthEnabled) {
-                            Text("Face ID") //TODO: Add functionality for FACEID here, or touch
-                        }
-                        
-                        
-                    }
-                } header: {
-                    Text("Preferences")
-                }
+//                Section {
+//                    HStack {
+//                        
+//                        Image(systemName:"faceid")
+//                        Toggle(isOn: $isBioAuthEnabled) {
+//                            Text("Face ID") //TODO: Add functionality for FACEID here, or touch
+//                        }
+//                        
+//                        
+//                    }
+//                } header: {
+//                    Text("Preferences")
+//                }
                 
                 
                 Section {
@@ -49,8 +52,10 @@ struct SettingsView: View {
                     
                     //                NavigationLink(destination: Text(), label: <#T##() -> View#>)
                     
-                    NavigationLink(destination: appTabDscription){
-                        Text("Questions or Comments? Email me")
+                 
+                    
+                    Button("Questions or Comments? Email me") {
+                        showingMailView = true
                     }
                     //button to show a mailView
 //                    Button("Questions or Comments?") {
@@ -79,6 +84,9 @@ struct SettingsView: View {
                 }
                 
             }
+            .sheet(isPresented: $showingMailView, content: {
+                MailView(isShowing: $showingMailView)
+            })
             .onChange(of: isBioAuthEnabled, perform: { newValue in
                 
                 //when you toggle on
@@ -86,7 +94,7 @@ struct SettingsView: View {
                     authenticate()
                 }
             })
-            .navigationTitle("Settings")
+            .navigationTitle("Info")
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 //some error here!!
@@ -136,10 +144,12 @@ struct SettingsView: View {
                 showingAlert = true
             }
         }
+    
 }
 
 struct AboutAppView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
     }
+    
 }

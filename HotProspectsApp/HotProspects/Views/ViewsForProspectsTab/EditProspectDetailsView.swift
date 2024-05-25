@@ -26,17 +26,23 @@ struct EditProspectDetailsView: View {
     /// The text for the location feild
     @State  var locationText: String = ""
     
+    /// Notes that a user writes about the prospect they meet!
     @State var prospectNotesText: String = ""
     
+    /// controls visibility of safari view for a persons Linkedin Profile
     @State var showWebView: Bool = false
     
-    @State var showConfirmationDialog: Bool = false
+    /// controls visbility of dialog displaying diffferent messaging that a user can contact a prospect in
+    @State var showMessagingAppsDialog: Bool = false
     
+    /// controls visibility of email creator view!
     @State var isShowingMailView = false
+    
+    
+    ///  controls visiblity of of screen where a user can send an SMS message.
     @State var isShowingMessageView = false
     
    
-    
     var body: some View {
         NavigationView {
             Form {
@@ -66,10 +72,10 @@ struct EditProspectDetailsView: View {
                         //action sheet somewhere here!!
                         
                         Button("Send Text", systemImage: "message") {
-                                showConfirmationDialog = true
+                                showMessagingAppsDialog = true
                         }
                         .labelStyle(.iconOnly)
-                        .confirmationDialog("Chose the app you want to message in", isPresented: $showConfirmationDialog) {
+                        .confirmationDialog("Chose the app you want to message in", isPresented: $showMessagingAppsDialog) {
                             Button("Messages") { isShowingMessageView = true}
                             Button("WhatsApp") {openWhatsAppMessage()}
                             Button("Cancel", role: .cancel) {}
@@ -91,7 +97,7 @@ struct EditProspectDetailsView: View {
                 if(!prospect.linkedinProfileURL.isEmpty){
                     
                     Section  {
-                    //Button here for the link to Linkdin
+                    
                     Button("View \(prospect.name)'s LinkedIn") {
                         showWebView = true
                     }
@@ -163,7 +169,11 @@ struct EditProspectDetailsView: View {
         }
     }
 
-    /// sets the `locationText` and `prospectNotesText` feild with the value from the envionment.
+    /// sets the location and notes field for a particular user
+    ///
+    /// If the user didnt specifiy a location they met a prospect, then the current event they are attending is set as the location met.
+    ///
+    ///
     ///
     /// This fucntion is run when `onAppear` is called
     func setProspectLocationandNotesFromEnvironment() {
@@ -175,6 +185,9 @@ struct EditProspectDetailsView: View {
         prospectNotesText = prospect.prospectNotes
     }
     
+    /// Opens WhatsApp Messenger app for the specified phone number
+    ///
+    /// When the user clicks on the button, whatsapp will be opened with a prefilled message that can be edited at the user's discretion.
     func openWhatsAppMessage() {// Replace with the recipient's phone number
         let message = "Hello, this is \(prospect.name)!. We met at \(locationText)"
                       

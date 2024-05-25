@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchUnavailableView: View {
     
+    /// The phrase the user decides to search by
     @Binding var searchPhrase:String
     
     var body: some View {

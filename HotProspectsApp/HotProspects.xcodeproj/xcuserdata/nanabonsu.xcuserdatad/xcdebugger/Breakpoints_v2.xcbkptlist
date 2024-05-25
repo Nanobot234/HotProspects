@@ -242,6 +242,38 @@
             endingLineNumber = "20"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "4F76267D-D9E2-42D4-B04A-ACA4EB092C64 - 170de361dd7ea285"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.URL) -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onOpenURL(perform: (Foundation.URL) -&gt; ()) -&gt; some&gt;&gt;.0 in HotProspects.HotProspectsApp.body.getter : some"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/HotProspectsApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "4F76267D-D9E2-42D4-B04A-ACA4EB092C64 - 170de361dd7ea285"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.URL) -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onOpenURL(perform: (Foundation.URL) -&gt; ()) -&gt; some&gt;&gt;.0 in HotProspects.HotProspectsApp.body.getter : some"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/HotProspectsApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -416,6 +448,21 @@
                   endingLineNumber = "134"
                   offsetFromSymbolStart = "552">
                </Location>
+               <Location
+                  uuid = "FF92F26F-636E-44D6-A087-FCDC76967B20 - efaf5907e89770fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.getDiscordUserProfile(accessToken: Swift.String, completion: (Swift.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "134"
+                  endingLineNumber = "134"
+                  offsetFromSymbolStart = "359">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -494,6 +541,36 @@
                   endingLineNumber = "144"
                   offsetFromSymbolStart = "144">
                </Location>
+               <Location
+                  uuid = "4BAF4A61-FDCE-46E2-89FD-94D8FD56E1BD - efaf5907e8977731"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.getDiscordUserProfile(accessToken: Swift.String, completion: (Swift.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "1144">
+               </Location>
+               <Location
+                  uuid = "4BAF4A61-FDCE-46E2-89FD-94D8FD56E1BD - 851a3a9a60c9abe7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in HotProspects.getDiscordUserProfile(accessToken: Swift.String, completion: (Swift.Result&lt;Swift.Dictionary&lt;Swift.String, Any&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "255">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -511,6 +588,38 @@
             endingLineNumber = "123"
             landmarkName = "exchangeAuthCodeForToken(authorizationCode:redirectURI:clientID:clientSecret:provider:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DA3E5EAB-B779-4179-AC45-CAAA8CB0F7D0 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1392">
+               </Location>
+               <Location
+                  uuid = "DA3E5EAB-B779-4179-AC45-CAAA8CB0F7D0 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1327">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -543,6 +652,38 @@
             endingLineNumber = "120"
             landmarkName = "exchangeAuthCodeForToken(authorizationCode:redirectURI:clientID:clientSecret:provider:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7FB5A9F5-4718-446B-9A55-C0DDB9D582AB - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1392">
+               </Location>
+               <Location
+                  uuid = "7FB5A9F5-4718-446B-9A55-C0DDB9D582AB - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1327">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -575,6 +716,38 @@
             endingLineNumber = "106"
             landmarkName = "exchangeAuthCodeForToken(authorizationCode:redirectURI:clientID:clientSecret:provider:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "03A50688-8C7F-43D5-B038-2FEDE746BB24 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1392">
+               </Location>
+               <Location
+                  uuid = "03A50688-8C7F-43D5-B038-2FEDE746BB24 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1327">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -607,6 +780,38 @@
             endingLineNumber = "72"
             landmarkName = "exchangeAuthCodeForToken(authorizationCode:redirectURI:clientID:clientSecret:provider:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4600869C-9B0B-416F-BBCE-0A0973E0C3F8 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1392">
+               </Location>
+               <Location
+                  uuid = "4600869C-9B0B-416F-BBCE-0A0973E0C3F8 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1327">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -655,6 +860,38 @@
             endingLineNumber = "48"
             landmarkName = "exchangeAuthCodeForToken(authorizationCode:redirectURI:clientID:clientSecret:provider:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5E234C84-102A-4F9F-915B-5990782302E6 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1392">
+               </Location>
+               <Location
+                  uuid = "5E234C84-102A-4F9F-915B-5990782302E6 - b16b9402c4520c75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.OAuthProviderManager.exchangeAuthCodeForToken(authorizationCode: Swift.String, redirectURI: Swift.String, clientID: Swift.String, clientSecret: Swift.String, provider: Swift.String, completion: (Swift.Result&lt;Swift.String, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/ViewModels/OAuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1327">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -687,6 +924,322 @@
             endingLineNumber = "90"
             landmarkName = "createNewProspect(details:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "69C9080A-4D5F-46B6-80F5-EF6D3EDCDB4F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "addNewProspectToProspects()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0A3249B-A2F2-4C9B-AF87-1DDF40E3F3A7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "A0A3249B-A2F2-4C9B-AF87-1DDF40E3F3A7 - 9bc0d0b0de2ba241"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in HotProspects.ItemRow.body.getter : some"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  uuid = "A0A3249B-A2F2-4C9B-AF87-1DDF40E3F3A7 - 9bc0d0b0de2ba241"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in HotProspects.ItemRow.body.getter : some"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "394FC364-86E5-4AC1-90B8-754FAFC75469"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "addNewProspectToProspects()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "394FC364-86E5-4AC1-90B8-754FAFC75469 - b607d20524454cfc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ProspectsView.addNewProspectToProspects() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "394FC364-86E5-4AC1-90B8-754FAFC75469 - b607d20524454cfc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ProspectsView.addNewProspectToProspects() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "227">
+               </Location>
+               <Location
+                  uuid = "394FC364-86E5-4AC1-90B8-754FAFC75469 - b607d20524454c3e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ProspectsView.addNewProspectToProspects() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "368">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B0B82078-D395-4967-B940-52A9773390ED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "handleScan(result:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B0B82078-D395-4967-B940-52A9773390ED - 7004d5b9452fcb9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ProspectsView.handleScan(result: Swift.Result&lt;CodeScanner.ScanResult, CodeScanner.ScanError&gt;) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "695">
+               </Location>
+               <Location
+                  uuid = "B0B82078-D395-4967-B940-52A9773390ED - 655480a3840c0cbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in HotProspects.ProspectsView.handleScan(result: Swift.Result&lt;CodeScanner.ScanResult, CodeScanner.ScanError&gt;) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "45">
+               </Location>
+               <Location
+                  uuid = "B0B82078-D395-4967-B940-52A9773390ED - 7004d5b9452fcbbe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ProspectsView.handleScan(result: Swift.Result&lt;CodeScanner.ScanResult, CodeScanner.ScanError&gt;) -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ProspectViewExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "800">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70557D66-4B6B-40F4-957C-09DE52133615"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "setProspectLocationDetails()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "70557D66-4B6B-40F4-957C-09DE52133615 - ca76d7c912ff74ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "1384">
+               </Location>
+               <Location
+                  uuid = "70557D66-4B6B-40F4-957C-09DE52133615 - ca76d7c912ff74ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "1448">
+               </Location>
+               <Location
+                  uuid = "70557D66-4B6B-40F4-957C-09DE52133615 - ca76d7c912ff74ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "1256">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8938CD0-3C75-47D8-81CE-EAEDDE71849F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "setProspectLocationDetails()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A8938CD0-3C75-47D8-81CE-EAEDDE71849F - ca76d7c912ff77a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "872">
+               </Location>
+               <Location
+                  uuid = "A8938CD0-3C75-47D8-81CE-EAEDDE71849F - ca76d7c912ff77a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "760">
+               </Location>
+               <Location
+                  uuid = "A8938CD0-3C75-47D8-81CE-EAEDDE71849F - ca76d7c912ff7784"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HotProspects.ItemRow.setProspectLocationDetails() -&gt; ()"
+                  moduleName = "HotProspects"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nanabonsu/IOSProjects/HotProspects/HotProspectsApp/HotProspects/Views/ViewsForProspectsTab/ItemRowView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "696">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -58,16 +58,19 @@ struct TextFeildWithToggle: View {
                             feildWasToggled = true
                             switch placeholder {
                             case "Email Address":
-                                contactPoints.insert($text, at: 1)
+                                contactPoints[1] = $text
+                                
+                               // ($text, at: 1)
                                 updateQrCode()
                             case "Phone Number":
-                                contactPoints.insert($text, at: 2)
+                                contactPoints[2] = $text
+                                    //.insert($text, at: 2)
                                 updateQrCode()
                             case "LinkedIn Username":
-                                contactPoints.insert($text, at: 3)
+                                contactPoints[3] = $text
                                 updateQrCode()
                             case "Discord Username":
-                                contactPoints.insert($text, at: 4)
+                                contactPoints[4] = $text //this should set it equal to this value
                                 updateQrCode()
                             default:
                                 contactPoints.insert($text, at: 1)

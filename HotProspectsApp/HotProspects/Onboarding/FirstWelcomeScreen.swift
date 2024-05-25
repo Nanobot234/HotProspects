@@ -37,6 +37,8 @@ struct FirstWelcomeScreen: View {
                 
                 Spacer()
                 
+            
+                
                 NavigationLink(destination: OnboardingUserInfoEntry()) {
                     Text("Next")
                         .foregroundColor(.white)
@@ -45,12 +47,10 @@ struct FirstWelcomeScreen: View {
                         .background(Color.blue)
                         .cornerRadius(15)
                         .padding(.bottom, 20)
-                    
                 }
+                .background(Color.clear)
             }
-            
-            
-            
+     
             //now the the button here to move on
             
         }

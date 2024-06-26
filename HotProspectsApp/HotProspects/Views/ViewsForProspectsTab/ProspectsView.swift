@@ -223,10 +223,9 @@ struct ProspectsView: View {
                     ItemRow(prospect: prospect, toast: $presentToast, filter: selectedFilter)
                         .frame(height:100)
                         .padding(20)
-                    
-                        
+
                         .onTapGesture {
-                          
+                          //this is to edit
                             currentSelectedProspect = Prospect(name: prospect.name, emailAddress: prospect.emailAddress, phoneNumber: prospect.phoneNumber)
                             currentSelectedProspect.id = prospect.id
                             currentSelectedProspect.locationMet = prospect.locationMet

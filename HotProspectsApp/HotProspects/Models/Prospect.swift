@@ -24,7 +24,7 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
     var locationMet = ""
     
     /// The current date that the user saves the  prospects contact information
-    var currentDate = Date()
+    var currentDateMetUser : Date? = nil
 
     /// Toggles the button for the reminder on and off. The false, or off, state indicated that the user has not set a reminder to contact this prospect. The true state means the user has set one.
     var isReminderSet = false

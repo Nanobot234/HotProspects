@@ -85,9 +85,7 @@ struct QRCodeView: View {
             
             .presentationCompactAdaptation(.popover)
         }
-        .onAppear {
-         //   UIScreen.ma
-        }
+        
         
         .onDisappear {
             qrCodeImage = nil //should prevent any possible caching of the image

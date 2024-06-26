@@ -62,7 +62,7 @@ struct EditProspectDetailsView: View {
                         }
                         .labelStyle(.iconOnly)
                         .sheet(isPresented: $isShowingMailView, content: {
-                            MailView(isShowing: $isShowingMailView)
+                            MailView(isShowing: $isShowingMailView, recpientEmail: prospect.emailAddress)
                         })
                     }
                     
@@ -108,7 +108,7 @@ struct EditProspectDetailsView: View {
                 }
                     
             }
-                if(!prospect.linkedinProfileURL.isEmpty){
+                if(!prospect.discordUsername.isEmpty){
                     Section {
                         Text(prospect.discordUsername)
                     } header: {
@@ -177,8 +177,11 @@ struct EditProspectDetailsView: View {
     ///
     /// This fucntion is run when `onAppear` is called
     func setProspectLocationandNotesFromEnvironment() {
+        //when u come in, should be loading waht is environment
+        
+        
         if(prospect.locationMet == "") {
-            locationText = eventLocation.currentEventOfUser
+            locationText = eventLocation.currentEventOfUser //the event that the user is at. since its added automatically
         } else {
             locationText = prospect.locationMet
         }

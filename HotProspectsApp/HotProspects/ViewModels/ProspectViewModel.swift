@@ -19,6 +19,7 @@ import Foundation
         if let data = UserDefaults.standard.data(forKey: saveKey) {
             if let decoded = try? JSONDecoder().decode([Prospect].self, from: data) {
                 people = decoded
+                print("Printing userdefaults:\(UserDefaults.standard.string(forKey: "users_name")!)")
                 return
             }
         }

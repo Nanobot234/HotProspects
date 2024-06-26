@@ -49,8 +49,10 @@ struct ItemRow: View {
                     Text(prospect.name)
                         .font(.system(size:25,weight: .bold))
                     
-                    let prospectString = "Met At: \(prospect.locationMet)\nDate: \(extractDate(from: prospect.currentDate))\nTime: \(extractTime(from: prospect.currentDate))"
-                    Text(prospect.locationMet != "" ? prospectString: "No Location Added\n Date: \(extractDate(from: prospect.currentDate)) \nTime: \(extractTime(from: prospect.currentDate))")
+                    let prospectString = "Met At: \(prospect.locationMet)\nDate: \(extractDate(from: prospect.currentDateMetUser!))\nTime: \(extractTime(from: prospect.currentDateMetUser!))"
+                    
+                    
+                    Text(prospect.locationMet != "" ? prospectString: "No Location Added\n Date: \(extractDate(from: prospect.currentDateMetUser!)) \nTime: \(extractTime(from: prospect.currentDateMetUser!))")
                         .font(.system(size: 20))
                     
                 }
@@ -82,6 +84,7 @@ struct ItemRow: View {
         .onAppear {
             
            setProspectLocationDetails()
+
         }
         
         .sheet(isPresented: $showReminderView) {
@@ -139,9 +142,7 @@ struct ItemRow: View {
     }
     
     /// Sets the location the user meets the prospect to the current event the user is attending
-    func updateProspectLocation() {
-        prospect.locationMet = eventLocation.currentEventMetProspect
-    }
+   
     
     func extractDate(from date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -157,20 +158,29 @@ struct ItemRow: View {
     
     /// Determines where  the user met a ecently added prospect. 
     func setProspectLocationDetails() {
-        if(eventLocation.currentEventOfUser != "" && prospect.locationMet == "") {
-            prospect.locationMet = eventLocation.currentEventOfUser
-              
-            print("Location of user matching global", prospect.locationMet)
-            prospects.addLocationMet(prospect)
-        }
         
-        else {
-            prospect.locationMet = eventLocation.currentEventMetProspect
-            prospects.addLocationMet(prospect)
-            eventLocation.currentEventMetProspect = ""
-        }
+        //first get the locationMet and then if its empty , get it from the
+        
+        //prospect.locationMet =
+        
+//        //this is ran before the data is loaded correctly
+//        if(prospect.locationMet.isEmpty) {
+//            
+//            prospect.locationMet = eventLocation.currentEventOfUser
+//            prospects.addLocationMet(prospect)
+//            print("Location of user matching global", prospect.locationMet)
+//        }
+//        
+//        else {
+//            //get the recently added event
+//            prospect.locationMet = eventLocation.currentEventMetProspect
+//            prospects.addLocationMet(prospect)
+//            eventLocation.currentEventMetProspect = ""
+//        }
+//        
     }
     
+    //e
     
 }
 //struct ItemRowView_Previews: PreviewProvider {

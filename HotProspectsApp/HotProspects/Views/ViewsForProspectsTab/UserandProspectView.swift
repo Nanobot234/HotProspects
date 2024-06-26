@@ -19,7 +19,7 @@ struct UserAndProspectLocationView: View {
     /// String indicates if a user updates the location that they are attending or sets a location met for an individual prospect,
      var addReasonMessage:String
     
-    @State var userLocationString = ""
+ //   @State var userLocationString = ""
     
   //  var prospect: Prospect
     var body: some View {
@@ -30,15 +30,19 @@ struct UserAndProspectLocationView: View {
                 
                 //...
                 Section {
-                    TextField("Location", text: addReasonMessage == "userLocationUpdate" ? $userLocationString: $eventLocation.currentEventMetProspect)
-                    
+                    TextField("Location", text: addReasonMessage == "userLocationUpdate" ? $eventLocation.currentEventOfUser: $eventLocation.currentEventMetProspect)
+                    //so if the user is updating location save ir in location string if not the event variable
                         .font(.title2)
                         .textInputAutocapitalization(.never)
-                        .textFieldStyle(.roundedBorder)
                         .autocorrectionDisabled(true)
                 } header: {
-                    Text(addReasonMessage == "userLocationUpdate" ? "The Location Where Your Meeting Prospects" : "The location Where You Met This Prospect")
+                    Text("Location")
+                } footer: {
+                    Text(addReasonMessage == "userLocationUpdate" ? "The location where you meet new prospects will be set to this location" : "The location where you met this prospect")
+                        .font(.title3)
+                    
                 }
+                .headerProminence(.increased)
                 
                 
                 
@@ -48,27 +52,34 @@ struct UserAndProspectLocationView: View {
                             .frame(maxWidth:.infinity, maxHeight: .infinity)
                             .foregroundStyle(.primary)
                             .padding(.horizontal,20)
-                            .border(.black, width: 0.5)
+                           
                     } header: {
                         Text("Notes about this Prospect")
                         
                     }
+                    .headerProminence(.increased)
                 }
      
             }
         
-            .navigationTitle(addReasonMessage == "userLocationUpdate" ? "What Event are You Attending?" : "Prospect Details")
-            .navigationBarTitleDisplayMode(addReasonMessage == "userLocationUpdate" ? .inline : .large)
+            .navigationTitle(addReasonMessage == "userLocationUpdate" ? "Where are you At?" : "Prospect Details")
+            .navigationBarTitleDisplayMode(.inline)
    
             
             .onAppear {
-                userLocationString = eventLocation.currentEventOfUser
+                
+              //  userLocationString = eventLocation.currentEventOfUser //the stored user location will be this.
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     toolbarButton("Save", systemImage: "") {
                         
-                        eventLocation.currentEventOfUser = userLocationString //here puts the current event that the user is into the environment.
+                        if(addReasonMessage == "userLocationUpdate") {
+                          //  eventLocation.currentEventOfUser = userLocationString
+                        } else  {
+                            
+                        }
+                         //here puts the current event that the user is into the environment.
                         dismiss()
                         
                     }

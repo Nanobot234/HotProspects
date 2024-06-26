@@ -35,7 +35,7 @@ extension ProspectsView {
         case .name:
             return filteredProspects.sorted {$0.name < $1.name}
         case .recent:
-            return filteredProspects.sorted {$0.currentDate > $1.currentDate}
+            return filteredProspects.sorted {$0.currentDateMetUser! > $1.currentDateMetUser!}
             
         }
     }
@@ -43,7 +43,7 @@ extension ProspectsView {
     var searchedfilteredProspects: [Prospect] {
         
         //returns the searched for item
-        searchFieldText.isEmpty ? filteredSortedProspects : filteredSortedProspects.filter {$0.name.localizedCaseInsensitiveContains(searchFieldText) || $0.emailAddress.localizedCaseInsensitiveContains(searchFieldText) || $0.currentDate.formatted().localizedCaseInsensitiveContains(searchFieldText) ||
+        searchFieldText.isEmpty ? filteredSortedProspects : filteredSortedProspects.filter {$0.name.localizedCaseInsensitiveContains(searchFieldText) || $0.emailAddress.localizedCaseInsensitiveContains(searchFieldText) || $0.currentDateMetUser!.formatted().localizedCaseInsensitiveContains(searchFieldText) ||
             $0.locationMet.localizedCaseInsensitiveContains(searchFieldText)
         }
         
@@ -59,8 +59,8 @@ extension ProspectsView {
             isShowingScanner = false
             
             //
-            let details = Utilties.adjustDetailsArray(details: result.string.components(separatedBy: "\n")) //add empty slots in the array for info thatt he user decided not to share!!
-            
+           // let details = Utilties.adjustDetailsArray(details: result.string.components(separatedBy: "\n")) //add empty slots in the array for info thatt he user decided not to share!!
+            let details = result.string.components(separatedBy: "\n")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 createNewProspect(details: details)
@@ -87,9 +87,13 @@ extension ProspectsView {
         //need to pad this array, with the correct amount empty, once you get it so that it can not misplace the detaisl
         
         newProspect.name = details[0]
+         
         newProspect.emailAddress = details[1]
         newProspect.phoneNumber = details[2]
 
+        guard details.count >= 4 else {
+            addNewProspectToProspects()
+            return}
         if(!details[3].isEmpty && !details[3].contains("https://www.linkedin.com/")) {
             newProspect.linkedinProfileURL = "https://www.linkedin.com/in/" + details[3]
         }
@@ -97,6 +101,9 @@ extension ProspectsView {
                 newProspect.linkedinProfileURL = details[3]
             }
  
+        guard details.count >= 5 else {
+            addNewProspectToProspects()
+            return}
         newProspect.discordUsername = details[4]
         
         print("Profile-URL " + newProspect.linkedinProfileURL)
@@ -107,8 +114,7 @@ extension ProspectsView {
         } else {
             addNewProspectToProspects()
         }
-       
-     
+        
     }
     
     func addNewProspectToProspects() {
@@ -117,10 +123,16 @@ extension ProspectsView {
         newProspect.prospectNotes = eventLocation.newProspectNotes //set the notes of the new prospect to the environemnt value
         eventLocation.newProspectNotes = "" //sets it to empty string for next prospect to be added
         
+        //also set the location!!
+        if(eventLocation.currentEventOfUser.isEmpty) {
+            newProspect.locationMet = eventLocation.currentEventMetProspect
+        } else {
+            newProspect.locationMet = eventLocation.currentEventOfUser
+        }
+        newProspect.currentDateMetUser = Date()
    
         prospects.add(newProspect)
-        prospects.addLocationMet(newProspect)
-        
+        prospects.addLocationMet(newProspect) //confirmation. making sure saves in casee!!!
         
         newProspect = Prospect()
     }

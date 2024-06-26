@@ -13,6 +13,7 @@ import MessageUI
 
 struct MailView: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
+    var recpientEmail:String
     
     
     func makeCoordinator() -> Coordinator {

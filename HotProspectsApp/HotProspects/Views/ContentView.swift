@@ -34,13 +34,13 @@ struct ContentView: View {
             
             MeView()
                 .tabItem {
-                    Label("My Profile", systemImage: "person.crop.square")
+                    Label("Me", systemImage: "person.crop.square")
                 }
 
          SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gear")
-                } 
+                    Label("Info", systemImage: "info.circle")
+                }
             
 
          

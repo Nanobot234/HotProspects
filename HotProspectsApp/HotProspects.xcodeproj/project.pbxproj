@@ -52,6 +52,7 @@
 		F2BFE1E62AC59F880061F4A3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BFE1E52AC59F880061F4A3 /* Utilities.swift */; };
 		F2C4293A2B16833B00CB794D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C429392B16833B00CB794D /* SearchBarView.swift */; };
 		F2C6CCF72B460A7D00E4B885 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C6CCF62B460A7D00E4B885 /* QRCodeView.swift */; };
+		F2E3A1B52C1A350B00E781F9 /* MeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E3A1B42C1A350B00E781F9 /* MeViewModel.swift */; };
 		F2E68CB72AAF93EF001B6741 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB62AAF93EF001B6741 /* MeView.swift */; };
 		F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E68CB82AAF9807001B6741 /* Prospect.swift */; };
 		F2F137EF2B5EBC200032029D /* FirstWelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */; };
@@ -121,6 +122,7 @@
 		F2BFE1E52AC59F880061F4A3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F2C429392B16833B00CB794D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		F2C6CCF62B460A7D00E4B885 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		F2E3A1B42C1A350B00E781F9 /* MeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewModel.swift; sourceTree = "<group>"; };
 		F2E68CB62AAF93EF001B6741 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		F2E68CB82AAF9807001B6741 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
 		F2F137EE2B5EBC200032029D /* FirstWelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstWelcomeScreen.swift; sourceTree = "<group>"; };
@@ -169,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				F21F01212B86A455004EF482 /* ProspectViewModel.swift */,
-				F2AC342A2B66ECED007F964B /* OAuthViewModel.swift */,
 				F21F01232B86A526004EF482 /* ProspectEventViewModel.swift */,
 			);
 			path = ViewModels;
@@ -191,6 +192,7 @@
 				F26617142BE954710075B2E4 /* EditProspectDetailsView.swift */,
 				F26617162BE9549D0075B2E4 /* FloatingButtonView.swift */,
 				F26617182BE954BA0075B2E4 /* ItemRowView.swift */,
+				F2AC342A2B66ECED007F964B /* OAuthViewModel.swift */,
 				F266171A2BE954D20075B2E4 /* ProspectsView.swift */,
 				F266171C2BE9552D0075B2E4 /* ProspectViewExtension.swift */,
 				F266171E2BE9555E0075B2E4 /* ReminderView.swift */,
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E68CB62AAF93EF001B6741 /* MeView.swift */,
+				F2E3A1B42C1A350B00E781F9 /* MeViewModel.swift */,
 				F2186C852BD06FA700ABFA78 /* MeView-Extensions.swift */,
 				F2A72CE82B2A528E0023C478 /* TextFeildWithToggle.swift */,
 				F222298C2B0812820022F93B /* CurrentLocationView.swift */,
@@ -469,6 +472,7 @@
 				F29E94292B55842200DFFFFD /* SettingsView.swift in Sources */,
 				F22D76B32AB8C332004558A9 /* ImageSaver.swift in Sources */,
 				F242B3482BB73D610028C619 /* TestView.swift in Sources */,
+				F2E3A1B52C1A350B00E781F9 /* MeViewModel.swift in Sources */,
 				F2569E6F2BF01CA900F4DFBA /* MailViewController.swift in Sources */,
 				F2E68CB92AAF9807001B6741 /* Prospect.swift in Sources */,
 				F26617192BE954BA0075B2E4 /* ItemRowView.swift in Sources */,

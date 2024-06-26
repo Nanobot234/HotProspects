@@ -21,7 +21,7 @@ struct MessageView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MFMessageComposeViewController {
         let messageComposeViewController = MFMessageComposeViewController()
         messageComposeViewController.messageComposeDelegate = context.coordinator
-        messageComposeViewController.recipients = ["recipientPhoneNumber"]
+        messageComposeViewController.recipients = [phoneNumber]
         messageComposeViewController.body = messageBody
         return messageComposeViewController
     }

@@ -15,9 +15,18 @@ struct MeView: View {
     
     //@EnvironmentObject private var viewModel:RowModel
     
-    @State private var name = ""
-    @State private var emailAddress = ""
-    @State private var phoneNumber = ""
+    @StateObject var meViewModel = MeViewModel()
+    
+//    @State private var emailAddress = "" {
+//        didSet {
+//            UserDefaults.standard.set(emailAddress, forKey: "m_users_email")
+//        }
+//    }
+
+    
+    ///  Will be used as a copy of the name of the user. This copy will be manippluated and used to display the users information in the QR code.
+    
+    
     @State private var contactPoints = [Binding<String>]()
     
     @EnvironmentObject var eventLocation: EventLocation
@@ -45,15 +54,15 @@ struct MeView: View {
     @State private var startingWebAuthforLinkedin = false
     @State private var startingWebAuthforDiscord = false
     
-    @State private var linkedInUserName = ""
-    @State private var discordUserName = ""
+    
     
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     ///Generate the QR image
     let filter = CIFilter.qrCodeGenerator()
     let context = CIContext()
     
-
+    
+    
     //have a button that basically is activated when something is toggled, then will run the code conditionll
     var body: some View {
         NavigationView {
@@ -63,14 +72,13 @@ struct MeView: View {
                 
                 Section {
                     VStack {
-                        TextField("Name", text: $name)
+                        TextField("Name", text: $meViewModel.name)
                             .textContentType(.name)
                             .font(.title3)
                         
-                        if(name.isEmpty){
+                        if(meViewModel.name.isEmpty){
                             Text("Please enter your name")
                                 .foregroundStyle(Color.red)
-                            
                         }
                     }
                 } header: {
@@ -81,7 +89,7 @@ struct MeView: View {
                 //Sections with header and footer
                 
                 Section {
-                    TextFeildWithToggle(placeholder: "Email Address", text: $emailAddress, contactPoints: $contactPoints, feildWasToggled: $emailWasToggled, updateQrCode: updateCode, errorPresent: $errorInEmail)
+                    TextFeildWithToggle(placeholder: "Email Address", text: $meViewModel.emailAddress, toggleActive:$emailWasToggled, updateQrCode: updateCode, errorPresent: $errorInEmail)
                 } header: {
                     Text("Email Address")
                 } footer: {
@@ -91,7 +99,7 @@ struct MeView: View {
                 .headerProminence(.increased)
                 
                 Section {
-                    TextFeildWithToggle(placeholder: "Phone Number", text: $phoneNumber, contactPoints: $contactPoints, feildWasToggled: $phoneNumWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
+                    TextFeildWithToggle(placeholder: "Phone Number", text: $meViewModel.phoneNumber, toggleActive: $phoneNumWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
                 } header: {
                     Text("Phone Number")
                 } footer: {
@@ -105,20 +113,19 @@ struct MeView: View {
                 //will haave to make a textFeild with first text, part of url, then more
                 
                 Section {
-                    TextFeildWithToggle(placeholder: "LinkedIn Username", text: $linkedInUserName, contactPoints: $contactPoints, feildWasToggled: $linkedInUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorInLinkedin)
+                    TextFeildWithToggle(placeholder: "LinkedIn Username", text: $meViewModel.linkedinUsername, toggleActive: $linkedInUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorInLinkedin)
                     
                 } header: {
                     Text("Linkedin")
                 } footer: {
-                    
-                    
+    
                     LinkedInFooter
                     
                 }
                 .headerProminence(.increased)
                 
                 Section {
-                    TextFeildWithToggle(placeholder: "Discord Username", text: $discordUserName, contactPoints: $contactPoints, feildWasToggled: $discordUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
+                    TextFeildWithToggle(placeholder: "Discord Username", text: $meViewModel.discordUsername, toggleActive: $discordUsernameWasToggled, updateQrCode: updateCode, errorPresent: $errorinPhoneNum)
                 } header: {
                     Text("Discord")
                 }      footer: {
@@ -128,22 +135,22 @@ struct MeView: View {
                 
                 
                 .onAppear {
-                    updateCode()
-                    
+                  
+
                     if !contactPointsInitialized {
-                        contactPoints = [$name,$emailAddress,$phoneNumber,$linkedInUserName, $discordUserName]//add the userNames and URLs here!!! tocontinue!!
                         
+                        contactPoints = [$meViewModel.nameCopy,$meViewModel.emailAddressCopy,$meViewModel.phoneNumberCopy, $meViewModel.linkedinUsernameCopy, $meViewModel.discordUsernameCopy]//add the userNames and URLs here!!! tocontinue!!
+                        //continue here Q!
                         print(contactPoints.count)
                     }
                     contactPointsInitialized = true
+                    updateCode() //this generates the qr code after
                     
-                    name = UserDefaults.standard.string(forKey: "users_name") ?? ""
-                    emailAddress = UserDefaults.standard.string(forKey: "users_email") ?? ""
-                    phoneNumber = UserDefaults.standard.string(forKey:"users_phone") ?? ""
-                    linkedInUserName = UserDefaults.standard.string(forKey: "linkedin_username") ?? ""
-                    discordUserName = UserDefaults.standard.string(forKey: "discord_username") ?? ""
+                    
                 }
-                
+//                .willAppear {
+//                    
+//                }
                 //sheet for the QR oe
                 .sheet(isPresented: $showingQRCodeSheet) {
                     QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled)
@@ -162,50 +169,119 @@ struct MeView: View {
                 }
                 
                 //when name state variable changes,save the name to local storage and update the QRCode
-                .onChange(of: name, perform: { newName in
+                .onChange(of: meViewModel.name, perform: { newName in
                     // contactPoints[0].wrappedValue = newName
-                    UserDefaults.standard.set(newName, forKey: "users_name")
-                    updateCode()
                     if(newName.isEmpty) {
                         errorInName = true
                     } else {
                         errorInName = false
                     }
                     
+                    meViewModel.nameCopy = newName
+                    updateCode()
                     
+                    //when the name is loaded, it needs 
+     
                 })
                 //when emailAddress state variable changes,save the name to local storage and update the QRCode
-                .onChange(of: emailAddress, perform: { newEmail in
-                    UserDefaults.standard.set(newEmail, forKey: "users_email")
+                .onChange(of: meViewModel.emailAddress, perform: { newEmail in
+              //  UserDefaults.standard.set(newEmail, forKey: "users_email")
+                    meViewModel.emailAddressCopy = newEmail
+                        //    print(emailAddressCopy)
                     updateCode()
+                    
                     
                 })
                 
                 //when phone Number state variable changes,save the name to local storage and update the QRCode
-                .onChange(of: phoneNumber, perform: { newPhone in
-                    UserDefaults.standard.set(newPhone, forKey: "users_phone")
+                .onChange(of: meViewModel.phoneNumber, perform: { newPhone in
+                   // UserDefaults.standard.set(newPhone, forKey: "m_users_phone")
+                        meViewModel.phoneNumberCopy = newPhone
+                    updateCode()
+                    
+                })
+                .onChange(of: meViewModel.linkedinUsername, perform: { updateduserName in
+              //      UserDefaults.standard.set(updateduserName, forKey: "Linkedin_Username")
+                    //      contactPoints[4] = updatedDiscordUserName
+                        meViewModel.linkedinUsernameCopy = updateduserName
                     updateCode()
                 })
-                .onChange(of: linkedInUserName, perform: { updateduserName in updateCode()
-                    UserDefaults.standard.set(updateduserName, forKey: "linkedin_UserName")
-                })
-                .onChange(of: discordUserName, perform: { updatedDiscordUserName in updateCode()
-                    UserDefaults.standard.set(updatedDiscordUserName, forKey: "discord_username")
-                })
-                
-                .onChange(of: errorInEmail, perform: { _ in updateCode()
-                    print("Error present in email \(errorInEmail)")
+                //when the user changes the discordUsername the username is saved in userdefaults and the saved in the copy variable used for the Qr code.
+                .onChange(of: meViewModel.discordUsername, perform: { updatedDiscordUserName in
+                    meViewModel.discordUsernameCopy = updatedDiscordUserName
+                    //  contactPoints[4] = updatedDiscordUserName
+                    updateCode()
                 })
                 
-                .onChange(of: errorinPhoneNum, perform: { _ in updateCode()
-                    print("Error present in phone number \(errorinPhoneNum)")
+                .onChange(of: emailWasToggled, perform: { toggleState in
+                    UserDefaults.standard.set(toggleState, forKey: "emailToggleStatus")
+                    
+                    //if the user toggles the sharing off for the email, then set the copy variable used in the QR code to off
+                    if(!toggleState){
+                        meViewModel.emailAddressCopy = ""
+                        updateCode()
+                      //  meViewModel.saveUserInfo()
+                    } else {
+                        meViewModel.emailAddressCopy = meViewModel.emailAddress
+                        updateCode()
+                      //  meViewModel.saveUserInfo()
+
+                    }
+                })
+                .onChange(of: phoneNumWasToggled, perform: { toggleState in
+                    UserDefaults.standard.set(toggleState, forKey: "phoneNumberToggleStatus")
+                    
+                    if(!toggleState){
+                        meViewModel.phoneNumberCopy = ""
+                        updateCode()
+                    //    meViewModel.saveUserInfo()
+                    } else {
+                        meViewModel.phoneNumberCopy = meViewModel.phoneNumber
+                        updateCode()
+                     //   meViewModel.saveUserInfo()
+                    }
+                   
+                    
+                })
+                .onChange(of: linkedInUsernameWasToggled, perform: { toggleState in
+                    UserDefaults.standard.set(toggleState, forKey: "linkedinToggleStatus")
+                    
+                    if(!toggleState){
+                        meViewModel.linkedinUsernameCopy = ""
+                        updateCode()
+                    //    meViewModel.saveUserInfo()
+                    } else {
+                        meViewModel.linkedinUsernameCopy = meViewModel.linkedinUsername
+                        updateCode()
+                    //    meViewModel.saveUserInfo()
+                    }
+        
+                    
+                    
+                })
+                .onChange(of: discordUsernameWasToggled, perform: { toggleState in
+                    UserDefaults.standard.set(toggleState, forKey: "discordToggleStatus")
+                    
+                    if(!toggleState) {
+                        meViewModel.discordUsernameCopy = ""
+                        updateCode()
+                    //    meViewModel.saveUserInfo()
+                    } else {
+                        meViewModel.discordUsernameCopy = meViewModel.discordUsername
+                        updateCode()
+                      //  meViewModel.saveUserInfo()
+                    }
+                    
+                
+                    
                 })
                 
-                
-                .onDisappear(
-                    perform: saveUserInfo
-                )
+//            .onDisappear(
+//                    perform: meViewModel.saveUserInfo
+//                )
             }
+            .defersSystemGestures(on: .all)
+            
             .toolbar {
                 
                 toolbarButton("My QR Code", systemImage: "") {
@@ -213,105 +289,99 @@ struct MeView: View {
                 }
             }
             
-            .onAppear {
-                
-            }
             .navigationTitle("My Info")
-            
-        }
-            
-        }
-    
-            
-            /// updates the  generated QR code image based on the users name, email, and phoneNumber.
-            ///
-            /// THe qrCode image is generated by calling the `generateCode` method. The view constanly calls this function as the name , email, and address parametrs change
-            func updateCode()
-            {
-                
-                //If there is an error in the contact Detailss then set the QRcode to nil
-                guard errorInEmail == false && errorinPhoneNum == false && errorInName == false 
-                else {
-                    qrCode = nil
-                    return
-                }
-                var QRString = ""
-                for index in 0..<contactPoints.count {
-                    QRString.append(contactPoints[index].wrappedValue + "\n")
-                }
-                
-                qrCode = generateQRCode(from: QRString)
-            }
-            
-            /// Saves user info when the user clicks out of this screen
-            func saveUserInfo() {
-                UserDefaults.standard.set(name, forKey: "users_name")
-                UserDefaults.standard.set(emailAddress, forKey: "users_email")
-                UserDefaults.standard.set(phoneNumber, forKey: "users_phone")
-                UserDefaults.standard.set(linkedInUserName, forKey: "linkedin_UserName")
-                UserDefaults.standard.set(linkedInUserName, forKey: "discord_username")
-            }
-            
-            var LinkedInFooter: some View {
-                
-                VStack {
-                    Text(linkedInUsernameWasToggled == true ? "Prospects will be able to see your linkedin profile when they scan your QR Code": "Prospects will not see your linkedin username when they scan your QR code.")
-                        .padding([.bottom],10)
-                    
-                    HStack(spacing: 0) {
-                        Text("To lean how to find your linkedin profile URL ")
-                        Button(action: {
-                                showingLinkedinInstructions = true
-                        }) {
-                            Text("Click here")
-                                .underline()
-                                .font(.system(size: 9))
-                                //change the font size here!!
-                                //font change here!!
-                            
-                        }
-                        //
-                    }
-             
-                }
-                .multilineTextAlignment(.leading)
-                
-                
-            }
-            
-            var DiscordFooter: some View {
-                
-                VStack {
-                    Text(discordUsernameWasToggled == true ? "Prospects will be able to see  your Discord tag when they scan your QR Code":"Prospects will not be able to see your Discord profile when they scan your QR Code")
-                        .padding([.bottom], 10)
-                    
-                    HStack(spacing: 0) {
-                        Text("To learn how to find your discord tag,")
-                        Button(action: {
-                                showingLinkedinInstructions = true
-                        }) {
-                            Text("Click here")
-                                .underline()
-                                .font(.system(size: 9))
-                                //change the font size here!!
-                                //font change here!!
-                            
-                        }
-                    }
-                }
-   
-                
-            }
-            
         }
         
-
-    
-    struct MeView_Previews: PreviewProvider {
-        static var previews: some View {
-            MeView()
-                .environmentObject(EventLocation())
-        }
     }
+    
+    /// updates the  generated QR code image based on the users name, email, and phoneNumber.
+    ///
+    /// THe qrCode image is generated by calling the `generateCode` method. The view constanly calls this function as the name , email, and address parametrs change
+    func updateCode()
+    {
+        //If there is an error in the contact Detailss then set the QRcode to nil
+        guard errorInEmail == false && errorinPhoneNum == false && errorInName == false
+        else {
+            qrCode = nil
+            return
+        }
+        
+        var QRString = ""
+        for index in 0..<contactPoints.count {
+            QRString.append(contactPoints[index].wrappedValue + "\n")
+        }
+        print("Printing the code now!")
+        print(QRString)
+        
+        qrCode = generateQRCode(from: QRString)
+        
+    }
+    
+    /// Saves user info when the user clicks out of this screen
+
+ 
+    /// makes surec ontact points values are equal to what the user sets.
+ 
+    var LinkedInFooter: some View {
+        
+        VStack {
+            Text(linkedInUsernameWasToggled == true ? "Prospects will be able to see your linkedin profile when they scan your QR Code": "Prospects will not see your linkedin username when they scan your QR code.")
+                .padding([.bottom],10)
+            
+            HStack(spacing: 0) {
+                Text("To lean how to find your linkedin profile URL ")
+                Button(action: {
+                    showingLinkedinInstructions = true
+                }) {
+                    Text("Click here")
+                        .underline()
+                        .font(.system(size: 9))
+                    //change the font size here!!
+                    //font change here!!
+                    
+                }
+                //
+            }
+            
+        }
+        .multilineTextAlignment(.leading)
+        
+        
+    }
+    
+    var DiscordFooter: some View {
+        
+        VStack {
+            Text(discordUsernameWasToggled == true ? "Prospects will be able to see  your Discord tag when they scan your QR Code":"Prospects will not be able to see your Discord profile when they scan your QR Code")
+                .padding([.bottom], 10)
+            
+            HStack(spacing: 0) {
+                Text("To learn how to find your discord tag,")
+                Button(action: {
+                    showingLinkedinInstructions = true
+                }) {
+                    Text("Click here")
+                        .underline()
+                        .font(.system(size: 9))
+                    //change the font size here!!
+                    //font change here!!
+                    
+                }
+            }
+        }
+        
+        
+    }
+    
+}
+
+
+
+struct MeView_Previews: PreviewProvider {
+    static var previews: some View {
+        MeView()
+            .environmentObject(EventLocation())
+    }
+}
 
 

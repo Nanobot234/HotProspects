@@ -56,9 +56,13 @@ struct OnboardingUserInfoEntry: View {
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .name)
+                    .onChange(of: name) { _ in
+                        validateName()
+                    }
                 
-                if nameError {
+                if nameError && focusField == .name {
                     Text(emailErrorMessage)
+                        .foregroundStyle(.red)
                 }
             }
                       
@@ -74,9 +78,13 @@ struct OnboardingUserInfoEntry: View {
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .emailAddress)
                     .padding()
+                    .onChange(of: emailAddress) { _ in
+                        validateEmailAddress()
+                    }
                 
-                if emailError {
+                if emailError && focusField == .emailAddress {
                     Text(emailErrorMessage)
+                        .foregroundStyle(.red)
                 }
                 
             }
@@ -89,10 +97,13 @@ struct OnboardingUserInfoEntry: View {
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .phoneNumber)
                     .padding()
+                    .onChange(of: phone) { _ in
+                        validatephoneNumber()
+                    }
                 
-                if phoneNumberError{
-                    Text(phoneErrorMessage
-                    )
+                if phoneNumberError && focusField == .phoneNumber {
+                    Text(phoneErrorMessage)
+                        .foregroundStyle(.red)
                 }
             }
             
@@ -105,11 +116,13 @@ struct OnboardingUserInfoEntry: View {
                     .cornerRadius(15)
                     .padding(.bottom, 20)
                     .padding(.top,40)
+                    .disabled(phoneNumberError && nameError && emailError)
             }
         }
         .onChange(of: focusField, perform: { _ in
             setErrorMessage()
         })
+       
         .onDisappear {
             
             saveUserInfoIntoUserDefaults()
@@ -126,45 +139,57 @@ struct OnboardingUserInfoEntry: View {
         
     }
     
+    
+    
     func setErrorMessage() {
         switch focusField {
-            
         case .name:
-            if name.isEmpty {
-                nameErrorMessage = "Please enter your name"
-                nameError = true
-            } else {
-                nameErrorMessage = ""
-                nameError = false
-            }
-            
+          validateName()
         case .emailAddress:
-            if(!Utilties.isValidContactPoint(emailAddress, validationType: "email")){
-                emailErrorMessage = "Please enter a valid email address"
-                    emailError = true
-            } else {
-                emailErrorMessage = ""
-                //if no error previously, then mak remove the error boolean
-                   emailError = false
-                
-            }
+          validateEmailAddress()
+            
         case .phoneNumber:
-            if(!Utilties.isValidContactPoint(phone, validationType: "phoneNumber")){
-                phoneErrorMessage = "Please enter a valid phone number. Make sure you have no dashes between the numbers"
-                phoneNumberError = true
-                
-            } else {
-                phoneErrorMessage = ""
-                    phoneNumberError = false
-                
-            }
+         validatephoneNumber()
         default:
-           
             print("Good")
             
         }
     }
     
+    func validateName() {
+        if name.isEmpty {
+            nameErrorMessage = "Please enter your name"
+            nameError = true
+        } else {
+            nameErrorMessage = ""
+            nameError = false
+        }
+    }
+    
+    func validateEmailAddress() {
+        if(Utilties.isValidContactPoint(emailAddress, validationType: "email")){
+            emailErrorMessage = ""
+                emailError = false
+        } else {
+            emailErrorMessage = "Please enter a valid email address"
+            //if no error previously, then mak remove the error boolean
+               emailError = true
+            
+        }
+
+    }
+    
+    func validatephoneNumber() {
+        if(Utilties.isValidContactPoint(phone, validationType: "phoneNumber")){
+           phoneErrorMessage = ""
+            phoneNumberError = false
+            
+        } else {
+            phoneErrorMessage = "Please enter a valid phone number. Make sure you have no dashes between the numbers"
+                phoneNumberError = true
+            
+        }
+    }
     
 }
 

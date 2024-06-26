@@ -20,17 +20,18 @@ struct SettingsView: View {
     @State private var alertMessage = ""
     
     @State var isBioAuthEnabled = false
-    @State var showingMailView = false
+    @State var showingFormView = false
     
     
     let propectsTabDescription = "In the Prospects tab, use the blue icon on the bottom right of the prspects page to scan a prospects QR code and you will instantly have access to all the contact info they share with you."
-    let profileTabDescription = "In the profile tab, update your contact information and easily choose which one you want to share with prospects. Then click on the My QR Code button to display a QR code that others can scan to save your information"
+    let profileTabDescription = "In the Me tab, update your contact information and easily choose which one you want to share with prospects. Then click on the My QR Code button to display a QR code that others can scan to save your information"
     
 
     var body: some View {
         //NavigatioNView here!!
         NavigationStack {
             
+            //go over putting in info for a user , scanning for a prospect, then edit features , reminders, etc
             Form {
 //                Section {
 //                    HStack {
@@ -54,8 +55,8 @@ struct SettingsView: View {
                     
                  
                     
-                    Button("Questions or Comments? Email me") {
-                        showingMailView = true
+                    Button("Questions or Comments?") {
+                        showingFormView = true
                     }
                     //button to show a mailView
 //                    Button("Questions or Comments?") {
@@ -84,8 +85,8 @@ struct SettingsView: View {
                 }
                 
             }
-            .sheet(isPresented: $showingMailView, content: {
-                MailView(isShowing: $showingMailView)
+            .sheet(isPresented: $showingFormView, content: {
+               SafariView(url: URL(string: "https://forms.gle/5K2PUjVy3RFY16FRA")!)
             })
             .onChange(of: isBioAuthEnabled, perform: { newValue in
                 
@@ -120,6 +121,7 @@ struct SettingsView: View {
                 Text(profileTabDescription)
             }
     }
+        .padding()
     }
     
     func authenticate() {

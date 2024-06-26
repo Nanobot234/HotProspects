@@ -14,7 +14,6 @@ struct ReminderView: View {
     @EnvironmentObject var prospects: Prospects
     
     var prospect:Prospect
-    
     /// The date that the user decides to set a prospect reminder at
     @State private var selectedReminderDate = Date()
     
@@ -27,12 +26,13 @@ struct ReminderView: View {
         NavigationView {
             VStack(spacing: 20) {
                 if prospect.isReminderSet {
-                    
                     reminderSetView
                 } else {
                     createReminderView
                 }
             }
+            .navigationTitle("Reminder")
+            .navigationBarTitleDisplayMode(.inline)
           
         }
        
@@ -41,8 +41,9 @@ struct ReminderView: View {
     /// Message to show when a user sets a reminder for a prospect
     var reminderSetView: some View {
         
-        VStack {
+        VStack(spacing: 15) {
             Text("You already have a reminder to contact \(prospect.name)")
+                .font(.title3)
             
             Text("It's on\(prospect.lastReminderDate)")
             
@@ -56,8 +57,8 @@ struct ReminderView: View {
         
         VStack(spacing: 20) {
    
-            Text("Select Date & Time to Contact This Prospect")
-                .font(.largeTitle)
+            Text("Select Date & Time to Contact \(prospect.name)")
+                .font(.title3)
     
             HStack {
                 Spacer()
@@ -74,8 +75,7 @@ struct ReminderView: View {
                 
                 Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate) //adds the remidner for the particular prospect that the user chooses
                 prospect.lastReminderDate = selectedReminderDate.formatted() //saves the date string for the particular prospect.
-                prospects.saveReminderForProspect(prospect) //this saves the reminder string for the prospect that the user wants to be reminded to contact.
-                             
+                prospects.saveReminderForProspect(prospect) //this saves the reminder string for the prospect that the user wants to be reminded to contact.            
                 showReminderView = false
                 prospects.reminderToggle(prospect) //toggles the
     

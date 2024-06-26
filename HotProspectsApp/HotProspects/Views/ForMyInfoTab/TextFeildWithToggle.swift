@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextFeildWithToggle: View {
     
-    var placeholder: String
+    @State var placeholder: String
     
     @Binding var text: String
     //include array of strings as a binding
@@ -17,25 +17,29 @@ struct TextFeildWithToggle: View {
     /// the index of the element that will be excluded from the contact string/
     //@Binding var exclusionIndex: Int
     // @Binding var inclusionIndex: Int
-    @Binding var contactPoints: [Binding<String>]
-    @Binding var feildWasToggled: Bool
-    @State private var toggleActive: Bool = true
+    ///  an array of bindings for the various contact info that the user can share
+//    @Binding var contactPoints: [String]
+    /// Indicates whether the toggle for this view was turned on or off.
+    @Binding var toggleActive: Bool
     var updateQrCode: () -> Void
     @State var errorMessage: String = ""
     @Binding var errorPresent: Bool
+    
+    
+    
     
     var body: some View {
         
         VStack {
             HStack {
                 TextField(placeholder,text: $text)
-                .onChange(of: text) {newText in
+                    .onChange(of: text) {newText in
+                        
+                        setErrorMessage()
+                    }
                 
-                    setErrorMessage()
-                }
-                
-                .textContentType(.name)
-                .font(.title3)
+                    .textContentType(.name)
+                    .font(.title3)
                 
                 
                 Toggle("", isOn: $toggleActive)
@@ -48,75 +52,49 @@ struct TextFeildWithToggle: View {
                     )
                     .disabled(text.isEmpty)
                     .onChange(of: toggleActive) { toogleState in
-                        if(!toogleState){
-                            
-                            contactPoints = contactPoints.filter({$0.wrappedValue != text}) //this filters out the currentText in the contactPoints array.
-                            updateQrCode()
-                            feildWasToggled = false
-                            
-                        } else {
-                            feildWasToggled = true
-                            switch placeholder {
-                            case "Email Address":
-                                contactPoints[1] = $text
-                                
-                               // ($text, at: 1)
-                                updateQrCode()
-                            case "Phone Number":
-                                contactPoints[2] = $text
-                                    //.insert($text, at: 2)
-                                updateQrCode()
-                            case "LinkedIn Username":
-                                contactPoints[3] = $text
-                                updateQrCode()
-                            case "Discord Username":
-                                contactPoints[4] = $text //this should set it equal to this value
-                                updateQrCode()
-                            default:
-                                contactPoints.insert($text, at: 1)
-                                updateQrCode() //runs the function that will be passed in!!
-                            }
-                        }
+                        //the toggle is turned off
+                        
                     }
+                
             }
             .padding(5)
             if(errorMessage != "") {
                 Text(errorMessage)
                     .foregroundColor(Color.red)
             }
-      
+            
             //this text will be the validation text, displayyng error, will need to hide it when needed
         }
         .onAppear {
-            setErrorMessage()
-        }
+           // setErrorMessage()
+            loadToggleState()
+            
             
         }
+        
+    }
     
     /// Sets   an error message based on the placeholder type of the view thats being implemented
-    /// 
+    ///
     func setErrorMessage() {
         switch placeholder {
+            
         case "Email Address":
-            if(!Utilties.isValidContactPoint(text, validationType: "email")){
+            if(!Utilties.isValidContactPoint(text, validationType: "email") && !text.isEmpty){
                 errorMessage = "Please enter a valid email address"
-                    errorPresent = true
+                errorPresent = true
             } else {
                 errorMessage = ""
                 //if no error previously, then mak remove the error boolean
-               
-                    errorPresent = false
-                
+                errorPresent = false
             }
         case "Phone Number":
-            if(!Utilties.isValidContactPoint(text, validationType: "phoneNumber")){
+            if(!Utilties.isValidContactPoint(text, validationType: "phoneNumber") && !text.isEmpty){
                 errorMessage = "Please enter a valid phone number. Make sure you have no dashes between the numbers"
                 errorPresent = true
-                
             } else {
                 errorMessage = ""
-                    errorPresent = false
-                
+                errorPresent = false
             }
         default:
             errorMessage = ""
@@ -124,9 +102,28 @@ struct TextFeildWithToggle: View {
         }
     }
     
-    
+    ///  Loads the saved
+    func loadToggleState() {
+        
+        switch placeholder {
+        case "Email Address":
+            toggleActive = UserDefaults.standard.bool(forKey: "emailToggleStatus")
+            print("Email Here")
+        case "Phone Number":
+            toggleActive = UserDefaults.standard.bool(forKey: "phoneNumberToggleStatus")
+            print("phone number is \(toggleActive.description)")
+        case "LinkedIn Username":
+            toggleActive = UserDefaults.standard.bool(forKey: "linkedinToggleStatus")
+            print("Linkedin username is \(toggleActive.description)")
+            
+        case "Discord Username":
+            toggleActive =  UserDefaults.standard.bool(forKey: "discordToggleStatus")
+      
+        default:
+            print("Nope")
+        }
     }
-
+}
 
 //struct TextFeildWithToggle_Previews: PreviewProvider {
 //    

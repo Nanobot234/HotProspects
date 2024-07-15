@@ -68,6 +68,14 @@ import Foundation
         save()
     }
     
+    ///  Toggles the boolean that checks whether a prospect is added to the users contacts!
+    /// - Parameter prospect: <#prospect description#>
+    func addedToContacts(_ prospect:Prospect) {
+        objectWillChange.send()
+        people.first(where: {$0.id == prospect.id})!.isProspectAddedToContacts.toggle()
+        save()
+    }
+    
     /// Saves the reminder date string for a particular prospect.
     /// - Parameter prospect: the prospect to set the reminder date string for
     func saveReminderForProspect(_ prospect: Prospect) {

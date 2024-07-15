@@ -17,11 +17,6 @@ struct MeView: View {
     
     @StateObject var meViewModel = MeViewModel()
     
-//    @State private var emailAddress = "" {
-//        didSet {
-//            UserDefaults.standard.set(emailAddress, forKey: "m_users_email")
-//        }
-//    }
 
     
     ///  Will be used as a copy of the name of the user. This copy will be manippluated and used to display the users information in the QR code.
@@ -54,21 +49,19 @@ struct MeView: View {
     @State private var startingWebAuthforLinkedin = false
     @State private var startingWebAuthforDiscord = false
     
-    
+    @State private var activeSheet: ActiveSheet?
     
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     ///Generate the QR image
     let filter = CIFilter.qrCodeGenerator()
     let context = CIContext()
-    
-    
-    
+
     //have a button that basically is activated when something is toggled, then will run the code conditionll
     var body: some View {
         NavigationView {
             Form {
                 
-                CurrentLocationView() // textFeild and button to change the current event of the user.
+                CurrentLocationView(activeSheet: $activeSheet) // textFeild and button to change the current event of the user.
                 
                 Section {
                     VStack {
@@ -134,39 +127,12 @@ struct MeView: View {
                 .headerProminence(.increased)
                 
                 
-                .onAppear {
-                  
-
-                    if !contactPointsInitialized {
-                        
-                        contactPoints = [$meViewModel.nameCopy,$meViewModel.emailAddressCopy,$meViewModel.phoneNumberCopy, $meViewModel.linkedinUsernameCopy, $meViewModel.discordUsernameCopy]//add the userNames and URLs here!!! tocontinue!!
-                        //continue here Q!
-                        print(contactPoints.count)
-                    }
-                    contactPointsInitialized = true
-                    updateCode() //this generates the qr code after
-                    
-                    
-                }
 //                .willAppear {
 //                    
 //                }
                 //sheet for the QR oe
-                .sheet(isPresented: $showingQRCodeSheet) {
-                    QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled)
-                        .presentationDetents([.fraction(0.7)])
-                }
                 
-                .sheet(isPresented: $eventLocation.changeEvent) {
-                    UserAndProspectLocationView(addReasonMessage:"userLocationUpdate")
-                        .presentationDetents([.fraction(0.5 )])
-                }
-                .sheet(isPresented: $showingLinkedinInstructions) {
-                    SafariView(url: URL(string: "https://www.linkedin.com/help/linkedin/answer/a522735")!)
-                }
-                .sheet(isPresented: $showingDiscordInstructions) {
-                    SafariView(url: URL(string: "https://www.remote.tools/remote-work/discord-tag")!)
-                }
+//
                 
                 //when name state variable changes,save the name to local storage and update the QRCode
                 .onChange(of: meViewModel.name, perform: { newName in
@@ -276,16 +242,44 @@ struct MeView: View {
                     
                 })
                 
-//            .onDisappear(
-//                    perform: meViewModel.saveUserInfo
-//                )
+            }.onAppear {
+                
+                
+                if !contactPointsInitialized {
+                    
+                    contactPoints = [$meViewModel.nameCopy,$meViewModel.emailAddressCopy,$meViewModel.phoneNumberCopy, $meViewModel.linkedinUsernameCopy, $meViewModel.discordUsernameCopy]//add the userNames and URLs here!!! tocontinue!!
+                    //continue here Q!
+                    print(contactPoints.count)
+                }
+                contactPointsInitialized = true
+                updateCode() //this generates the qr code after
+                
+                
             }
+
+            
+            .sheet(item: $activeSheet) { item in
+                switch item {
+                case .qrCode:
+                    QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled, isSharingDiscord: $discordUsernameWasToggled, isSharingLinkedin: $linkedInUsernameWasToggled)
+                        .presentationDetents([.fraction(0.7)])
+                case .changeEvent:
+                    UserAndProspectLocationView(addReasonMessage:"userLocationUpdate")
+                        .presentationDetents([.fraction(0.5 )])
+                case .linkedinInstructions:
+                    SafariView(url: URL(string: "https://www.linkedin.com/help/linkedin/answer/a522735")!)
+                case .discordInstructions:
+                    SafariView(url: URL(string: "https://www.remote.tools/remote-work/discord-tag")!)
+                }
+                
+            }
+
             .defersSystemGestures(on: .all)
             
             .toolbar {
                 
                 toolbarButton("My QR Code", systemImage: "") {
-                    showingQRCodeSheet = true
+                    activeSheet = .qrCode
                 }
             }
             
@@ -331,7 +325,7 @@ struct MeView: View {
             HStack(spacing: 0) {
                 Text("To lean how to find your linkedin profile URL ")
                 Button(action: {
-                    showingLinkedinInstructions = true
+                    activeSheet = .linkedinInstructions
                 }) {
                     Text("Click here")
                         .underline()
@@ -358,7 +352,7 @@ struct MeView: View {
             HStack(spacing: 0) {
                 Text("To learn how to find your discord tag,")
                 Button(action: {
-                    showingLinkedinInstructions = true
+                    activeSheet = .discordInstructions
                 }) {
                     Text("Click here")
                         .underline()
@@ -374,8 +368,6 @@ struct MeView: View {
     }
     
 }
-
-
 
 struct MeView_Previews: PreviewProvider {
     static var previews: some View {

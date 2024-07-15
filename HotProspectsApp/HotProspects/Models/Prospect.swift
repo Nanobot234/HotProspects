@@ -40,6 +40,8 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
     
     ///  The discord username of a prospect the user adds
     var discordUsername = ""
+    
+    var isProspectAddedToContacts = false
      
      init() {}
      

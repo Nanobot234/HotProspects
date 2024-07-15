@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LinkedinInClientID</key>
-	<string>78cymgerbhr6qo</string>
-	<key>LinkedInClientSecret</key>
-	<string>s9XVhLI0VqJbHogb</string>
-	<key>DiscordCleintID</key>
-	<string>1223361717229060238</string>
-	<key>DiscordClientSecret</key>
-	<string>GesfyPBQ7L1SGSAXtrDoLldryFUpm9Jq</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -23,5 +15,13 @@
 			</array>
 		</dict>
 	</array>
+	<key>DiscordCleintID</key>
+	<string>1223361717229060238</string>
+	<key>DiscordClientSecret</key>
+	<string>GesfyPBQ7L1SGSAXtrDoLldryFUpm9Jq</string>
+	<key>LinkedInClientSecret</key>
+	<string>s9XVhLI0VqJbHogb</string>
+	<key>LinkedinInClientID</key>
+	<string>78cymgerbhr6qo</string>
 </dict>
 </plist>

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Contacts
 
 
 
@@ -109,6 +110,42 @@ class Utilties {
         }
     }
     
+    
+    /// Saves a prospect's information to the users contact book
+    /// - Parameters:
+    ///   - email: the prospect's email to save
+    ///   - phoneNumber: the prospect's phone number to save
+    ///   - name: prospect's name to save
+    ///   - locationMet: the location where you met the Prospect at.
+    ///
+    ///
+    func saveProspectToContacts(email: String,phoneNumber: String,name: String, locationMet: String, completion: @escaping (Bool) -> Void) {
+        
+        let contact = CNMutableContact()
+        
+        contact.givenName = name
+        contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value: email as NSString)]
+        contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: phoneNumber) )]
+        
+        contact.note = locationMet
+        
+        let store = CNContactStore()
+        let saveRequest = CNSaveRequest()
+        
+        saveRequest.add(contact, toContainerWithIdentifier: nil)
+        
+        do {
+            try store.execute(saveRequest)
+            completion(true)
+            
+            
+            
+        } catch {
+            print("Error: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+    
     //Linkedin Auth function calls
     
 //    func LinkedInAuth(_ serviceParameters: [String: String]) {
@@ -118,4 +155,36 @@ class Utilties {
 //
 //
 //    }
+  
+    /// Requests permission for the app toa ccess the contact store
+    /// - Parameter completion: <#completion description#>
+     func requestContactsAccess(completion: @escaping (Bool) -> Void) {
+            let store = CNContactStore()
+            
+            store.requestAccess(for: .contacts) { granted, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("Failed to request access:", error)
+                        completion(false)
+                        return
+                    }
+                    
+                    completion(granted)
+                }
+            }
+        }
+    
+    static func returnUserNameFromURL(urlString: String) -> String? {
+        
+
+        // Split the string by the "/" character
+        let components = urlString.split(separator: "/")
+
+        // The username should be the last component
+        if let username = components.last.map({String($0)}) {
+            return(username)
+        }
+        
+        return nil
+    }
 }

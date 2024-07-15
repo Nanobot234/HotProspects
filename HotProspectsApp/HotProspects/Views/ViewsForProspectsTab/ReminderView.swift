@@ -24,14 +24,14 @@ struct ReminderView: View {
     var body: some View {
         
         NavigationView {
-            VStack(spacing: 20) {
+            VStack {
                 if prospect.isReminderSet {
                     reminderSetView
                 } else {
                     createReminderView
                 }
             }
-            .navigationTitle("Reminder")
+            .navigationTitle(prospect.isReminderSet ? "Reminder to Contact \(prospect.name)": "Create a Reminder")
             .navigationBarTitleDisplayMode(.inline)
           
         }
@@ -40,14 +40,18 @@ struct ReminderView: View {
     
     /// Message to show when a user sets a reminder for a prospect
     var reminderSetView: some View {
+
+        let component = prospect.lastReminderDate.split(separator: ",").map{ $0.trimmingCharacters(in: .whitespaces)}
         
-        VStack(spacing: 15) {
-            Text("You already have a reminder to contact \(prospect.name)")
-                .font(.title3)
             
-            Text("It's on\(prospect.lastReminderDate)")
+       return VStack(spacing: 15) {
+            Text("\(component[0]) at \(component[1])")
+                .font(.title2)
+                .fontWeight(.bold)
             
-            Button("Change") {
+           
+            
+            confirmationButton(title:"Change") {
                 prospects.reminderToggle(prospect)
             }
         }
@@ -57,8 +61,9 @@ struct ReminderView: View {
         
         VStack(spacing: 20) {
    
-            Text("Select Date & Time to Contact \(prospect.name)")
-                .font(.title3)
+            Text("Select Date & Time to Contact \n \(prospect.name)")
+                .font(.title)
+                .multilineTextAlignment(.center)
     
             HStack {
                 Spacer()
@@ -66,12 +71,15 @@ struct ReminderView: View {
                 DatePicker("",selection: $selectedReminderDate, displayedComponents: [.date,.hourAndMinute])
                     .labelsHidden()
                     .border(.red)
+                    .scaleEffect(x: 1.3, y: 1.3)
+                    .frame(width: 100, height: 100)
                 
                 Spacer()
             }
             
             // When the reminder button is clicked, the system schedules a notification.
-            Button("Set Reminder") {
+            
+            confirmationButton(title:"Set Reminder") {
                 
                 Utilties.addContactNotificationReminder(for: prospect, notifyDate: selectedReminderDate) //adds the remidner for the particular prospect that the user chooses
                 prospect.lastReminderDate = selectedReminderDate.formatted() //saves the date string for the particular prospect.
@@ -86,8 +94,14 @@ struct ReminderView: View {
     
 }
 
-//struct ReminderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ReminderView()
-//    }
-//}
+struct ReminderView_Previews: PreviewProvider {
+    static var previews: some View {
+        
+        let prospect = Prospect(name: "Nana Bonsu", emailAddress: "Nbonsu2000", phoneNumber: "6453534323")
+        
+        //Prospect(id: UUID(), name: "John Doe", isReminderSet: false, lastReminderDate: "")
+        let showReminder = Binding.constant(true)
+        ReminderView(prospect: prospect, showReminderView: showReminder)
+            .presentationDetents([.fraction(0.4)])
+    }
+}

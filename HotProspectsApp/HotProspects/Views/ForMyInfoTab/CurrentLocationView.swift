@@ -12,7 +12,7 @@ struct CurrentLocationView: View {
     
     @EnvironmentObject var eventLocation: EventLocation
     
-    
+    @Binding var activeSheet: ActiveSheet?
     var body: some View {
         
         Section {
@@ -23,7 +23,8 @@ struct CurrentLocationView: View {
                 Text("|")
                 //when button is presss will show view that allows user to change location of event they are attending.
                 Button("Update") {
-                    eventLocation.changeEvent = true
+                  //  eventLocation.changeEvent = true
+                    activeSheet = .changeEvent
                 }
                 .buttonStyle(.borderedProminent)
                 
@@ -38,9 +39,9 @@ struct CurrentLocationView: View {
     //need to make this
 }
 
-struct CurrentLocationView_Previews: PreviewProvider {
-    static var previews: some View {
-        CurrentLocationView()
-            .environmentObject(EventLocation())
-    }
-}
+//struct CurrentLocationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CurrentLocationView(activeSheet: )
+//            .environmentObject(EventLocation())
+//    }
+//}

@@ -21,17 +21,31 @@ struct QRCodeView: View {
     /// indicates whether the user has decide to allow prospect to save email address
     @Binding var isSharingPhoneNum:Bool
     
+    /// indicates whether the user has decide to allow prospect to save their discord userrname
+    @Binding var isSharingDiscord: Bool
+    
+    /// 
+    @Binding var isSharingLinkedin: Bool
+    
     @State private var showPopover: Bool = false
     
     /// string that reminds the user what contact points are going to be shared with Prospects
     var contactSharingString : String {
-        var finalString = "name "
+        var finalString = " name "
         
         if(isSharingEmail == true){
-            finalString += "email"
+            finalString += " email "
         }
         if(isSharingPhoneNum == true) {
-            finalString += " phone number"
+            finalString += " phone number "
+        }
+        
+        if(isSharingLinkedin == true) {
+            finalString += " Linkedin "
+        }
+        
+        if(isSharingDiscord == true) {
+            finalString += " Discord "
         }
         return finalString
     }
@@ -56,7 +70,6 @@ struct QRCodeView: View {
                 //Add a Link Button
                 
                 Button {
-                    
                     showPopover.toggle()
                 } label: {
                     Label("About this QR Code", systemImage: "info.circle")
@@ -77,7 +90,7 @@ struct QRCodeView: View {
             VStack(spacing:20) {
                 Text("This QR code contains the contact information that will be shared with a prospect \n when they scan your code. ")
                     .font(.title3)
-                Text("Your about to share" + contactSharingString)
+                Text("Your about to share your " + contactSharingString)
                     .font(.title3)
                 
             }

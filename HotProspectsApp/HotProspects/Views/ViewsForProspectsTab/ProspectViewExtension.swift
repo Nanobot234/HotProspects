@@ -56,7 +56,7 @@ extension ProspectsView {
         
         switch result {
         case .success(let result):
-            isShowingScanner = false
+            activeSheet = nil
             
             //
            // let details = Utilties.adjustDetailsArray(details: result.string.components(separatedBy: "\n")) //add empty slots in the array for info thatt he user decided not to share!!
@@ -110,7 +110,7 @@ extension ProspectsView {
        // newProspect.discordUsername = details[4]
         
         if(eventLocation.currentEventOfUser == "") {
-            showAddLocationView = true
+            activeSheet = .addLocation
         } else {
             addNewProspectToProspects()
         }
@@ -161,37 +161,5 @@ extension ProspectsView {
 }
 
 
-/// Saves a prospect's information to the users contact book
-/// - Parameters:
-///   - email: the prospect's email to save
-///   - phoneNumber: the prospect's phone number to save
-///   - name: prospect's name to save
-///   - locationMet: the location where you met the Prospect at.
-func saveProspectToContacts(email: String,phoneNumber: String,name: String, locationMet: String, completion: @escaping (Bool) -> Void) {
-    
-    let contact = CNMutableContact()
-    
-    contact.givenName = name
-    contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value: email as NSString)]
-    contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: phoneNumber) )]
-    
-    contact.note = locationMet
-    
-    let store = CNContactStore()
-    let saveRequest = CNSaveRequest()
-    
-    saveRequest.add(contact, toContainerWithIdentifier: nil)
-    
-    do {
-        try store.execute(saveRequest)
-        completion(true)
-        
-        
-        
-    } catch {
-        print("Error: \(error.localizedDescription)")
-        completion(false)
-    }
-}
 
 

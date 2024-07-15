@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-
+//TODO: Fix the formatting of this sheet
 ///  Displays a prospect's name, date and time a user meets a prospect, and location details
 struct ItemRow: View {
   
@@ -24,10 +24,13 @@ struct ItemRow: View {
     ///
     @State private var showReminderView: Bool = false
     @State private var showDeleteAlert: Bool = false
-    @State var showreminderSheet = false
+    @State var showreminderSheet: Bool = false
     
     ///Determine whether or not to display toast. The toast is defined in `ProspectView`
     @Binding var toast: Bool
+    @Binding var contactsReequestValue: Bool
+    
+   @State var showContactView: Bool = false
     
     
     let filter: ProspectsView.FilterType
@@ -51,9 +54,16 @@ struct ItemRow: View {
                     
                     let prospectString = "Met At: \(prospect.locationMet)\nDate: \(extractDate(from: prospect.currentDateMetUser!))\nTime: \(extractTime(from: prospect.currentDateMetUser!))"
                     
-                    
-                    Text(prospect.locationMet != "" ? prospectString: "No Location Added\n Date: \(extractDate(from: prospect.currentDateMetUser!)) \nTime: \(extractTime(from: prospect.currentDateMetUser!))")
-                        .font(.system(size: 20))
+                    Group {
+                        Text(prospect.locationMet != "" ? "Met At \(prospect.locationMet)": "No Location Added") //met at her!
+                        Text("Date: \(extractDate(from: prospect.currentDateMetUser!))")
+                        Text("Time: \(extractTime(from: prospect.currentDateMetUser!))")
+                    }
+                    .font(.system(size:23,weight: .medium))
+                            .padding(5)
+               
+               
+                        
                     
                 }
                 
@@ -70,21 +80,26 @@ struct ItemRow: View {
                 } else if prospect.isReminderSet {
                     Image("checkmark-bell-notification-icon")
                         .resizable() // Make the image resizable
+                        .foregroundStyle(Color.blue)
                         .aspectRatio(contentMode: .fit) // Maintain aspect ratio
                         .frame(width: 25, height: 25) // Set the frame size
-                        .foregroundColor(Color.blue)
+                        
                         .onTapGesture {
                             showReminderView = true
                         }
                 }
    
             }
+           
+                .tint(.cyan)
             
+            }
+        .swipeActions {
+            
+            swipeActionButtons(for: prospect)
         }
-        .onAppear {
-            
-           setProspectLocationDetails()
 
+        .onAppear {
         }
         
         .sheet(isPresented: $showReminderView) {
@@ -92,6 +107,10 @@ struct ItemRow: View {
             ReminderView(prospect: prospect, showReminderView: $showReminderView)
                 .presentationDetents([.fraction(0.4)])
         }
+        .sheet(isPresented: $showContactView) {
+            AddContactView(name: prospect.name, phoneNumber: prospect.phoneNumber, emailAddress: prospect.emailAddress, discordUsername: prospect.discordUsername, linkedinProfileURL: prospect.linkedinProfileURL, locationMet: prospect.locationMet)
+        }
+        
         .alert("Confirm Deletion", isPresented: $showDeleteAlert) {
             
             Button("Cancel", role:.cancel) {}
@@ -103,42 +122,22 @@ struct ItemRow: View {
         } message: {
             Text("Are you sure you want to delete this prospect")
         }
-        
-        .swipeActions(allowsFullSwipe: false) {
-            
-            if(prospect.isContacted) {
-
-            SwipeActionButtons.markUncontactedButton {
-                    
-                prospects.toggle(prospect)
-                }
-                .tint(.blue)
+        .contextMenu {
+            Button {
                 
-            } else {
-                
-                SwipeActionButtons.markContactedButton {
-                    prospects.toggle(prospect)
+                if contactsReequestValue {
+                    showContactView = true
                 }
-                .tint(.green)
+//                saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet) { result in
+//                    if result {
+//                        showContactView = true
+//                    }
+//                }
+            } label: {
+                Label("Add to Contacts", systemImage: "plus")
             }
-            SwipeActionButtons.deleteContactButton {
-                showDeleteAlert = true
-            }
-            .tint(.red)
-  
-            SwipeActionButtons.addProspectToContactButton {
-                
-                saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet) { result in
-                    
-                    if(result){
-                        toast = true
-                    }
-                }
- 
-            }
-            .tint(.cyan)
         }
-        //create here!
+        
     }
     
     /// Sets the location the user meets the prospect to the current event the user is attending
@@ -157,30 +156,39 @@ struct ItemRow: View {
     }
     
     /// Determines where  the user met a ecently added prospect. 
-    func setProspectLocationDetails() {
-        
-        //first get the locationMet and then if its empty , get it from the
-        
-        //prospect.locationMet =
-        
-//        //this is ran before the data is loaded correctly
-//        if(prospect.locationMet.isEmpty) {
-//            
-//            prospect.locationMet = eventLocation.currentEventOfUser
-//            prospects.addLocationMet(prospect)
-//            print("Location of user matching global", prospect.locationMet)
-//        }
-//        
-//        else {
-//            //get the recently added event
-//            prospect.locationMet = eventLocation.currentEventMetProspect
-//            prospects.addLocationMet(prospect)
-//            eventLocation.currentEventMetProspect = ""
-//        }
-//        
+ 
+    private func swipeActionButtons(for prospect: Prospect) -> some View {
+        Group {
+            if prospect.isContacted {
+                SwipeActionButtons.markUncontactedButton {
+                    prospects.toggle(prospect)
+                }
+                .tint(.blue)
+            } else {
+                SwipeActionButtons.markContactedButton {
+                    prospects.toggle(prospect)
+                }
+                .tint(.green)
+            }
+            SwipeActionButtons.deleteContactButton {
+                showDeleteAlert = true
+            }
+            .tint(.red)
+            SwipeActionButtons.addProspectToContactButton {
+                if contactsReequestValue {
+                    showContactView = true
+                }
+               
+                
+//                saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet) { result in
+//                    if result {
+//                        presentToast = true
+//                    }
+//                }
+            }
+        }
     }
     
-    //e
     
 }
 //struct ItemRowView_Previews: PreviewProvider {

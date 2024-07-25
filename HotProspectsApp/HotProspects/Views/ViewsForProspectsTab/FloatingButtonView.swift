@@ -44,7 +44,6 @@ struct FloatingButtonView: View {
                         }
                     }
                     .padding(.bottom,30)
-                
                
     }
 }

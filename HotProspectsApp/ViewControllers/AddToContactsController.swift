@@ -11,16 +11,15 @@ import ContactsUI
 
 struct AddContactView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
-    var name:String
-    var phoneNumber:String
-    var emailAddress: String
-    var discordUsername: String
-    var linkedinProfileURL: String
-    var locationMet: String
-    var userNameString: String { 
-         let string = Utilties.returnUserNameFromURL(urlString: linkedinProfileURL)!
+    @EnvironmentObject var prospects: Prospects
+    /// Prospect that is selcted by the user to be added to contacts.
+    var prospect: Prospect
+    var userNameString: String {
+        let string = Utilties.returnUserNameFromURL(urlString: prospect.linkedinProfileURL)!
         return string
     }
+    
+//    @Binding var addedToContacts: Bool
    
     
     
@@ -31,23 +30,23 @@ struct AddContactView: UIViewControllerRepresentable {
         
         let contact = CNMutableContact()
         
-        contact.givenName = name
-        contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value: emailAddress as NSString)]
-        contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: phoneNumber) )]
+        contact.givenName = prospect.name
+        contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value: prospect.emailAddress as NSString)]
+        contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: prospect.phoneNumber) )]
         //fix this here!!
-        contact.note = locationMet
+        contact.note = prospect.locationMet
         
         var socialProfiles = [CNLabeledValue<CNSocialProfile>]()
         
    
-        if !linkedinProfileURL.isEmpty {
-            let linkedinUsernameURL =  CNSocialProfile(urlString: linkedinProfileURL, username: userNameString,  userIdentifier: nil, service: CNSocialProfileServiceLinkedIn)
+        if !prospect.linkedinProfileURL.isEmpty {
+            let linkedinUsernameURL =  CNSocialProfile(urlString: prospect.linkedinProfileURL, username: userNameString,  userIdentifier: nil, service: CNSocialProfileServiceLinkedIn)
             
             socialProfiles.append(CNLabeledValue(label: "LinkedIn", value: linkedinUsernameURL))
         }
         
-        if !discordUsername.isEmpty {
-            let discordProfile = CNSocialProfile(urlString: nil, username: discordUsername, userIdentifier: nil, service: "Discord")
+        if !prospect.discordUsername.isEmpty {
+            let discordProfile = CNSocialProfile(urlString: nil, username: prospect.discordUsername, userIdentifier: nil, service: "Discord")
                            socialProfiles.append(CNLabeledValue(label: "Discord", value: discordProfile))
         }
         
@@ -101,24 +100,11 @@ struct AddContactView: UIViewControllerRepresentable {
             
             let mutableContact = contact.mutableCopy() as! CNMutableContact
             
-//            var socialProfiles = [CNLabeledValue<CNSocialProfile>]()
-//            
-//            if !parent.linkedinUsername.isEmpty {
-//                let linkedinUsernameURL =  CNSocialProfile(urlString: nil, username: parent.linkedinUsername, userIdentifier: nil, service: CNSocialProfileServiceLinkedIn)
-//                
-//                socialProfiles.append(CNLabeledValue(label: "LinkedIn", value: linkedinUsernameURL))
-//            }
-//            
-//            if !parent.discordUsername.isEmpty {
-//                let discordProfile = CNSocialProfile(urlString: nil, username: parent.discordUsername, userIdentifier: nil, service: "Discord")
-//                               socialProfiles.append(CNLabeledValue(label: "Discord", value: discordProfile))
-//            }
-            //
-            
-           // mutableContact.socialProfiles = socialProfiles
-            
             saveContact(contact: mutableContact) //saves thec ontact in contact storage!
             
+          //parent.addedToContacts = true //changes the binding value to true when you added to contacts!
+            
+            parent.prospects.addedToContacts(parent.prospect)
             
             parent.presentationMode.wrappedValue.dismiss()
         }

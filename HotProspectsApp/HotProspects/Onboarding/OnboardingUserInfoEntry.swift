@@ -68,9 +68,7 @@ struct OnboardingUserInfoEntry: View {
                       
                 .padding()
             
-            //            TextField("Your name", text: $name)
-            //                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
+
             VStack {
                 EGTextField(text: $emailAddress)
                     .setTitleText("Email Address")
@@ -124,7 +122,6 @@ struct OnboardingUserInfoEntry: View {
         })
        
         .onDisappear {
-            
             saveUserInfoIntoUserDefaults()
         }
     }

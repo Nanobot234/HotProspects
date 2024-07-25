@@ -15,10 +15,8 @@ struct MeView: View {
     
     //@EnvironmentObject private var viewModel:RowModel
     
-    @StateObject var meViewModel = MeViewModel()
-    
-
-    
+    @StateObject var meViewModel =  MeViewModel()
+   
     ///  Will be used as a copy of the name of the user. This copy will be manippluated and used to display the users information in the QR code.
     
     
@@ -231,11 +229,11 @@ struct MeView: View {
                     if(!toggleState) {
                         meViewModel.discordUsernameCopy = ""
                         updateCode()
-                    //    meViewModel.saveUserInfo()
+                   
                     } else {
                         meViewModel.discordUsernameCopy = meViewModel.discordUsername
                         updateCode()
-                      //  meViewModel.saveUserInfo()
+                    
                     }
                     
                 
@@ -263,6 +261,7 @@ struct MeView: View {
                 case .qrCode:
                     QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled, isSharingDiscord: $discordUsernameWasToggled, isSharingLinkedin: $linkedInUsernameWasToggled)
                         .presentationDetents([.fraction(0.7)])
+                        .environmentObject(meViewModel) //pass down this object here, so that value changes can be seen!
                 case .changeEvent:
                     UserAndProspectLocationView(addReasonMessage:"userLocationUpdate")
                         .presentationDetents([.fraction(0.5 )])
@@ -307,13 +306,11 @@ struct MeView: View {
         print("Printing the code now!")
         print(QRString)
         
-        qrCode = generateQRCode(from: QRString)
+        qrCode = meViewModel.generateQRCode(from: QRString, with: qrCode)
         
     }
     
     /// Saves user info when the user clicks out of this screen
-
- 
     /// makes surec ontact points values are equal to what the user sets.
  
     var LinkedInFooter: some View {

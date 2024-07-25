@@ -27,12 +27,16 @@ struct ItemRow: View {
     @State var showreminderSheet: Bool = false
     
     ///Determine whether or not to display toast. The toast is defined in `ProspectView`
-    @Binding var toast: Bool
-    @Binding var contactsReequestValue: Bool
+   
+    @Binding var canAccessUsersContacts: Bool
+    
+    ///  Indicates whether the prospect has beena dded to the users contact books.
+    @State var addedToContacts: Bool = true
     
    @State var showContactView: Bool = false
+    @State var showPopover: Bool = false
     
-    
+
     let filter: ProspectsView.FilterType
 
     var body: some View {
@@ -55,51 +59,66 @@ struct ItemRow: View {
                     let prospectString = "Met At: \(prospect.locationMet)\nDate: \(extractDate(from: prospect.currentDateMetUser!))\nTime: \(extractTime(from: prospect.currentDateMetUser!))"
                     
                     Group {
-                        Text(prospect.locationMet != "" ? "Met At \(prospect.locationMet)": "No Location Added") //met at her!
+                        Text(prospect.locationMet != "" ? "Met At: \(prospect.locationMet)": "No Location Added") //met at her!
                         Text("Date: \(extractDate(from: prospect.currentDateMetUser!))")
                         Text("Time: \(extractTime(from: prospect.currentDateMetUser!))")
                     }
-                    .font(.system(size:23,weight: .medium))
-                            .padding(5)
-               
-               
-                        
+                    .font(.system(size:22,weight: .medium))
+                    .padding(5)
+                    
                     
                 }
                 
                 Spacer()
-                
-                if((filter == .all || filter == .uncontacted) && !prospect.isReminderSet) {
-                    Image(systemName: "bell")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 25))
-                        .onTapGesture {
+                HStack {
+                    if((filter == .all || filter == .uncontacted) && !prospect.isReminderSet) {
+                        Image(systemName: "bell")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 25))
+                            .onTapGesture {
                                 showReminderView = true
-                            print(prospect.isReminderSet)
-                        }
-                } else if prospect.isReminderSet {
-                    Image("checkmark-bell-notification-icon")
-                        .resizable() // Make the image resizable
-                        .foregroundStyle(Color.blue)
-                        .aspectRatio(contentMode: .fit) // Maintain aspect ratio
-                        .frame(width: 25, height: 25) // Set the frame size
-                        
-                        .onTapGesture {
-                            showReminderView = true
-                        }
+                                print(prospect.isReminderSet)
+                            }
+                    } else if prospect.isReminderSet {
+                        Image("checkmark-bell-notification-icon")
+                            .resizable() // Make the image resizable
+                            .foregroundStyle(Color.blue)
+                            .aspectRatio(contentMode: .fit) // Maintain aspect ratio
+                            .frame(width: 25, height: 25) // Set the frame size
+                            .onTapGesture {
+                                showReminderView = true
+                            }
+                    }
+                    
+                    if prospect.isProspectAddedToContacts {
+                   
+                        Image(systemName: "person.fill.checkmark")
+                            .foregroundStyle(Color.blue)
+                            .font(.system(size: 25))
+                            .onTapGesture {
+                                showPopover = true
+                            }
+                    }
                 }
-   
+                .popover(isPresented: $showPopover,attachmentAnchor: .point(.top)) {
+                    let contactsText = "This prospect is saved in your contacts"
+                    Text(contactsText)
+                        .frame(width: 200, height: 100)
+                        .presentationCompactAdaptation(.popover)
+                        .padding()
+                }
             }
-           
                 .tint(.cyan)
-            
             }
-        .swipeActions {
+        .padding(10)
+        .swipeActions(edge: .trailing){
             
             swipeActionButtons(for: prospect)
         }
 
         .onAppear {
+            addedToContacts = prospect.isProspectAddedToContacts
+            eventLocation.currentEventMetProspect = "" //this rests the feild where you met the last user at. 
         }
         
         .sheet(isPresented: $showReminderView) {
@@ -108,7 +127,7 @@ struct ItemRow: View {
                 .presentationDetents([.fraction(0.4)])
         }
         .sheet(isPresented: $showContactView) {
-            AddContactView(name: prospect.name, phoneNumber: prospect.phoneNumber, emailAddress: prospect.emailAddress, discordUsername: prospect.discordUsername, linkedinProfileURL: prospect.linkedinProfileURL, locationMet: prospect.locationMet)
+            AddContactView(prospect: prospect)
         }
         
         .alert("Confirm Deletion", isPresented: $showDeleteAlert) {
@@ -125,14 +144,10 @@ struct ItemRow: View {
         .contextMenu {
             Button {
                 
-                if contactsReequestValue {
+                if canAccessUsersContacts {
                     showContactView = true
                 }
-//                saveProspectToContacts(email: prospect.emailAddress, phoneNumber: prospect.phoneNumber, name: prospect.name, locationMet: prospect.locationMet) { result in
-//                    if result {
-//                        showContactView = true
-//                    }
-//                }
+
             } label: {
                 Label("Add to Contacts", systemImage: "plus")
             }
@@ -141,8 +156,7 @@ struct ItemRow: View {
     }
     
     /// Sets the location the user meets the prospect to the current event the user is attending
-   
-    
+
     func extractDate(from date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -154,6 +168,8 @@ struct ItemRow: View {
         dateFormatter.dateFormat = "h:mm a"
         return dateFormatter.string(from: date)
     }
+    
+   
     
     /// Determines where  the user met a ecently added prospect. 
  
@@ -175,7 +191,7 @@ struct ItemRow: View {
             }
             .tint(.red)
             SwipeActionButtons.addProspectToContactButton {
-                if contactsReequestValue {
+                if canAccessUsersContacts {
                     showContactView = true
                 }
                
@@ -190,12 +206,21 @@ struct ItemRow: View {
     }
     
     
+    
 }
-//struct ItemRowView_Previews: PreviewProvider {
-//
-//
-//    static var previews: some View {
-//        ItemRow(prospect: <#Prospect#>, toast: <#Binding<Bool>#>, filter: <#ProspectsView.FilterType#>)
-//    }
-//}
+
+struct ItemRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        let prospect = Prospect(name: "nana", emailAddress: "nbonsu2000@gmail.com", phoneNumber: "6467012471")
+        prospect.locationMet = "bar"
+        prospect.currentDateMetUser = Date()
+        prospect.isProspectAddedToContacts = true
+        let filter = ProspectsView.FilterType.all
+        
+        let contactsAccess = Binding.constant(true)
+    
+        return ItemRow(prospect: prospect, canAccessUsersContacts: contactsAccess, filter: filter)
+    }
+}
+
 

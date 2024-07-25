@@ -28,8 +28,6 @@ struct ContentView: View {
             ProspectsView()
                 .tabItem {
                     Label("Prospects", systemImage: "person.3")
-                } .onTapGesture {
-                    self.hideKeyBoard()
                 }
             
             MeView()

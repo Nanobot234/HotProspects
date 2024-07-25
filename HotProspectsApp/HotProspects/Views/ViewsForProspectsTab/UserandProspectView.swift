@@ -79,7 +79,6 @@ struct UserAndProspectLocationView: View {
                         } else  {
                             
                         }
-                         //here puts the current event that the user is into the environment.
                         dismiss()
                         
                     }

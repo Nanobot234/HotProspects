@@ -68,11 +68,11 @@ import Foundation
         save()
     }
     
-    ///  Toggles the boolean that checks whether a prospect is added to the users contacts!
+    ///  Sets the added to contacts state for a particular prospect as true
     /// - Parameter prospect: <#prospect description#>
     func addedToContacts(_ prospect:Prospect) {
         objectWillChange.send()
-        people.first(where: {$0.id == prospect.id})!.isProspectAddedToContacts.toggle()
+        people.first(where: {$0.id == prospect.id})!.isProspectAddedToContacts = true
         save()
     }
     

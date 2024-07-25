@@ -174,6 +174,14 @@ class Utilties {
             }
         }
     
+    
+   
+
+    
+    
+    /// returns the username parsed from a provided URL
+    /// - Parameter urlString: the url containing the username
+    /// - Returns: the parsed username
     static func returnUserNameFromURL(urlString: String) -> String? {
         
 

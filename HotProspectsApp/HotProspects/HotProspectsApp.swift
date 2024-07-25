@@ -17,7 +17,7 @@ struct HotProspectsApp: App {
         WindowGroup {
             SplashScreenView()
                 .onOpenURL { url in
-                    //runs when app opens
+                    print("App opened")
 
                     }
                 }

@@ -33,18 +33,7 @@ extension MeView {
     /// Generates the QR code
     /// - Parameter string: the user's contact information
     /// - Returns: a `UIImage` that represents the QR code or an empty `UIImage` if there is an error
-    func generateQRCode(from string:String) -> UIImage {
-        filter.message = Data(string.utf8) // puts the filter inside
-
-            if let outputImage = filter.outputImage {
-                if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                    qrCode = UIImage(cgImage: cgimg) //cashing it to be saved
-                    return qrCode!
-                }
-            }
-
-            return UIImage(systemName: "xmark.circle") ?? UIImage()
-    }
+   
    
     
     /// Retrieve the users username from Discord

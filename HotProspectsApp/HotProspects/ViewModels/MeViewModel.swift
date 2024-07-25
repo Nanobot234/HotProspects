@@ -6,9 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 
 class MeViewModel: ObservableObject {
+    
+    
+    
+    let filter = CIFilter.qrCodeGenerator()
+    let context = CIContext()
     
     
     @Published var name = "" {
@@ -68,31 +74,15 @@ class MeViewModel: ObservableObject {
             UserDefaults.standard.set(discordUsernameCopy, forKey: "Discord_Username_copy")
         }
     }
+    ///  a boolean that determines if the share view controller will be shown
+    @Published var showShareActivity: Bool = false
     
+    /// The url link containing the contact information that will be shared with other apps!
+    @Published var contactFileURL: URL? = nil
     
     init() {
         loadUserInfo()
     }
-    
-//    func saveUserInfo() {
-//        UserDefaults.standard.set(name, forKey: "users_name")
-//        UserDefaults.standard.set(emailAddress, forKey: "users_email")
-//        UserDefaults.standard.set(phoneNumber, forKey: "users_phone")
-//        UserDefaults.standard.set(linkedinUsername, forKey: "linkedin_username")
-//        UserDefaults.standard.set(discordUsername, forKey: "discord_username")
-//        
-//        //check if the email was toggled and then do this!!
-//        
-//      
-//       
-//        
-//        UserDefaults.standard.set(linkedinUsernameCopy, forKey: "Linkedin_Username_copy")
-//        UserDefaults.standard.set(discordUsernameCopy, forKey: "Discord_Username_copy")
-//        
-//        //saves the value of the feilds to the array before.
-//        
-//        //Continue here!!
-//    }
     
     
     func loadUserInfo() {
@@ -109,6 +99,68 @@ class MeViewModel: ObservableObject {
         linkedinUsernameCopy = UserDefaults.standard.string(forKey: "Linkedin_Username_copy") ?? ""
         discordUsernameCopy =  UserDefaults.standard.string(forKey: "Discord_Username_copy") ?? ""
            
+    }
+    
+    func generateQRCode(from string:String, with qrCode: UIImage?) -> UIImage {
+        filter.message = Data(string.utf8) // puts the filter inside
+
+            var targetQRCode = qrCode
+            if let outputImage = filter.outputImage {
+                if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
+                    targetQRCode = UIImage(cgImage: cgimg) //cashing it to be saved
+                    return  targetQRCode!
+                }
+            }
+
+            return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
+    
+    func shareMyInfo() {
+        let vCardString = createVCardFromProspect()
+        if let vCardString = vCardString {
+            if let fileURL = saveVCardAndGetFileURL(vCardString: vCardString) {
+                contactFileURL = fileURL
+                showShareActivity = true
+            }
+        }
+    }
+    
+  
+    
+    
+    //change this here, needs to be with userdetails!!
+    func createVCardFromProspect() -> Data? {
+        // Get details from user defaults or other sources
+        let vCardString = """
+        BEGIN:VCARD
+        VERSION:3.0
+        FN:\(self.name)
+        TEL;TYPE=CELL:\(self.phoneNumber)
+        EMAIL:\(self.emailAddress)
+        URL;TYPE=LinkedIn:\(self.linkedinUsername)
+        URL;TYPE=Discord:\(self.discordUsername)
+        END:VCARD
+        """.data(using: .utf8)
+        return vCardString
+    }
+
+    
+    /// creates a shareable url for a vCard file
+    /// - Parameter vCardString: the string decribing the contents of the vCard
+    /// - Returns: the url
+    func saveVCardAndGetFileURL(vCardString: Data) -> URL? {
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let fileName = "contact.vcf"
+        let fileURL = tempDirectory.appendingPathComponent(fileName)
+
+        do {
+            try vCardString.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Failed to save vCard file: \(error)")
+            return nil
+        }
     }
     
 }

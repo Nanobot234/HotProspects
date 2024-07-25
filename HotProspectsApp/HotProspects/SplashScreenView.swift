@@ -35,8 +35,8 @@ struct SplashScreenView: View {
         //now show the main view after a few seoncs
         .onAppear {
             
-            self.isFirstLaunch = self.checkIfirstLaunch()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+           // self.isFirstLaunch = self.checkIfirstLaunch()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     self.isActive = true
                 }
@@ -46,16 +46,7 @@ struct SplashScreenView: View {
     }
     
     /// Determines if this is the first user launch of the application
-    func checkIfirstLaunch() -> Bool {
-        
-        //if you have launched before
-        if UserDefaults.standard.bool(forKey: "first_launch") {
-            return false
-        } else {
-            UserDefaults.standard.set(true, forKey: "first_launch")
-            return true
-        }
-    }
+   
     
 }
 

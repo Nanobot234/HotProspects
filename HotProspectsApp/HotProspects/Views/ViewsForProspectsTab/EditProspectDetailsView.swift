@@ -43,6 +43,7 @@ struct EditProspectDetailsView: View {
     @State var isShowingMessageView = false
     
    
+    //MARK: UI Code
     var body: some View {
         NavigationView {
             Form {
@@ -132,7 +133,7 @@ struct EditProspectDetailsView: View {
                 print("Profile URL" + prospect.linkedinProfileURL)
                 
             }
-                      
+                 //MARK: Toolbar UI elements
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     
@@ -148,7 +149,7 @@ struct EditProspectDetailsView: View {
                         
                         //should check
                         prospect.locationMet = locationText
-                        prospects.addLocationMet(prospect)
+                        prospects.addLocationMet(prospect) //updates the environment array with this value
                         
                         prospect.prospectNotes = prospectNotesText
                         prospects.addNotesForProspect(prospect)
@@ -169,12 +170,10 @@ struct EditProspectDetailsView: View {
         }
     }
 
+    //MARK: functions for various tasks!
     /// sets the location and notes field for a particular user
     ///
     /// If the user didnt specifiy a location they met a prospect, then the current event they are attending is set as the location met.
-    ///
-    ///
-    ///
     /// This fucntion is run when `onAppear` is called
     func setProspectLocationandNotesFromEnvironment() {
         //when u come in, should be loading waht is environment

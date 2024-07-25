@@ -41,6 +41,9 @@ struct ProspectsView: View {
     @State var showNoSearchView = false
     @State var showDeleteAlert: Bool = false
     @State var activeSheet: ActiveSheet?
+    
+    
+    /// Determines whether the app is allowed to access the users contacts
     @State var hasContactsAccess: Bool = false
     
     var addToContactsAlertStyle = AlertToast.AlertStyle.style(backgroundColor: Color.white, titleColor: nil, subTitleColor: nil, titleFont: nil, subTitleFont: nil)
@@ -135,6 +138,7 @@ struct ProspectsView: View {
                 }
                 //checks if the current active slection is for the scanner. If so will select it!
                 
+                
                 FloatingButtonView(showScanner: Binding(get: {
                     activeSheet == .scanner
                 }, set: { value in
@@ -153,18 +157,21 @@ struct ProspectsView: View {
     
     var prospectList: some View {
         List(selection: $selectedItems) {
-            ForEach(searchedfilteredProspects) { prospect in
-                ItemRow(prospect: prospect, toast: $presentToast,contactsReequestValue: $hasContactsAccess, filter: selectedFilter)
-                    .frame(maxHeight: 200)
-                    .padding(20)
-                //                    .swipeActions(allowsFullSwipe: false) {
-                //                        swipeActionButtons(for: prospect)
-                //                    }
-                
-                    .onTapGesture {
-                        currentSelectedProspect = prospect
-                        activeSheet = .edit //shows the edit screen! by choosing the ctive scanner!
-                    }
+            
+            ForEach(searchedfilteredProspects) { prospect in   
+                Section {
+                    ItemRow(prospect: prospect, canAccessUsersContacts: $hasContactsAccess, filter: selectedFilter)
+                        .frame(maxHeight: 200)
+                        .padding(20)
+                    //                    .swipeActions(allowsFullSwipe: false) {
+                    //                        swipeActionButtons(for: prospect)
+                    //                    }
+                    
+                        .onTapGesture {
+                            currentSelectedProspect = prospect
+                            activeSheet = .edit //shows the edit screen! by choosing the ctive scanner!
+                        }
+                }
             }
             .background(RoundedRectangle(cornerRadius: 25).fill(Color.clear))
             .listRowInsets(EdgeInsets())

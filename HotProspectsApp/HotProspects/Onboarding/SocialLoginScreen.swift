@@ -52,6 +52,8 @@ struct SocialLoginScreen: View {
                     .cornerRadius(15)
                     .padding(.bottom, 20)
                     .padding(.top,40)
+                
+                
             }
             
         }

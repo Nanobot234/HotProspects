@@ -13,7 +13,7 @@ struct UserAndProspectLocationView: View {
     @EnvironmentObject var prospects: Prospects
     
     @EnvironmentObject var eventLocation: EventLocation
-  
+    
     @Environment(\.dismiss) var dismiss
 
     /// String indicates if a user updates the location that they are attending or sets a location met for an individual prospect,
@@ -74,11 +74,7 @@ struct UserAndProspectLocationView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     toolbarButton("Save", systemImage: "") {
                         
-                        if(addReasonMessage == "userLocationUpdate") {
-                          //  eventLocation.currentEventOfUser = userLocationString
-                        } else  {
-                            
-                        }
+                        
                         dismiss()
                         
                     }
@@ -93,7 +89,7 @@ struct UserAndProspectLocationView: View {
 
 struct UserandProspectView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAndProspectLocationView(addReasonMessage: "prospectLocation")
+        UserAndProspectLocationView( addReasonMessage: "prospectLocation")
             .environmentObject(EventLocation())
             
     }

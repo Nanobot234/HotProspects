@@ -27,16 +27,24 @@ struct ProspectsView: View {
     
     @EnvironmentObject var prospects: Prospects
     @EnvironmentObject var eventLocation: EventLocation
+    
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
+    
     
     @State var ListeditMode = EditMode.inactive
     @State var searchFieldText = ""
+    /// The prospect that is added to the list after the user scans a qr code
     @State var newProspect = Prospect()
-    @State var currentSelectedProspect = Prospect()
+    
+    @State var currentSelectedProspect: Prospect? = nil
+    
     @State var showEditScreen = false
     @State var sort: SortType = .name
     @State var presentToast = false
     @State var selectedItems: Set<UUID> = []
+    @State var selectedProspectID: UUID?
+    
     @State var selectedFilter: FilterType = .all
     @State var showNoSearchView = false
     @State var showDeleteAlert: Bool = false
@@ -97,32 +105,14 @@ struct ProspectsView: View {
                 .environment(\.editMode, $ListeditMode)
                 
                 // MARK: Sheet modifiers for the view
-                .sheet(item: $activeSheet) { item in
+                .sheet(item: $activeSheet, onDismiss: saveNewProspectWithDetails) { item in
                     switch item {
                     case .scanner:
-                        NavigationView {
-                            VStack(spacing: 50) {
-                                CodeScannerView(codeTypes: [.qr], simulatedData: "Nana Bonsu\nNbonsu2000@gmail.com\n6467012471", completion: handleScan)
-                                    .frame(width: 500, height: 370)
-                                    .padding(.top, 0)
-                                Text("Position your QR code within the frame to quickly save this prospect's contact information")
-                                    .font(.title)
-                                    .padding()
-                            }
-                            .navigationTitle("Scan")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem(placement: .navigationBarTrailing) {
-                                    Button("Cancel") {
-                                        activeSheet = nil
-                                    }
-                                }
-                            }
-                        }
+                        ScannerView(handleScan: handleScan)
                     case .edit:
                         EditProspectDetailsView(prospect: $currentSelectedProspect)
                     case .addLocation:
-                        UserAndProspectLocationView(addReasonMessage: "prospectLocation")
+                        UserAndProspectLocationView(addReasonMessage: "prospectLocation" )
                             .presentationDetents([.fraction(0.7)])
                             .onDisappear(perform: addNewProspectToProspects)
                     case .reminder:
@@ -137,7 +127,7 @@ struct ProspectsView: View {
                     AlertToast(displayMode: .banner(.slide), type: .complete(Color.green), title: "Saved to contact", style: addToContactsAlertStyle)
                 }
                 //checks if the current active slection is for the scanner. If so will select it!
-                
+
                 
                 FloatingButtonView(showScanner: Binding(get: {
                     activeSheet == .scanner
@@ -150,26 +140,37 @@ struct ProspectsView: View {
         
         .onAppear {
             requestContactsAccess { granted in
-                    hasContactsAccess = granted
+                hasContactsAccess = granted
             }
+           
         }
     }
     
     var prospectList: some View {
         List(selection: $selectedItems) {
             
-            ForEach(searchedfilteredProspects) { prospect in   
+            ForEach(searchedfilteredProspects) { prospect in
                 Section {
-                    ItemRow(prospect: prospect, canAccessUsersContacts: $hasContactsAccess, filter: selectedFilter)
+    
+                    
+                    ItemRow(prospect: prospect, canAccessUsersContacts: $hasContactsAccess, tappedProspectID: $selectedProspectID, filter: selectedFilter)
                         .frame(maxHeight: 200)
                         .padding(20)
-                    //                    .swipeActions(allowsFullSwipe: false) {
-                    //                        swipeActionButtons(for: prospect)
-                    //                    }
-                    
-                        .onTapGesture {
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .foregroundStyle(.primary)
+                        .contentShape(Rectangle()) // Makes the whole area tappable
+                        .onTapGesture(count: 1){
+                            print("This prospect id:\(prospect.prospectID)")
                             currentSelectedProspect = prospect
-                            activeSheet = .edit //shows the edit screen! by choosing the ctive scanner!
+                            
+                            //conditional check to see if currentSelectedProspect isnt nill
+                            if let selectedProspect = currentSelectedProspect {
+                                //Prospect(id: prospect.id, name: prospect.name, emailAddress: prospect.emailAddress, phoneNumber: prospect.phoneNumber, locationMet: prospect.locationMet, prospectNotes: prospect.prospectNotes)
+                                print("The selected prospect id:\(selectedProspect.prospectID)")
+                                print("The location of the prospect ur tapping: \(currentSelectedProspect!.locationMet)")
+                                activeSheet = .edit
+                                selectedProspectID = nil
+                            }
                         }
                 }
             }
@@ -178,22 +179,29 @@ struct ProspectsView: View {
         }
         .listStyle(.insetGrouped)
     }
-
+    
     func requestContactsAccess(completion: @escaping (Bool) -> Void) {
-           let store = CNContactStore()
-           
-           store.requestAccess(for: .contacts) { granted, error in
-               DispatchQueue.main.async {
-                   if let error = error {
-                       print("Failed to request access:", error)
-                       completion(false)
-                       return
-                   }
-                   
-                   completion(granted)
-               }
-           }
-       }
+        let store = CNContactStore()
+        
+        store.requestAccess(for: .contacts) { granted, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Failed to request access:", error)
+                    completion(false)
+                    return
+                }
+                
+                completion(granted)
+            }
+        }
+    }
+    
+    func saveNewProspectWithDetails() {
+        
+        if(activeSheet == .addLocation) {
+            addNewProspectToProspects()
+        }
+    }
     
     private var editButton: some View {
         Button(action: {
@@ -202,7 +210,7 @@ struct ProspectsView: View {
             Text(ListeditMode.isEditing ? "Done" : "Edit")
         }
     }
-
+    
     
     var viewToOverlay: some View {
         if prospects.people.isEmpty {

@@ -11,17 +11,29 @@ import SwiftUI
 
 @main
 struct HotProspectsApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
-                .onOpenURL { url in
-                    print("App opened")
-
-                    }
+                .onAppear {
+                   setOrientationLock()
+                }
                 }
        
         }
     }
 
+func setOrientationLock() {
+      let supportedOrientations = UIInterfaceOrientationMask.portrait
+      let key = "orientationLock"
+      NotificationCenter.default.post(name: UIDevice.orientationDidChangeNotification, object: supportedOrientations)
+  }
+
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
+}

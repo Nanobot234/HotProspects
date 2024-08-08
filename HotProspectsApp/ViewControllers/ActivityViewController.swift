@@ -12,9 +12,22 @@ import SwiftUI
 struct ActivityViewController: UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]?
+    @Binding var isPresented: Bool
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        
+        controller.modalPresentationStyle =  .pageSheet
+        
+        if let sheet = controller.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+        }
+        
+     
+        controller.completionWithItemsHandler = { activityType, completed, returnedItems, activityError in
+                   self.isPresented = false
+               }
         return controller
     }
 

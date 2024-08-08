@@ -10,7 +10,7 @@ import CustomTextField
 
 struct OnboardingUserInfoEntry: View {
     
-    /// conditional that determines whether text will be entered by the user for this page
+    @EnvironmentObject var meViewModel: MeViewModel
     ///
     enum FocusFeild: Hashable {
         case name
@@ -18,11 +18,11 @@ struct OnboardingUserInfoEntry: View {
         case emailAddress
     }
     
-    @State var name = ""
-    @State var emailAddress = ""
-    @State var phone = ""
+    //@State var name = ""
+   // @State var meViewModel.emailAddress = ""
+    //@State var phone = ""
     
-    @State var nameError = false
+    @State private var nameError = true
     @State var nameErrorMessage = ""
     
     @State var emailError = false
@@ -34,34 +34,37 @@ struct OnboardingUserInfoEntry: View {
     
     @State var linkedinHandleString = ""
     
+    @State private var buttonIsDisabled = false
     
     @FocusState private var focusField: FocusFeild?
     var body: some View {
         
-        VStack {
+        VStack(spacing: 10) {
             
-            Text("Your Contact Information")
+            Text("Basic Info")
                 .fontWeight(.heavy)
                 .font(.system(size: 30))
             
-            Text("You contact information will be shared with prospects that you choose")
-                .font(.subheadline)
+//            Text("Your name, email,and phone number will be shared with prospects that you choose")
+//                .font(.subheadline)
+//                .foregroundStyle(Color.secondary)
             
             
             //basic details you will share with a prospect
             
             VStack{
-                EGTextField(text: $name)
+                EGTextField(text: $meViewModel.name)
                     .setTitleText(" Name")
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .name)
-                    .onChange(of: name) { _ in
+                    .onChange(of: meViewModel.name) { _ in
                         validateName()
+                        print("NameEror: \(nameError)")
                     }
                 
                 if nameError && focusField == .name {
-                    Text(emailErrorMessage)
+                    Text(nameErrorMessage)
                         .foregroundStyle(.red)
                 }
             }
@@ -70,14 +73,15 @@ struct OnboardingUserInfoEntry: View {
             
 
             VStack {
-                EGTextField(text: $emailAddress)
+                EGTextField(text: $meViewModel.emailAddress)
                     .setTitleText("Email Address")
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .emailAddress)
                     .padding()
-                    .onChange(of: emailAddress) { _ in
+                    .onChange(of: meViewModel.emailAddress) { _ in
                         validateEmailAddress()
+                        print("EmailError: \(emailError)")
                     }
                 
                 if emailError && focusField == .emailAddress {
@@ -89,14 +93,15 @@ struct OnboardingUserInfoEntry: View {
                 
                
             VStack {
-                EGTextField(text: $phone)
+                EGTextField(text: $meViewModel.phoneNumber)
                     .setTitleText("Your Phone Number")
                     .setFocusedBorderColor(.blue)
                     .setFocusedBorderColorEnable(true)
                     .focused($focusField, equals: .phoneNumber)
                     .padding()
-                    .onChange(of: phone) { _ in
+                    .onChange(of: meViewModel.phoneNumber) { _ in
                         validatephoneNumber()
+                        print("PhoneNumberError \(phoneNumberError)")
                     }
                 
                 if phoneNumberError && focusField == .phoneNumber {
@@ -105,36 +110,34 @@ struct OnboardingUserInfoEntry: View {
                 }
             }
             
-            NavigationLink(destination: SocialLoginScreen()) {
-                Text("Continue")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .frame(width: 350, height: 60)
-                    .background(Color.blue)
-                    .cornerRadius(15)
-                    .padding(.bottom, 20)
-                    .padding(.top,40)
-                    .disabled(phoneNumberError && nameError && emailError)
-            }
+            
+            Button {
+                          
+                      } label: {
+                          NavigationLink(destination: SocialLoginScreen()) {
+                              Text("Continue")
+                                  .foregroundColor(.white)
+                                  .font(.headline)
+                                  .frame(width: 350, height: 60)
+                                  .background(buttonIsDisabled ? Color.gray: Color.blue)
+                                  .cornerRadius(15)
+                                  .padding(.bottom, 20)
+                                  .padding(.top,40)
+                              
+                          }
+                      }
+                      .buttonStyle(PlainButtonStyle())
+                      .disabled(buttonIsDisabled)
+            
+            
         }
         .onChange(of: focusField, perform: { _ in
             setErrorMessage()
         })
        
-        .onDisappear {
-            saveUserInfoIntoUserDefaults()
-        }
     }
     
-    func saveUserInfoIntoUserDefaults() {
-        
-        UserDefaults.standard.set(name, forKey: "users_name")
-
-        UserDefaults.standard.set(emailAddress, forKey: "users_email")
-        
-        UserDefaults.standard.set(phone, forKey: "users_phone")
-        
-    }
+  
     
     
     
@@ -154,37 +157,42 @@ struct OnboardingUserInfoEntry: View {
     }
     
     func validateName() {
-        if name.isEmpty {
+        if meViewModel.name.isEmpty {
             nameErrorMessage = "Please enter your name"
+            buttonIsDisabled = true
             nameError = true
         } else {
             nameErrorMessage = ""
             nameError = false
+            buttonIsDisabled = false
+            
         }
     }
     
     func validateEmailAddress() {
-        if(Utilties.isValidContactPoint(emailAddress, validationType: "email")){
+        if(Utilties.isValidContactPoint(meViewModel.emailAddress, validationType: "email")){
             emailErrorMessage = ""
                 emailError = false
-        } else {
+            buttonIsDisabled = false
+        } else if(!Utilties.isValidContactPoint(meViewModel.emailAddress, validationType: "email") && !meViewModel.emailAddress.isEmpty){
             emailErrorMessage = "Please enter a valid email address"
             //if no error previously, then mak remove the error boolean
                emailError = true
+            buttonIsDisabled = true
             
         }
 
     }
     
     func validatephoneNumber() {
-        if(Utilties.isValidContactPoint(phone, validationType: "phoneNumber")){
+        if(Utilties.isValidContactPoint(meViewModel.phoneNumber, validationType: "phoneNumber")){
            phoneErrorMessage = ""
             phoneNumberError = false
-            
-        } else {
+            buttonIsDisabled = false       
+        } else if(!Utilties.isValidContactPoint(meViewModel.phoneNumber, validationType: "phoneNumber") && !meViewModel.phoneNumber.isEmpty) {
             phoneErrorMessage = "Please enter a valid phone number. Make sure you have no dashes between the numbers"
                 phoneNumberError = true
-            
+            buttonIsDisabled = true
         }
     }
     

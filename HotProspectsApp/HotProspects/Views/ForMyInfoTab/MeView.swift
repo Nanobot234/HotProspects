@@ -15,7 +15,7 @@ struct MeView: View {
     
     //@EnvironmentObject private var viewModel:RowModel
     
-    @StateObject var meViewModel =  MeViewModel()
+    @EnvironmentObject var meViewModel: MeViewModel
    
     ///  Will be used as a copy of the name of the user. This copy will be manippluated and used to display the users information in the QR code.
     
@@ -26,7 +26,8 @@ struct MeView: View {
     
     @State private var contactPointsInitialized: Bool = false //continue!
     //   @State var copyOfContacts = [String]()
-    @State var qrCode: UIImage? = UIImage()
+    @AppStorage("firstTimeLoading") var firstTimeLoading: Bool = false
+    
     
     @State var emailWasToggled: Bool = true //toggled on initially
     @State var phoneNumWasToggled: Bool = true
@@ -125,13 +126,6 @@ struct MeView: View {
                 .headerProminence(.increased)
                 
                 
-//                .willAppear {
-//                    
-//                }
-                //sheet for the QR oe
-                
-//
-                
                 //when name state variable changes,save the name to local storage and update the QRCode
                 .onChange(of: meViewModel.name, perform: { newName in
                     // contactPoints[0].wrappedValue = newName
@@ -210,6 +204,7 @@ struct MeView: View {
                 .onChange(of: linkedInUsernameWasToggled, perform: { toggleState in
                     UserDefaults.standard.set(toggleState, forKey: "linkedinToggleStatus")
                     
+                        
                     if(!toggleState){
                         meViewModel.linkedinUsernameCopy = ""
                         updateCode()
@@ -242,16 +237,18 @@ struct MeView: View {
                 
             }.onAppear {
                 
-                
+                //checks if the array of contact info points is initalized already. If not initiazlie it with the stored values and also update the qrCode
                 if !contactPointsInitialized {
-                    
                     contactPoints = [$meViewModel.nameCopy,$meViewModel.emailAddressCopy,$meViewModel.phoneNumberCopy, $meViewModel.linkedinUsernameCopy, $meViewModel.discordUsernameCopy]//add the userNames and URLs here!!! tocontinue!!
                     //continue here Q!
+                    updateCode() //will update the code, on the first run too
                     print(contactPoints.count)
                 }
                 contactPointsInitialized = true
                 updateCode() //this generates the qr code after
                 
+                
+                firstTimeLoading = true
                 
             }
 
@@ -259,9 +256,9 @@ struct MeView: View {
             .sheet(item: $activeSheet) { item in
                 switch item {
                 case .qrCode:
-                    QRCodeView(qrCodeImage: qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled, isSharingDiscord: $discordUsernameWasToggled, isSharingLinkedin: $linkedInUsernameWasToggled)
+                    QRCodeView(qrCodeImage: meViewModel.qrCode,isSharingEmail: $emailWasToggled,isSharingPhoneNum: $phoneNumWasToggled, isSharingDiscord: $discordUsernameWasToggled, isSharingLinkedin: $linkedInUsernameWasToggled, updateQRCode: updateCode)
                         .presentationDetents([.fraction(0.7)])
-                        .environmentObject(meViewModel) //pass down this object here, so that value changes can be seen!
+                        //pass down this object here, so that value changes can be seen!
                 case .changeEvent:
                     UserAndProspectLocationView(addReasonMessage:"userLocationUpdate")
                         .presentationDetents([.fraction(0.5 )])
@@ -295,7 +292,7 @@ struct MeView: View {
         //If there is an error in the contact Detailss then set the QRcode to nil
         guard errorInEmail == false && errorinPhoneNum == false && errorInName == false
         else {
-            qrCode = nil
+            meViewModel.qrCode = nil
             return
         }
         
@@ -305,11 +302,12 @@ struct MeView: View {
         }
         print("Printing the code now!")
         print(QRString)
-        
-        qrCode = meViewModel.generateQRCode(from: QRString, with: qrCode)
+     
+            meViewModel.qrCode = meViewModel.generateQRCode(from: QRString, with: meViewModel.qrCode)
         
     }
     
+    //have function i that checks for errors, in the name first, then call that in update code first. THen after that gauard statement , then wills et qr coe
     /// Saves user info when the user clicks out of this screen
     /// makes surec ontact points values are equal to what the user sets.
  
@@ -364,12 +362,18 @@ struct MeView: View {
         
     }
     
+    func checkForContactInfoErrors() {
+        
+        
+    }
+    
 }
 
 struct MeView_Previews: PreviewProvider {
     static var previews: some View {
         MeView()
             .environmentObject(EventLocation())
+            .environmentObject(MeViewModel())
     }
 }
 

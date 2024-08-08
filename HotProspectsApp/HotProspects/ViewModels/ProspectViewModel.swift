@@ -48,7 +48,7 @@ import Foundation
     
     func removeProspectWithID(id: UUID) {
         
-        if let prospect = people.first(where: {$0.id == id}) {
+        if let prospect = people.first(where: {$0.prospectID == id}) {
             remove(prospect)
         }
         save()
@@ -115,6 +115,8 @@ import Foundation
             people[index].name = prospect.name
             people[index].emailAddress = prospect.emailAddress
             people[index].phoneNumber = prospect.phoneNumber
+            people[index].prospectNotes = prospect.prospectNotes
+            people[index].locationMet = prospect.locationMet
         }
         save()
       

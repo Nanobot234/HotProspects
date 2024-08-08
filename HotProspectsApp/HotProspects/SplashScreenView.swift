@@ -12,25 +12,29 @@ struct SplashScreenView: View {
     @Environment(\.isBioAuthenticated) private var isAuthenticated
     @State var isActive: Bool = false
     @State var isFirstLaunch: Bool = false
+    @StateObject var meViewModel =  MeViewModel()
     //here will put the envi
+    @AppStorage("hasFinishedOnBoarding") var userFinishedOnboarding: Bool = false
+    //variable here that will determine if info was filled for the first time, will be used to set value!
     
     var body: some View {
         
         
         ZStack {
             if isActive {
-                if isFirstLaunch {
+                if !userFinishedOnboarding {
                     FirstWelcomeScreen()
                 } else {
                     ContentView()
                 }
             } else {
-                Image("AppIcon")
+                Image("PropectaAppIcon")
                     .resizable()
                     .frame(width: 300, height: 300)
                 Spacer()
             }
         }
+        .environmentObject(meViewModel)
         
         //now show the main view after a few seoncs
         .onAppear {
@@ -55,3 +59,5 @@ struct SplashScreenView_Previews: PreviewProvider {
         SplashScreenView()
     }
 }
+
+//making a boolean that shows

@@ -31,6 +31,12 @@ struct QRCodeView: View {
     
     @State private var showPopover: Bool = false
     
+    @State private var originalBrightness: CGFloat = 0.0
+    
+    @AppStorage("firstTimeLoading") var firstTimeLoading: Bool = false
+    
+    var updateQRCode: () -> Void
+    
     var imageSaver = ImageSaver()
     
     var imageSaverAlertStyle = AlertToast.AlertStyle.style(backgroundColor: Color.white, titleColor: nil, subTitleColor: nil, titleFont: nil, subTitleFont: nil)
@@ -60,47 +66,52 @@ struct QRCodeView: View {
     var body: some View {
         
         NavigationView {
-            if(qrCodeImage == nil) {
-                Text("Cant generate QR Code. Make sure that your contact information doesn't contain any errors")
-                    .font(.system(size: 25))
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-            }
+          
             VStack() {
-                if let qrCodeImage = qrCodeImage {
-                    Image(uiImage: qrCodeImage)
-                        .interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
+                
+                if(qrCodeImage == nil) {
+                    Text("Cant generate QR Code. Make sure that your contact information doesn't contain any errors")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                } else {
                     
-                    //Add a Link Button
-                    
-                    VStack {
-                        Button {
-                            showPopover.toggle()
-                        } label: {
-                            Label("About this QR Code", systemImage: "info.circle")
-                                .font(.title2)
-                                .underline(true)
-                                .backgroundStyle(Color.blue)
-                        }
-                        .background(Color.clear)
+                        Image(uiImage: qrCodeImage!)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 300)
                         
-                        Button {
-                            meViewModel.shareMyInfo()
-                        } label: {
-                            Label("Share Your Contact", systemImage: "arrowshape.turn.up.right")
-                                .font(.title2)
-                                .underline(true)
-                                .backgroundStyle(Color.blue)
+                        //Add a Link Button
+                        
+                        VStack {
+                            Button {
+                                showPopover.toggle()
+                            } label: {
+                                Label("About this QR Code", systemImage: "info.circle")
+                                    .font(.title2)
+                                    .underline(true)
+                                    .backgroundStyle(Color.blue)
+                            }
+                            .background(Color.clear)
+                            
+                            Button {
+                                meViewModel.shareMyInfo()
+                            } label: {
+                                Label("Share Your Contact", systemImage: "arrowshape.turn.up.right")
+                                    .font(.title2)
+                                    .underline(true)
+                                    .backgroundStyle(Color.blue)
+                            }
+                            .background(Color.clear)
                         }
-                        .background(Color.clear)
-                    }
+                    
                 }
             }
             .sheet(isPresented: $meViewModel.showShareActivity) {
-                ActivityViewController(activityItems: [meViewModel.contactFileURL])
+                ActivityViewController(activityItems: [meViewModel.contactFileURL!], isPresented: $meViewModel.showShareActivity)
+                    .presentationDetents([.medium])
+                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -124,10 +135,31 @@ struct QRCodeView: View {
                 .presentationCompactAdaptation(.popover)
             }
         }
-        
+        .onAppear {
+           //gets the qrcode image from the viewModel which is updated in another view?
+            
+            //may run multiple times however?
+            if firstTimeLoading {
+              updateQRCode()
+            }
+            qrCodeImage = meViewModel.qrCode
+            
+            if let screen = SceneManager.shared.windowScene?.screen {
+                            // Save the current brightness level
+                            originalBrightness = screen.brightness
+                            // Set brightness to maximum
+                            screen.brightness = 1.0
+                        }
+        }
         
         .onDisappear {
             qrCodeImage = nil //should prevent any possible caching of the image
+            
+                            if let screen = SceneManager.shared.windowScene?.screen {
+                                // Restore the original brightness level
+                                screen.brightness = originalBrightness
+                            }
+                        
         }
         
     }

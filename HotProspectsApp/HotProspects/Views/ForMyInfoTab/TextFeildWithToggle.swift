@@ -21,7 +21,7 @@ struct TextFeildWithToggle: View {
 //    @Binding var contactPoints: [String]
     /// Indicates whether the toggle for this view was turned on or off.
     @Binding var toggleActive: Bool
-    var updateQrCode: () -> Void
+    @State var updateQrCode: () -> Void
     @State var errorMessage: String = ""
     @Binding var errorPresent: Bool
     
@@ -50,7 +50,7 @@ struct TextFeildWithToggle: View {
                         
                         //TODO: need to make a case where you only toggle the button with text in it!! not
                     )
-                    .disabled(text.isEmpty)
+                    .disabled(text.isEmpty || errorMessage != "")
                     .onChange(of: toggleActive) { toogleState in
                         //the toggle is turned off
                         

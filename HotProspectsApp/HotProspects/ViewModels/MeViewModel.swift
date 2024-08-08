@@ -7,14 +7,18 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+import Combine
 
 
 class MeViewModel: ObservableObject {
     
-    
+    //@AppStorage("hasFinishedOnBoarding") var userFinishedOnboarding: Bool = false
     
     let filter = CIFilter.qrCodeGenerator()
     let context = CIContext()
+    
+    private var cancellables = Set<AnyCancellable>()
     
     
     @Published var name = "" {
@@ -50,7 +54,7 @@ class MeViewModel: ObservableObject {
         didSet {
             UserDefaults.standard.set(nameCopy, forKey: "users_name_copy")
         }
-            //TODO: Change the rest here. 
+        //TODO: Change the rest here.
     }
     @Published  var emailAddressCopy = "" {
         didSet {
@@ -61,18 +65,20 @@ class MeViewModel: ObservableObject {
         didSet {
             UserDefaults.standard.set(phoneNumberCopy, forKey: "users_phone_copy")
         }
-     
+        
     }
     @Published  var linkedinUsernameCopy = "" {
         didSet {
+            
             UserDefaults.standard.set(linkedinUsernameCopy, forKey: "Linkedin_Username_copy")
         }
-       
+        
     }
     @Published  var discordUsernameCopy = "" {
         didSet {
             UserDefaults.standard.set(discordUsernameCopy, forKey: "Discord_Username_copy")
         }
+        
     }
     ///  a boolean that determines if the share view controller will be shown
     @Published var showShareActivity: Bool = false
@@ -80,11 +86,31 @@ class MeViewModel: ObservableObject {
     /// The url link containing the contact information that will be shared with other apps!
     @Published var contactFileURL: URL? = nil
     
+    @Published var qrCode: UIImage? = nil {
+        didSet {
+            if let data = qrCode?.pngData() {
+                UserDefaults.standard.set(data, forKey: "qrCode")
+            }
+        }
+    }
+    
     init() {
-        loadUserInfo()
+        loadUserInfo() //? change
+        
+        //will check for changes in the onBaording completed and then run the fucntion if so
+        UserDefaults.standard.publisher(for: \.firstTimeLoading)
+            .sink { [weak self] newValue in
+                if newValue {
+                    self?.setCopiedValues()
+                }
+            }
+            .store(in: &cancellables)
+        
+        
     }
     
     
+    ///  Might be able to just remove this one. omg since using set and gets!!
     func loadUserInfo() {
         
         name = UserDefaults.standard.string(forKey: "users_name") ?? ""
@@ -98,21 +124,32 @@ class MeViewModel: ObservableObject {
         phoneNumberCopy = UserDefaults.standard.string(forKey: "users_phone_copy") ?? ""
         linkedinUsernameCopy = UserDefaults.standard.string(forKey: "Linkedin_Username_copy") ?? ""
         discordUsernameCopy =  UserDefaults.standard.string(forKey: "Discord_Username_copy") ?? ""
-           
+        
+    }
+    
+    //set the initial values of the copy will be uaed when first will be run only on the first time, so that qr code will be laoded correctly
+    
+    func setCopiedValues() {
+        nameCopy = name
+        emailAddressCopy = emailAddress
+        phoneNumberCopy = phoneNumberCopy
+        linkedinUsernameCopy = linkedinUsername
+        discordUsernameCopy = discordUsername
+        
     }
     
     func generateQRCode(from string:String, with qrCode: UIImage?) -> UIImage {
         filter.message = Data(string.utf8) // puts the filter inside
-
-            var targetQRCode = qrCode
-            if let outputImage = filter.outputImage {
-                if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                    targetQRCode = UIImage(cgImage: cgimg) //cashing it to be saved
-                    return  targetQRCode!
-                }
+        
+        var targetQRCode = qrCode
+        if let outputImage = filter.outputImage {
+            if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
+                targetQRCode = UIImage(cgImage: cgimg) //cashing it to be saved
+                return  targetQRCode!
             }
-
-            return UIImage(systemName: "xmark.circle") ?? UIImage()
+        }
+        
+        return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
     
     
@@ -126,7 +163,7 @@ class MeViewModel: ObservableObject {
         }
     }
     
-  
+    
     
     
     //change this here, needs to be with userdetails!!
@@ -144,7 +181,7 @@ class MeViewModel: ObservableObject {
         """.data(using: .utf8)
         return vCardString
     }
-
+    
     
     /// creates a shareable url for a vCard file
     /// - Parameter vCardString: the string decribing the contents of the vCard
@@ -153,7 +190,7 @@ class MeViewModel: ObservableObject {
         let tempDirectory = FileManager.default.temporaryDirectory
         let fileName = "contact.vcf"
         let fileURL = tempDirectory.appendingPathComponent(fileName)
-
+        
         do {
             try vCardString.write(to: fileURL)
             return fileURL
@@ -163,4 +200,11 @@ class MeViewModel: ObservableObject {
         }
     }
     
+    
+}
+
+extension UserDefaults {
+    @objc dynamic var firstTimeLoading: Bool {
+        return bool(forKey: "firstTimeLoading")
+    }
 }

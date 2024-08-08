@@ -65,9 +65,7 @@ extension ProspectsView {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 createNewProspect(details: details)
             }
-            
-            // guard details.count >= 3 else { return}
-            
+         
             //failed case
         case .failure(let error):
             //now  what to do when error!
@@ -81,10 +79,6 @@ extension ProspectsView {
     /// The details array will contain only the contact info that the user decides to share. Conact points that the user doesnt share will just be saved as an empty string.
     ///For example. if the user decides not to share his phone number with a prospect, than the details array will have no value for the index holding the phone number.
     func createNewProspect(details: [String]) {
-        
-        
-        //here validate the positions
-        //need to pad this array, with the correct amount empty, once you get it so that it can not misplace the detaisl
         
         newProspect.name = details[0]
          
@@ -111,6 +105,7 @@ extension ProspectsView {
         
         if(eventLocation.currentEventOfUser == "") {
             activeSheet = .addLocation
+            //
         } else {
             addNewProspectToProspects()
         }
@@ -132,21 +127,22 @@ extension ProspectsView {
         newProspect.currentDateMetUser = Date()
    
         prospects.add(newProspect)
-        prospects.addLocationMet(newProspect) //confirmation. making sure saves in casee!!!
         
-        newProspect = Prospect()
+        prospects.addLocationMet(newProspect) //makes sure the location you met the prospect is actually saved well
+        
+        newProspect = Prospect() //move this from here?
     }
     
     
     ///  Updates the contact information of a selected prospect in the Prospects array
     ///
     ///  This function is called on the `OnDismiss` closure after a user edits the details of a prospect.
-    func updateProspect() {
-        // print("LocationtoInput " + currentSelectedProspect.locationMet)
-        prospects.updateProspectDetails(currentSelectedProspect)
-        
-    }
-    
+//    func updateProspect() {
+//        // print("LocationtoInput " + currentSelectedProspect.locationMet)
+//        prospects.updateProspectDetails(currentSelectedProspect)
+//        
+//    }
+//    
     
     ///  Removes all items in the `selectedItems` set.
     ///

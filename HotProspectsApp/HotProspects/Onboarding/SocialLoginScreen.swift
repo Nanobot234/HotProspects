@@ -13,56 +13,56 @@ struct SocialLoginScreen: View {
     //have some bindings to the screen when  the user logs in!
     @State private var linkedinUsername = ""
     @State private var discordUsername = ""
+    @AppStorage("hasFinishedOnBoarding") var userFinishedOnboarding: Bool = false
+    
+    @EnvironmentObject var meViewModel: MeViewModel
+    
     
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: 10) {
                 Text("Socials")
                     .fontWeight(.heavy)
                     .font(.system(size: 30))
-                Text("Enter your username for the following social networks so that others can connect with you. You can also add them later in the profile section")
-                    .font(.subheadline)
+//                Text("Add your socials so that others can connect with you. You can also add them later in the profile section")
+//                    .font(.subheadline)
+//                    .foregroundColor(.secondary)
             }
             .padding([.bottom], 30)
             
             //
             //text feild for the linkedin username
-         
+
             
-            
-            EGTextField(text: $linkedinUsername)
-                .setTitleText("Linkedin Profile URL")
+            EGTextField(text: $meViewModel.linkedinUsername)
+                .setTitleText("Linkedin username or Profile Url")
                 .padding()
+                .textInputAutocapitalization(.never)
                
             
-            EGTextField(text: $discordUsername)
-                .setTitleText(" Discord Username")
+            EGTextField(text: $meViewModel.discordUsername)
+                .setTitleText("Discord Username")
                 .padding()
+                .textInputAutocapitalization(.never)
            // oAuthButton(buttonText: "Connect your Linkedin", imageString: "linkedin-app-icon", authType: "Linkedin")
 
            // oAuthButton(buttonText: "Connect your Discord", imageString: "discord-color-icon", authType: "Discord")
             
             //replace here
-            NavigationLink(destination: ContentView()) {
-                Text("Continue")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .frame(width: 350, height: 60)
-                    .background(Color.blue)
-                    .cornerRadius(15)
-                    .padding(.bottom, 20)
-                    .padding(.top,40)
-                
-                
-            }
+
             
-        }
-        .onChange(of: linkedinUsername) { updatedLinkedinUsernmae in
-            UserDefaults.standard.set(updatedLinkedinUsernmae, forKey: "linkedin_UserName")
-        }
-        
-        .onChange(of: discordUsername) { updatedDiscord in
-            UserDefaults.standard.set(discordUsername, forKey: "discord_username")
+            Button("Finish") {
+                userFinishedOnboarding = true
+            }
+                .frame(width: 350, height: 60)
+                .foregroundColor(.white)
+                .font(.headline)
+                .background(Color.blue)
+                .cornerRadius(15)
+                .padding(.bottom, 20)
+                .padding(.top,40)
+            
+            
         }
       
     }
@@ -122,5 +122,6 @@ struct SocialLoginScreen: View {
 struct SocialLoginScreen_Previews: PreviewProvider {
     static var previews: some View {
         SocialLoginScreen()
+            .environmentObject(MeViewModel())
     }
 }

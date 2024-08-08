@@ -33,6 +33,9 @@ struct ItemRow: View {
     ///  Indicates whether the prospect has beena dded to the users contact books.
     @State var addedToContacts: Bool = true
     
+    
+    @Binding var tappedProspectID: UUID?
+    
    @State var showContactView: Bool = false
     @State var showPopover: Bool = false
     
@@ -108,10 +111,11 @@ struct ItemRow: View {
                         .padding()
                 }
             }
-                .tint(.cyan)
+            
             }
+        .background(tappedProspectID == prospect.prospectID ? Color.gray : Color.clear)
         .padding(10)
-        .swipeActions(edge: .trailing){
+        .swipeActions(edge: .trailing, allowsFullSwipe: false){
             
             swipeActionButtons(for: prospect)
         }
@@ -171,7 +175,8 @@ struct ItemRow: View {
     
    
     
-    /// Determines where  the user met a ecently added prospect. 
+    
+    /// Determines where  the user met a ecently added prospect.
  
     private func swipeActionButtons(for prospect: Prospect) -> some View {
         Group {
@@ -209,18 +214,18 @@ struct ItemRow: View {
     
 }
 
-struct ItemRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        let prospect = Prospect(name: "nana", emailAddress: "nbonsu2000@gmail.com", phoneNumber: "6467012471")
-        prospect.locationMet = "bar"
-        prospect.currentDateMetUser = Date()
-        prospect.isProspectAddedToContacts = true
-        let filter = ProspectsView.FilterType.all
-        
-        let contactsAccess = Binding.constant(true)
-    
-        return ItemRow(prospect: prospect, canAccessUsersContacts: contactsAccess, filter: filter)
-    }
-}
+//struct ItemRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let prospect = Prospect(name: "nana", emailAddress: "nbonsu2000@gmail.com", phoneNumber: "6467012471")
+//        prospect.locationMet = "bar"
+//        prospect.currentDateMetUser = Date()
+//        prospect.isProspectAddedToContacts = true
+//        let filter = ProspectsView.FilterType.all
+//        
+//        let contactsAccess = Binding.constant(true)
+//    
+//        return ItemRow(prospect: prospect, canAccessUsersContacts: contactsAccess, tappedProspectID: nil, filter: filter)
+//    }
+//}
 
 

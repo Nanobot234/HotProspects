@@ -8,13 +8,16 @@
 import SwiftUI
 
 
-///Defines the properties of a Prospect.
-///
-///In this app, a Prospect is a person whose contact information the user saves in order to contact them at a later time
+/// Defines the properties of a Prospect.
+///  
+/// In this app, a Prospect is a person whose contact information the user saves in order to contact them at a later time
+
+
+// TODO: Get AI refectoring ideas for this class
 class Prospect: Identifiable, Codable, Equatable, Hashable  {
  
 
-    var id = UUID()
+    var prospectID = UUID()
     var name = "Anonymous"
     var emailAddress = ""
     var phoneNumber = ""
@@ -42,6 +45,19 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
     var discordUsername = ""
     
     var isProspectAddedToContacts = false
+    
+    var profilePhotoData: Data? = nil
+       var profilePhoto: UIImage {
+           get {
+               if let data = profilePhotoData {
+                   return UIImage(data: data) ?? UIImage()
+               }
+               return UIImage()
+           }
+           set {
+               profilePhotoData = newValue.pngData()
+           }
+       }
      
      init() {}
      
@@ -51,6 +67,16 @@ class Prospect: Identifiable, Codable, Equatable, Hashable  {
          self.phoneNumber = phoneNumber
          
      }
+    
+    init(id: UUID, name: String, emailAddress: String, phoneNumber: String, locationMet: String, prospectNotes: String) {
+        self.prospectID = id
+        self.name = name
+        self.emailAddress = emailAddress
+        self.phoneNumber = phoneNumber
+        self.locationMet = locationMet
+        self.prospectNotes = prospectNotes
+        
+    }
 
     static func == (lhs: Prospect, rhs: Prospect) -> Bool {
         if(lhs.name == rhs.name && lhs.emailAddress == rhs.emailAddress && lhs.phoneNumber == rhs.phoneNumber) {

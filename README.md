@@ -1,4 +1,4 @@
-# Hot Prospects
+# Prospectta
 ![Static Badge](https://img.shields.io/badge/Swift-5.1-red)
 ![Static Badge](https://img.shields.io/badge/iOS-13.0%2B-blue)
 

@@ -23,13 +23,13 @@ The app follows the Model View ViewModel (MVVM) architectural pattern. Here are 
 
 ## Generate a custom QR code using a user's information
 
-<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/3f56af55-ef1f-4ac2-8a7d-8d69fb84ac48" alt="Descriptive Alt Text" width="300" height="600">
+<img src="https://github.com/user-attachments/assets/ecb88da1-5be1-4a70-9640-2dac96bae3f1" alt="Descriptive Alt Text" width="300" height="600">
 
 ## Scan the QR code of another user to instantly save their contact information
-<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/46978e77-59fd-4810-b1b7-bf8d933d97c1" alt="QR code save" width="300" height="600">
+<img src="https://github.com/user-attachments/assets/9d20c91c-9172-4791-ba15-fa0ceea3cb0b" alt="QR code save" width="300" height="600">
 
 ## Schedule a reminder to contact a particular prospect. 
-<img src="https://github.com/Nanobot234/HotProspects/assets/16675052/6aeb6892-7665-4b95-8a85-ef5334c2abdd" alt="Descriptive Alt Text" width="300" height="600">
+<img src="https://github.com/user-attachments/assets/57960ccf-c3c8-419d-a7e7-b7fcb881abd7" alt="Descriptive Alt Text" width="300" height="600">
 
 
 ## Technologies Used
@@ -40,8 +40,6 @@ The app follows the Model View ViewModel (MVVM) architectural pattern. Here are 
  ## Credits
 
 Hot Prospects is originally based on a project created by [Paul Hudson](https://twitter.com/twostraws) who writes [free tutorials in Swift and SwiftUI](https://www.hackingwithswift.com/). 
-
-
 
 
 
